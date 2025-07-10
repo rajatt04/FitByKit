@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">FitByKit</string>
+    <string name="app_des">Coaching you to a healthier and more active life</string>
+    <string name="app_des1">👣 Steps Counter</string>
+    <string name="app_des2">📺 Expert Guided Videos For Workouts</string>
+    <string name="app_des3">🍎 Generate Best Diet As Per Your Health</string>
+    <string name="about_user">About You</string>
+    <string name="about_user_des">This information lets Fit estimate calories, distance, and the intensity of your activity. You also get coaching that tailored to you.</string>
+    <string name="continue_">Continue</string>
+    <string name="no_thanks">No thanks</string>
+    <string name="gender">Gender</string>
+    <string name="user_name">Name</string>
+    <string name="user_weight">Weight</string>
+    <string name="user_height">Height</string>
+    <string name="track">Track Your activities</string>
+    <string name="track_des1">Fit can track walking, running and cycling in the background. This means you get metrics like steps, distance, and calories for all these activities.</string>
+    <string name="track_des2">To do this, the app needs permission to recognize your activity. Over time, Fit also uses this data to personalize your experience, and better recognize activity.</string>
+    <string name="track_des3">If you choose to turn this setting off, you can still manually track workouts with Fit.</string>
+</resources>

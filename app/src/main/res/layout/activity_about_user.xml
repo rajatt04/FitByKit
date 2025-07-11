@@ -97,6 +97,8 @@
                 android:id="@+id/user_name_enter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="10"
+                android:maxLines="1"
                 android:hint="@string/user_name" />
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -7,6 +7,11 @@
     <string name="about_user">About You</string>
     <string name="about_user_des">This information lets Fit estimate calories, distance, and the intensity of your activity. You also get coaching that tailored to you.</string>
     <string name="continue_">Continue</string>
+    <string name="get_in_bed">Get In Bed</string>
+    <string name="wake_up">Wake Up</string>
+    <string name="set_steps">Steps</string>
+    <string name="set_hp">Heart Points</string>
+    <string name="act_goals">Activity goals</string>
     <string name="no_thanks">No thanks</string>
     <string name="gender">Gender</string>
     <string name="user_name">Name</string>
@@ -20,6 +25,5 @@
     <string name="workout_">Workouts</string>
     <string name="diet_">Diet</string>
     <string name="profile_">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="b_s">Bedtime schedule</string>
 </resources>

@@ -13,13 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitByKit">
         <activity
-            android:name=".track"
+            android:name=".navigation.FitByKitNav"
             android:exported="false" />
         <activity
-            android:name=".AboutUser"
+            android:name=".activity.track"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.AboutUser"
+            android:exported="false" />
+
+        <activity android:name=".activity.MainActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".activity.LauncherActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

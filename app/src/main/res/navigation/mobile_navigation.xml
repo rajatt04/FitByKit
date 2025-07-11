@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/home_frag">
+
+    <fragment
+        android:id="@+id/home_frag"
+        android:name="com.rajatt7z.fitbykit.fragments.home"
+        android:label="@string/home_"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/workout_frag"
+        android:name="com.rajatt7z.fitbykit.fragments.workouts"
+        android:label="@string/workout_"
+        tools:layout="@layout/fragment_workouts"/>
+
+    <fragment
+        android:id="@+id/diet_frag"
+        android:name="com.rajatt7z.fitbykit.fragments.diet"
+        android:label="@string/diet_"
+        tools:layout="@layout/fragment_diet"/>
+
+    <fragment
+        android:id="@+id/profile_frag"
+        android:name="com.rajatt7z.fitbykit.fragments.profile"
+        android:label="@string/profile_"
+        tools:layout="@layout/fragment_profile"/>
+
+
+</navigation>

@@ -1,8 +1,10 @@
-package com.rajatt7z.fitbykit
+package com.rajatt7z.fitbykit.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.rajatt7z.fitbykit.databinding.ActivityTrackBinding
+import com.rajatt7z.fitbykit.navigation.FitByKitNav
 
 class track : AppCompatActivity() {
 
@@ -14,7 +16,7 @@ class track : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnTrack.setOnClickListener {
-            //later implement permission for tracking data and save it to database
+            startActivity(Intent(this, FitByKitNav::class.java))
         }
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_frag"
+        android:icon="@drawable/home_24dp"
+        android:title="@string/home_"/>
+
+    <item
+        android:id="@+id/workout_frag"
+        android:icon="@drawable/fitness_center_24dp"
+        android:title="@string/workout_"/>
+
+    <item
+        android:id="@+id/diet_frag"
+        android:icon="@drawable/local_dining_24dp"
+        android:title="@string/diet_"/>
+
+
+    <item
+        android:id="@+id/profile_frag"
+        android:icon="@drawable/account_circle_24dp"
+        android:title="@string/profile_"/>
+
+</menu>

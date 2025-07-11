@@ -16,4 +16,10 @@
     <string name="track_des1">Fit can track walking, running and cycling in the background. This means you get metrics like steps, distance, and calories for all these activities.</string>
     <string name="track_des2">To do this, the app needs permission to recognize your activity. Over time, Fit also uses this data to personalize your experience, and better recognize activity.</string>
     <string name="track_des3">If you choose to turn this setting off, you can still manually track workouts with Fit.</string>
+    <string name="home_">Home</string>
+    <string name="workout_">Workouts</string>
+    <string name="diet_">Diet</string>
+    <string name="profile_">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

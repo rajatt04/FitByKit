@@ -22,10 +22,11 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:src="@drawable/question_mark"
                 app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
 
@@ -37,7 +38,7 @@
         android:id="@+id/shapeableImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/cannabis_48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +51,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/about_user"
         android:textColor="?attr/colorControlActivated"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:fontFamily="casual"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,28 +62,41 @@
         android:id="@+id/materialTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="?attr/colorControlNormal"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="casual"
         android:gravity="center"
         android:text="@string/about_user_des"
+        android:textColor="?attr/colorControlNormal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView2" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImg"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/account_circle_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView">
+        app:layout_constraintTop_toBottomOf="@+id/userImg">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/user_name"
@@ -97,9 +111,9 @@
                 android:id="@+id/user_name_enter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/user_name"
                 android:maxLength="10"
-                android:maxLines="1"
-                android:hint="@string/user_name" />
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

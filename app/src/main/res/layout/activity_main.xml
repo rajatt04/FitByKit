@@ -22,11 +22,12 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:src="@drawable/question_mark"/>
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -116,7 +117,7 @@
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/continue_"
+        android:text="@string/get_start"
         android:layout_margin="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

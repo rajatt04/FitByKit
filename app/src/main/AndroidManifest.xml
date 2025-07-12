@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
 
     <application
         android:name=".FitByKit"
@@ -13,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitByKit">
         <activity
+            android:name=".activity.heartpoints"
+            android:exported="false" />
+        <activity
+            android:name=".activity.steps"
+            android:exported="false" />
+        <activity
             android:name=".navigation.FitByKitNav"
             android:exported="false" />
         <activity
@@ -21,10 +29,9 @@
         <activity
             android:name=".activity.AboutUser"
             android:exported="false" />
-
-        <activity android:name=".activity.MainActivity"
-            android:exported="false"/>
-
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.LauncherActivity"
             android:exported="true">

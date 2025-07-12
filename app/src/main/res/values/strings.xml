@@ -50,4 +50,7 @@
     <string name="notificationTitle">Get notifications from Fit</string>
     <string name="notificationDes">Allow Fit to send notifications to get coaching messages and tips to help you meet your goals</string>
     <string name="notificationButton">Turn on notifications</string>
+    <string name="bmi_title">Your Body Mass Index</string>
+    <string name="bmi_des">BMI is a simple calculation used to assess whether a person has a healthy body weight for their height</string>
+    <string name="bmi_btn">User BMI</string>
 </resources>

@@ -46,5 +46,8 @@
     <string name="Km">2</string>
     <string name="Km_text">Km Covered</string>
     <string name="walking_min">20</string>
-    <string name="walking_min_text">Walking min</string>"
+    <string name="walking_min_text">Walking min</string>
+    <string name="notificationTitle">Get notifications from Fit</string>
+    <string name="notificationDes">Allow Fit to send notifications to get coaching messages and tips to help you meet your goals</string>
+    <string name="notificationButton">Turn on notifications</string>
 </resources>

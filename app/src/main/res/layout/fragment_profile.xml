@@ -21,8 +21,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userImgView"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
@@ -31,8 +31,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/settings"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/settings_24dp"

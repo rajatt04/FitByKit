@@ -39,8 +39,8 @@
     <string name="hp_des">You score Heart Points for doing activities at a higher pace, like taking a brisk walk. Increases the intensity to earn more points.</string>
     <string name="def_hp">50</string>
     <string name="hp_a_day">points a day</string>
-    <string name="steps_text">0</string>
-    <string name="hp_text">0</string>
+    <string name="steps_text">4500</string>
+    <string name="hp_text">25</string>
     <string name="calorie">944</string>
     <string name="calorie_text">Calories burned</string>
     <string name="Km">2</string>
@@ -53,4 +53,30 @@
     <string name="bmi_title">Your Body Mass Index</string>
     <string name="bmi_des">BMI is a simple calculation used to assess whether a person has a healthy body weight for their height</string>
     <string name="bmi_btn">User BMI</string>
+    <string name="sync_title">Sync Fit with Health Connect</string>
+    <string name="sync_des">Share stats between Fit and your other apps, like your calories, heart rate, and body measurements</string>
+    <string name="energy_title">Energy expanded</string>
+    <string name="energy_duration">Last 7 days</string>
+    <string name="calorie_spent">cal</string>
+    <string name="today">Today</string>
+    <string name="daily_goals">Your daily goals</string>
+    <string name="achieved">0/7\nAchieved</string>
+    <string name="sync_des1">
+        To help you stay on top of all your goals, Fit can now sync with Health Connect to share data with the other apps you use.\n \n
+        This means you can add data to Fit from your other apps and devices, and share your Fit data with them.
+    </string>
+    <string name="sync_des2">
+        How it works \n \n
+        When you set up Health Connect, you can choose which data you want Fit to read or write. \n \n
+        When you allow Fit to read data type from Health Connect, it\'s stored in your Google Account with your other Fit data. Fit uses this data to provide features like tracking your fitness and health, and giving related recommendations and insights.\n \n
+        How Fit uses data also depends on the features you use. For example, Fit may show distance data from Health Connect in workout summaries, or show heart rate data in your sleep sessions. \n \n
+        Fit also uses this data to personalize or improve products and services. Usage data is collected for troubleshooting and product improvement purposes. \n \n
+        Data you choose to write to Health Connect is stored on your device, and other apps that you choose to sync with Health Connect will be able to access this data. \n
+    </string>
+    <string name="sync_des3">
+        Managing your data \n \n
+        You can delete data stored in Health Connect, by going to your Fit settings to Health Connect to Manage data and access. \n \n
+        You can change the data Fit shares with Health Connect, or turn this feature off, from your Fit app settings. Turning off this feature won\'t delete any data. \n
+    </string>
+    <string name="turn_On">Turn on</string>
 </resources>

@@ -210,7 +210,7 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:scrollbars="vertical"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -229,8 +229,147 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dailyGoals"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="152dp"
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:backgroundTint="?attr/colorSurface"
+                android:elevation="8dp"
+                app:cardCornerRadius="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="casual"
+                        android:text="@string/daily_goals"
+                        android:textColor="?attr/colorControlActivated"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="casual"
+                        android:textColor="?attr/colorControlNormal"
+                        android:text="@string/energy_duration"
+                        app:layout_constraintStart_toStartOf="@+id/materialTextView17"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView17" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/shapeableImageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/round_arrow_forward_ios_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/materialTextView17" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="casual"
+                        android:text="@string/achieved"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/dayStatusContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/materialTextView19" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bmiCardView1"
+                android:clickable="true"
+                android:focusable="true"
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="152dp"
+                android:backgroundTint="?attr/colorSurface"
+                android:elevation="8dp"
+                app:cardCornerRadius="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView173"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="casual"
+                        android:text="@string/bmi_title"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView183"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="casual"
+                        android:text="@string/bmi_des"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView173" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/user_bmi3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="casual"
+                        android:text="@string/bmi_btn"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView183" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/notificationCardView2"
                 android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="152dp"
@@ -297,67 +436,10 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/bmiCardView"
-                style="@style/Widget.Material3.CardView.Elevated"
+                android:id="@+id/notificationCardView13"
                 android:layout_marginBottom="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="152dp"
-                android:backgroundTint="?attr/colorSurface"
-                android:elevation="8dp"
-                app:cardCornerRadius="16dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView17"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="casual"
-                        android:text="@string/bmi_title"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView18"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="casual"
-                        android:text="@string/bmi_des"
-                        android:textAlignment="viewStart"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView17" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/user_bmi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="casual"
-                        android:text="@string/bmi_btn"
-                        android:textColor="?attr/colorPrimary"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView18" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/notificationCardView1"
-                android:layout_marginBottom="16dp"
+                android:focusable="true"
+                android:clickable="true"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="152dp"
@@ -370,51 +452,55 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView171"
+                        android:id="@+id/materialTextView1713"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="casual"
-                        android:text="@string/notificationTitle"
+                        android:text="@string/sync_title"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/dismissSync3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:src="@drawable/close_24dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/materialTextView171"
+                        app:layout_constraintBottom_toBottomOf="@+id/materialTextView1713"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/materialTextView171" />
+                        app:layout_constraintTop_toTopOf="@+id/materialTextView1713" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView181"
+                        android:id="@+id/materialTextView1813"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="casual"
-                        android:text="@string/notificationDes"
+                        android:text="@string/sync_des"
                         android:textAlignment="viewStart"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView171" />
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView1713" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_sync"
                         style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="8dp"
-                        android:text="@string/notificationButton"
+                        android:text="@string/get_start"
+                        android:fontFamily="casual"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView181" />
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView1813" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

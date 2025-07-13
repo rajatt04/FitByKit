@@ -3,6 +3,7 @@ package com.rajatt7z.fitbykit.fragments
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -14,11 +15,14 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import com.rajatt7z.fitbykit.R
+import com.rajatt7z.fitbykit.activity.syncFit
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -83,12 +87,12 @@ class home : Fragment() {
                     else -> "Obese"
                 }
 
-                binding.userBmi.text = "$bmiFormatted - ($category)"
+                binding.userBmi3.text = "$bmiFormatted - ($category)"
             } else {
-                binding.userBmi.text = "Invalid data"
+                binding.userBmi3.text = "Invalid data"
             }
         } else {
-            binding.userBmi.text = "Not set"
+            binding.userBmi3.text = "Not set"
         }
 
         if (savedDate == today) {
@@ -132,6 +136,14 @@ class home : Fragment() {
             Toast.makeText(requireContext(), "User Profile Custom Dialog", Toast.LENGTH_SHORT).show()
         }
 
+        binding.btnSync.setOnClickListener {
+            startActivity(Intent(requireContext(), syncFit::class.java))
+        }
+
+        binding.dismissSync3.setOnClickListener{
+            binding.notificationCardView13.visibility = View.GONE
+        }
+
         binding.tvSteps.setOnClickListener {
             Toast.makeText(
                 requireContext(),
@@ -144,11 +156,66 @@ class home : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun updateWeeklyUI(){
+        val statuses = getLast7DaysStatus()
+        val container = binding.dayStatusContainer
+        container.removeAllViews()
+
+        val days = listOf("M", "T", "W", "T", "F", "S", "S")
+        for ((index,achieved) in statuses.withIndex()){
+            val circle = View(requireContext()).apply {
+                val size = 52
+                layoutParams = LinearLayout.LayoutParams(size,size).apply{
+                    bottomMargin = 16
+                    marginStart = 16
+                    marginEnd = 16
+                }
+                background = if (achieved)
+                    resources.getDrawable(R.drawable.circle_filled, null)
+                 else
+                    resources.getDrawable(R.drawable.circle_outlined, null)
+                }
+
+            val label = TextView(requireContext()).apply {
+                text = days[index]
+                textSize = 12f
+                textAlignment = View.TEXT_ALIGNMENT_CENTER
+            }
+
+            val wrapper = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.VERTICAL
+                gravity = android.view.Gravity.CENTER
+                addView(circle)
+                addView(label)
+            }
+            container.addView(wrapper)
+        }
+    }
+
+    private fun getLast7DaysStatus(): List<Boolean> {
+        val prefs = requireContext().getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        val result = mutableListOf<Boolean>()
+
+        for ( i in 6 downTo 0 ) {
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.add(Calendar.DAY_OF_YEAR, -i)
+            val dateKey = sdf.format(calendar.time)
+            result.add(prefs.getBoolean(dateKey, false))
+        }
+
+        return result
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        updateWeeklyUI()
 
         if (stepSensor != null) {
             sensorManager.registerListener(stepListener, stepSensor, SensorManager.SENSOR_DELAY_UI)
@@ -190,6 +257,13 @@ class home : Fragment() {
                 binding.tvCalValue.text = caloriesBurned.toInt().toString()
                 binding.tvKmValue.text = String.format("%.2f", kmCovered)
                 binding.tvWalkingMinValue.text = walkingMinutes.toInt().toString()
+
+                if(currentSteps >= stepGoal){
+                    val today = getTodayDate()
+                    val weekPref = requireContext().getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
+                    weekPref.edit { putBoolean(today, true) }
+                    updateWeeklyUI()
+                }
             }
         }
 

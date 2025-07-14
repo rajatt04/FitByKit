@@ -22,7 +22,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/question"
+                android:id="@+id/questionAboutUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -52,7 +52,7 @@
         android:text="@string/about_user"
         android:textColor="?attr/colorControlActivated"
         android:textSize="18sp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif-condensed-medium"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="@string/about_user_des"
         android:textColor="?attr/colorControlNormal"

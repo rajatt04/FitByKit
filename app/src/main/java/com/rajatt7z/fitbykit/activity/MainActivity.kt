@@ -3,6 +3,7 @@ package com.rajatt7z.fitbykit.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.databinding.ActivityMainBinding
 
@@ -16,12 +17,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnStart.setOnClickListener {
-            val intent = Intent(this, AboutUser::class.java)
+            val intent = Intent(this, track::class.java)
             startActivity(intent)
         }
 
         binding.question.setOnClickListener{
-            Snackbar.make(binding.root,"Coming Soon",Snackbar.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Su Che Choida")
+                .setMessage("Taro Baapo Eklo Gaand Marave Kaam Par , Ane Tu Bhenchod Ghare Je Reje Lorra")
+                .setPositiveButton("Me Napunsak hu !!", null)
+                .show()
         }
     }
 }

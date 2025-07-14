@@ -21,6 +21,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnTrackDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -48,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="@string/track"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -65,7 +66,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:text="@string/track_des1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +81,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:text="@string/track_des2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +95,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="@string/track_des3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +132,7 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNo"
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

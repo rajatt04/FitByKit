@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.databinding.ActivityTrackBinding
 import com.rajatt7z.fitbykit.navigation.FitByKitNav
@@ -30,8 +31,24 @@ class track : AppCompatActivity() {
             if (ContextCompat.checkSelfPermission(this,permission) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
             } else {
-                Snackbar.make(binding.root, "Permission already Granted", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "Hatt Madarchod", Snackbar.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnTrackDialog.setOnClickListener{
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Tari Gaand")
+                .setMessage("Badhe Aangdi Bharavi che tare lorra chutth mari na")
+                .setPositiveButton("me londiabaaz hu", null)
+                .show()
+        }
+
+        binding.btnNo.setOnClickListener {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Su Che Loda")
+                .setMessage("Permission api de choida nakar avta events tari ma na bhosda ma vaya jase")
+                .setPositiveButton("Ha Bhai Ok Bhai", null)
+                .show()
         }
     }
 
@@ -44,7 +61,7 @@ class track : AppCompatActivity() {
         if (requestCode == 1001) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, FitByKitNav::class.java))
+                startActivity(Intent(this, AboutUser::class.java))
             } else {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
             }

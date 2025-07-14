@@ -20,6 +20,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -64,7 +65,11 @@ class profile : Fragment() {
         binding.weightDropdownView.setText("$weight kg",false)
 
         binding.userImgView.setOnClickListener {
-            Snackbar.make(binding.root,"Coming Soon",Snackbar.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("waah lorra")
+                .setMessage("chodh lorra ja tu , tara gaand no kido mara thi nai nikle koi specialist pase ja")
+                .setPositiveButton("mara jevo chutiyo koi nai", null)
+                .show()
         }
 
         binding.userNameView.isEnabled = false
@@ -100,7 +105,11 @@ class profile : Fragment() {
         }
 
         binding.settings.setOnClickListener{
-            Snackbar.make(binding.root,"Coming Soon",Snackbar.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Setting che bharwa")
+                .setMessage("peli setting toh taro nano loro joi ne j bhagi gyi toh aa setting ma gaand marava avyo")
+                .setPositiveButton("me toh gandu hu", null)
+                .show()
         }
 
         return binding.root

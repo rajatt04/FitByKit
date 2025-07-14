@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.activity.syncFit
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
@@ -129,11 +130,19 @@ class home : Fragment() {
         }
 
         binding.info.setOnClickListener {
-            Toast.makeText(requireContext(), "Custom Dialog Box", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("ala lorra")
+                .setMessage("sudhri ja choida aatli aangdi tari maa na bhosda ma bharavje lukha")
+                .setPositiveButton("me toh wako loro che", null)
+                .show()
         }
 
         binding.userImgView.setOnClickListener {
-            Toast.makeText(requireContext(), "User Profile Custom Dialog", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("hadd kari madarchod")
+                .setMessage("aa tuj che loru lalit tane tara wishe nai khabar ane akha gaam ni panchat krto")
+                .setPositiveButton("me jhatu chu", null)
+                .show()
         }
 
         binding.btnSync.setOnClickListener {

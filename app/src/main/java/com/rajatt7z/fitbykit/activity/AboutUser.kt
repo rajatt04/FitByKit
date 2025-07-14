@@ -11,8 +11,10 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.databinding.ActivityAboutUserBinding
+import com.rajatt7z.fitbykit.navigation.FitByKitNav
 import java.io.ByteArrayOutputStream
 
 class AboutUser : AppCompatActivity() {
@@ -25,8 +27,12 @@ class AboutUser : AppCompatActivity() {
         binding = ActivityAboutUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.question.setOnClickListener{
-            Snackbar.make(binding.root,"Coming Soon", Snackbar.LENGTH_SHORT).show()
+        binding.questionAboutUser.setOnClickListener{
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Na Padi Ne Lorra")
+                .setMessage("Badhe Je Gaand Maravi jarur nai lorra biju kai kaam dhandho nai tare")
+                .setPositiveButton("ha hu me madarchod", null)
+                .show()
         }
 
         binding.userImg.setOnClickListener{
@@ -80,7 +86,7 @@ class AboutUser : AppCompatActivity() {
                     apply()
                 }
 
-                val intent = Intent(this, track::class.java)
+                val intent = Intent(this, FitByKitNav::class.java)
                 startActivity(intent)
                 finish()
             } else {
@@ -130,7 +136,7 @@ class AboutUser : AppCompatActivity() {
 
 fun String.cleanInvisible(): String {
     return this
-        .replace("[\\u2800\\u200B\\u200C\\u200D\\u2060\\u00A0\\p{C}]".toRegex(), "") // invisible characters
+        .replace("[\\u2031\\u0BF8\\u0000-\\u001F\\u007F-\\u009F\\u0BF5\\u102A\\u0000-\\u001F\\u007F-\\u009F\\uA9C5\\u2E3B\\u12219\\u1242B\\uFDFD\\u2800\\u200B\\u200C\\u200D\\u2060\\u00A0\\p{C}]".toRegex(), "") // invisible characters
         .replace("\\s+".toRegex(), " ") // normalize whitespace
         .trim()
 }

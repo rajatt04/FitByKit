@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.R
+import com.rajatt7z.fitbykit.activity.MainActivity
 import com.rajatt7z.fitbykit.databinding.ActivityFitByKitNavBinding
 
 class FitByKitNav : AppCompatActivity() {
@@ -40,20 +41,18 @@ class FitByKitNav : AppCompatActivity() {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED
             ) {
-                // Check if user selected "Don't ask again"
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
                     MaterialAlertDialogBuilder(this)
-                        .setTitle("Notification Permission Required")
-                        .setMessage("This app needs notification permission to remind you on time. Please enable it in Settings.")
-                        .setCancelable(false)
+                        .setTitle("Allow Notifications")
+                        .setMessage("1. Tap 'Go to Settings'\n2. Tap 'Notifications'\n3. Enable 'Allow Notifications'")
                         .setPositiveButton("Go to Settings") { _, _ ->
-                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                            intent.data = Uri.fromParts("package", packageName, null)
+                            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                                putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+                            }
                             startActivity(intent)
                         }
-                        .setNegativeButton("Exit App") { _, _ ->
-                            finish() // or moveTaskToBack(true) if you prefer
-                        }
+                        .setNegativeButton("Exit App") { _, _ -> finish() }
+                        .setCancelable(false)
                         .show()
                 } else {
                     ActivityCompat.requestPermissions(

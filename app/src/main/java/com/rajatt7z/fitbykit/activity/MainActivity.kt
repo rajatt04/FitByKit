@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.question.setOnClickListener{
             MaterialAlertDialogBuilder(this)
-                .setTitle("Su Che Choida")
-                .setMessage("Taro Baapo Eklo Gaand Marave Kaam Par , Ane Tu Bhenchod Ghare Je Reje Lorra")
-                .setPositiveButton("Me Napunsak hu !!", null)
+                .setTitle("Welcome To FitByKit")
+                .setMessage("You Will Get Step Counter \n Expert Guided Videos Day-Wise \n Free AI-Generated Diet Plans")
+                .setPositiveButton("Let's Go", null)
                 .show()
         }
     }

@@ -31,23 +31,23 @@ class track : AppCompatActivity() {
             if (ContextCompat.checkSelfPermission(this,permission) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
             } else {
-                Snackbar.make(binding.root, "Hatt Madarchod", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "Permission already granted", Snackbar.LENGTH_SHORT).show()
             }
         }
 
         binding.btnTrackDialog.setOnClickListener{
             MaterialAlertDialogBuilder(this)
-                .setTitle("Tari Gaand")
-                .setMessage("Badhe Aangdi Bharavi che tare lorra chutth mari na")
-                .setPositiveButton("me londiabaaz hu", null)
+                .setTitle("Turn On Physical Activity")
+                .setMessage("This will have access to physical activity you perform during day as well as in night 🤔 and keep a track and show in the app")
+                .setPositiveButton("Ok", null)
                 .show()
         }
 
         binding.btnNo.setOnClickListener {
             MaterialAlertDialogBuilder(this)
-                .setTitle("Su Che Loda")
-                .setMessage("Permission api de choida nakar avta events tari ma na bhosda ma vaya jase")
-                .setPositiveButton("Ha Bhai Ok Bhai", null)
+                .setTitle("Sorry")
+                .setMessage("You Have To Turn On Physical Activity Access , This Makes App Give You Real Time Data")
+                .setPositiveButton("Ok", null)
                 .show()
         }
     }

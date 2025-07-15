@@ -131,17 +131,17 @@ class home : Fragment() {
 
         binding.info.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("ala lorra")
-                .setMessage("sudhri ja choida aatli aangdi tari maa na bhosda ma bharavje lukha")
-                .setPositiveButton("me toh wako loro che", null)
+                .setTitle("Home Section")
+                .setMessage("This section includes mostly steps counter, heart rate , BMI and calories burned.")
+                .setPositiveButton("Ok", null)
                 .show()
         }
 
         binding.userImgView.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("hadd kari madarchod")
-                .setMessage("aa tuj che loru lalit tane tara wishe nai khabar ane akha gaam ni panchat krto")
-                .setPositiveButton("me jhatu chu", null)
+                .setTitle("Your Profile")
+                .setMessage("Currently Under Development")
+                .setPositiveButton("Ok", null)
                 .show()
         }
 

@@ -1,6 +1,5 @@
 package com.rajatt7z.fitbykit.fragments
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -18,7 +17,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -37,6 +35,7 @@ class profile : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,9 +65,9 @@ class profile : Fragment() {
 
         binding.userImgView.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("waah lorra")
-                .setMessage("chodh lorra ja tu , tara gaand no kido mara thi nai nikle koi specialist pase ja")
-                .setPositiveButton("mara jevo chutiyo koi nai", null)
+                .setTitle("User Profile")
+                .setMessage("Currently Under Development")
+                .setPositiveButton("Ok", null)
                 .show()
         }
 
@@ -106,15 +105,16 @@ class profile : Fragment() {
 
         binding.settings.setOnClickListener{
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Setting che bharwa")
-                .setMessage("peli setting toh taro nano loro joi ne j bhagi gyi toh aa setting ma gaand marava avyo")
-                .setPositiveButton("me toh gandu hu", null)
+                .setTitle("App Settings")
+                .setMessage("Currently Under Development Please Co-operate with Developers")
+                .setPositiveButton("Ok", null)
                 .show()
         }
 
         return binding.root
     }
 
+    @SuppressLint("DefaultLocale")
     private fun showMaterialTimePicker(editTextView: TextInputEditText) {
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -214,6 +214,7 @@ class profile : Fragment() {
         )
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Sleep Reminder"
@@ -227,6 +228,7 @@ class profile : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
         val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)

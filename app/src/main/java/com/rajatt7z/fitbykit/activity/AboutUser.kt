@@ -29,9 +29,9 @@ class AboutUser : AppCompatActivity() {
 
         binding.questionAboutUser.setOnClickListener{
             MaterialAlertDialogBuilder(this)
-                .setTitle("Na Padi Ne Lorra")
-                .setMessage("Badhe Je Gaand Maravi jarur nai lorra biju kai kaam dhandho nai tare")
-                .setPositiveButton("ha hu me madarchod", null)
+                .setTitle("About You")
+                .setMessage("This details will be used to create your profile and to personalize your experience like generating diet plans and calculating BMI")
+                .setPositiveButton("Yes", null)
                 .show()
         }
 
@@ -56,7 +56,7 @@ class AboutUser : AppCompatActivity() {
         binding.nextBtn.setOnClickListener {
 
             val rawName = binding.userNameEnter.text.toString()
-            val cleanName = rawName.cleanInvisible()
+            val cleanName = rawName.cleanInvisibleV2()
 
             if(cleanName.isEmpty() || cleanName.length < 3) {
                 Toast.makeText(this, "Please enter a valid name", Toast.LENGTH_SHORT).show()
@@ -134,9 +134,36 @@ class AboutUser : AppCompatActivity() {
     }
 }
 
-fun String.cleanInvisible(): String {
-    return this
-        .replace("[\\u2031\\u0BF8\\u0000-\\u001F\\u007F-\\u009F\\u0BF5\\u102A\\u0000-\\u001F\\u007F-\\u009F\\uA9C5\\u2E3B\\u12219\\u1242B\\uFDFD\\u2800\\u200B\\u200C\\u200D\\u2060\\u00A0\\p{C}]".toRegex(), "") // invisible characters
-        .replace("\\s+".toRegex(), " ") // normalize whitespace
-        .trim()
+fun String.cleanInvisibleV2(trimResult: Boolean = true): String {
+    val sb = StringBuilder(this.length)
+    var lastCharWasWhitespace = false
+
+    for (char in this) {
+        if (Character.isISOControl(char) || char == '\u200B' || char == '\u200D' || char == '\u2060') {
+            continue
+        }
+
+        if (Character.isWhitespace(char)) {
+            if (!lastCharWasWhitespace) {
+                sb.append(' ')
+                lastCharWasWhitespace = true
+            }
+        } else {
+            sb.append(char)
+            lastCharWasWhitespace = false
+        }
+    }
+
+    if (!trimResult) {
+        return sb.toString()
+    }
+
+    if (sb.isNotEmpty() && sb[0] == ' ') {
+        sb.deleteCharAt(0)
+    }
+
+    if (sb.isNotEmpty() && sb[sb.length - 1] == ' ') {
+        sb.deleteCharAt(sb.length - 1)
+    }
+    return sb.toString()
 }

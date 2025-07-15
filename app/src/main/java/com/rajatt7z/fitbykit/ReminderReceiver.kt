@@ -5,6 +5,7 @@ import android.app.*
 import android.content.*
 import android.media.*
 import android.os.*
+import android.util.Log
 import androidx.core.app.NotificationCompat
 
 class ReminderReceiver : BroadcastReceiver() {
@@ -19,10 +20,15 @@ class ReminderReceiver : BroadcastReceiver() {
             }
         }
 
-        if (AlarmHelper.isAlarmRunning) return
+        val title = intent.getStringExtra("title")
+        val message = intent.getStringExtra("message")
 
-        val title = intent.getStringExtra("title") ?: "Welcome"
-        val message = intent.getStringExtra("message") ?: "FitByKit"
+        if (title == null || message == null) {
+            Log.d("ReminderReceiver", "No valid extras. Skipping alarm.")
+            return
+        }
+
+        if (AlarmHelper.isAlarmRunning) return
 
         val stopIntent = Intent(context, ReminderReceiver::class.java).apply {
             action = "com.rajatt7z.fitbykit.STOP_ALARM"

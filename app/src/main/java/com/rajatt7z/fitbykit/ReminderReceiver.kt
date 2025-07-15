@@ -1,42 +1,31 @@
 package com.rajatt7z.fitbykit
 
 import android.annotation.SuppressLint
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.media.Ringtone
-import android.media.RingtoneManager
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
+import android.app.*
+import android.content.*
+import android.media.*
+import android.os.*
 import androidx.core.app.NotificationCompat
 
 class ReminderReceiver : BroadcastReceiver() {
 
-    @SuppressLint("ObsoleteSdkInt")
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null || intent == null) return
 
-        val intentaction = intent.action
-        if (intentaction == "com.rajatt7z.fitbykit.STOP_ALARM") {
-            stopAlarm(context)
-            return
+        when (intent.action) {
+            "com.rajatt7z.fitbykit.STOP_ALARM" -> {
+                stopAlarm(context)
+                return
+            }
         }
 
-        if (AlarmHelper.isAlarmRunning) return // ⛔ Prevent duplicates
+        if (AlarmHelper.isAlarmRunning) return
 
-        val title = intent.getStringExtra("title") ?: "Reminder"
-        val message = intent.getStringExtra("message") ?: "It's time!"
+        val title = intent.getStringExtra("title") ?: "Welcome"
+        val message = intent.getStringExtra("message") ?: "FitByKit"
 
         val stopIntent = Intent(context, ReminderReceiver::class.java).apply {
             action = "com.rajatt7z.fitbykit.STOP_ALARM"
-        }
-
-        if (intentaction == Intent.ACTION_BOOT_COMPLETED) {
-            stopAlarm(context)
-            return
         }
 
         val stopPendingIntent = PendingIntent.getBroadcast(
@@ -58,9 +47,12 @@ class ReminderReceiver : BroadcastReceiver() {
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(1003, builder.build())
 
-        startAlarm(context)
+        if(!AlarmHelper.isAlarmRunning) {
+            startAlarm(context)
+        }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private fun startAlarm(context: Context) {
         val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
@@ -69,10 +61,10 @@ class ReminderReceiver : BroadcastReceiver() {
         AlarmHelper.ringtone = ringtone
         AlarmHelper.vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
-        AlarmHelper.ringtone?.play()
+        ringtone?.play()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val pattern = longArrayOf(0, 1000, 500, 1000, 500)
+            val pattern = longArrayOf(0, 1000, 500, 1000)
             val effect = VibrationEffect.createWaveform(pattern, 0)
             AlarmHelper.vibrator?.vibrate(effect)
         } else {
@@ -83,14 +75,10 @@ class ReminderReceiver : BroadcastReceiver() {
     }
 
     private fun stopAlarm(context: Context) {
-        AlarmHelper.ringtone?.let {
-            if (it.isPlaying) it.stop()
-        }
+        AlarmHelper.ringtone?.takeIf { it.isPlaying }?.stop()
         AlarmHelper.vibrator?.cancel()
-
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.cancel(1003)
-
         AlarmHelper.clear()
     }
 

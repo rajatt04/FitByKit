@@ -33,7 +33,9 @@ import com.rajatt7z.fitbykit.ReminderReceiver
 import com.rajatt7z.fitbykit.activity.heartpoints
 import com.rajatt7z.fitbykit.activity.steps
 import com.rajatt7z.fitbykit.databinding.FragmentProfileBinding
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 fun Context.hasExactAlarmPermission(): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -57,9 +59,11 @@ class profile : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?):
+            View {
+
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         createNotificationChannel(requireContext())
 
@@ -139,17 +143,35 @@ class profile : Fragment() {
 
     @SuppressLint("DefaultLocale")
     private fun showMaterialTimePicker(editTextView: TextInputEditText) {
+        val existingTime = editTextView.text.toString() // e.g., "06:00 PM"
+        val defaultHour = 7
+        val defaultMinute = 0
+        var hour = defaultHour
+        var minute = defaultMinute
+
+        try {
+            val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
+            val date = sdf.parse(existingTime)
+            val cal = Calendar.getInstance()
+            if (date != null) {
+                cal.time = date
+                hour = cal.get(Calendar.HOUR_OF_DAY)
+                minute = cal.get(Calendar.MINUTE)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)
-            .setHour(7)
-            .setMinute(0)
+            .setHour(hour)
+            .setMinute(minute)
             .setTitleText("Select Time")
             .build()
 
         picker.show((context as AppCompatActivity).supportFragmentManager, "MATERIAL_TIME_PICKER")
 
         picker.addOnPositiveButtonClickListener {
-
             if (!requireContext().hasExactAlarmPermission()) {
                 requireContext().requestExactAlarmPermission()
                 Toast.makeText(requireContext(), "Please allow exact alarm access in Settings", Toast.LENGTH_LONG).show()
@@ -176,40 +198,36 @@ class profile : Fragment() {
             }
 
             val triggerAtMillis = calendar.timeInMillis
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                 ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.VIBRATE)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED
+            ) {
                 ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.VIBRATE), 102)
             }
 
             val alarmScheduler = AlarmScheduler(requireContext())
+            val sharedPref = requireContext().getSharedPreferences("alarmTimes", Context.MODE_PRIVATE)
+
             if (editTextView.id == binding.getInBedTime.id) {
                 alarmScheduler.scheduleBedAlarm(triggerAtMillis - 60000)
-            } else if (editTextView.id == binding.wakeUpTime.id) {
-                alarmScheduler.scheduleWakeAlarm(triggerAtMillis)
-            }
-
-
-            val sharedPref = requireContext().getSharedPreferences("alarmTimes", Context.MODE_PRIVATE)
-            sharedPref.edit().apply {
-                if (editTextView.id == binding.getInBedTime.id) {
+                sharedPref.edit().apply {
                     putString("bedTime", time)
                     putLong("bedTimeMillis", triggerAtMillis - 60000)
-                } else if (editTextView.id == binding.wakeUpTime.id) {
-                    putString("wakeTime", time)
-                    putLong("wakeTimeMillis", triggerAtMillis)
+                    apply()
                 }
-                apply()
-            }
-
-            if (editTextView.id == binding.getInBedTime.id) {
                 scheduleNotification(triggerAtMillis - 60000)
             } else if (editTextView.id == binding.wakeUpTime.id) {
+                alarmScheduler.scheduleWakeAlarm(triggerAtMillis)
+                sharedPref.edit().apply {
+                    putString("wakeTime", time)
+                    putLong("wakeTimeMillis", triggerAtMillis)
+                    apply()
+                }
                 scheduleWakeAlarm(triggerAtMillis)
             }
         }
     }
-
 
 
     private fun scheduleNotification(triggerAtMillis: Long) {
@@ -239,7 +257,6 @@ class profile : Fragment() {
             triggerAtMillis,
             pendingIntent)
     }
-
 
     @SuppressLint("ScheduleExactAlarm")
     private fun scheduleWakeAlarm(triggerAtMillis: Long) {

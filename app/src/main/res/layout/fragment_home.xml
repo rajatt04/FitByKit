@@ -305,6 +305,108 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dailyGoals2"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="182dp"
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:backgroundTint="?attr/colorSurface"
+                android:elevation="8dp"
+                app:cardCornerRadius="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView1722"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/weekly_goal"
+                        android:textColor="?attr/colorControlActivated"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView1822"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/today"
+                        android:textColor="?attr/colorControlNormal"
+                        app:layout_constraintStart_toStartOf="@+id/materialTextView1722"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView1722" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/shapeableImageView522"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/round_arrow_forward_ios_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/materialTextView1722" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView1922"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="@string/weekly_achieved"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/materialTextView24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView1822" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/weekly_goal_des"
+                        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView8"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/shapeableImageView8" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/shapeableImageView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/cannabis_48dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <ProgressBar
+                        android:id="@+id/weeklyProgressBar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:max="150"
+                        android:progressDrawable="@drawable/progress_bar_custom"
+                        app:layout_constraintBottom_toBottomOf="@+id/materialTextView1922"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/materialTextView1922"
+                        app:layout_constraintTop_toTopOf="@+id/materialTextView1922" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/bmiCardView1"
                 android:clickable="true"
                 android:focusable="true"

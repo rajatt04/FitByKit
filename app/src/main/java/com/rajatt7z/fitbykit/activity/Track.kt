@@ -43,14 +43,6 @@ class track : AppCompatActivity() {
                 .setPositiveButton("Ok", null)
                 .show()
         }
-
-        binding.btnNo.setOnClickListener {
-            MaterialAlertDialogBuilder(this)
-                .setTitle("Sorry")
-                .setMessage("You Have To Turn On Physical Activity Access , This Makes App Give You Real Time Data")
-                .setPositiveButton("Ok", null)
-                .show()
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)

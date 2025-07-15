@@ -45,13 +45,12 @@ class FitByKitNav : AppCompatActivity() {
                     MaterialAlertDialogBuilder(this)
                         .setTitle("Allow Notifications")
                         .setMessage("1. Tap 'Go to Settings'\n2. Tap 'Notifications'\n3. Enable 'Allow Notifications'")
-                        .setPositiveButton("Go to Settings") { _, _ ->
+                        .setPositiveButton("Allow") { _, _ ->
                             val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
                                 putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
                             }
                             startActivity(intent)
                         }
-                        .setNegativeButton("Exit App") { _, _ -> finish() }
                         .setCancelable(false)
                         .show()
                 } else {

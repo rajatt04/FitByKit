@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -12,6 +13,7 @@ import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Base64
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +29,7 @@ import com.rajatt7z.fitbykit.activity.syncFit
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class home : Fragment() {
@@ -61,13 +64,10 @@ class home : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-        val sharedPref2 = requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
+        requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
 
         val today = getTodayDate()
         val savedDate = sharedPref.getString("stepsDate", null)
-
-//        val stepGoal = sharedPref.getInt("userStepGoal", 10000)
-//        val hpGoal = sharedPref2.getInt("userHeartGoal", 100)
 
         val weightStr = sharedPref.getString("userWeight", null)
         val heightStr = sharedPref.getString("userHeight", null)
@@ -115,8 +115,7 @@ class home : Fragment() {
             binding.userImgView.setImageResource(R.drawable.account_circle_24dp)
         }
 
-        val notifAllowed = sharedPref.getBoolean("notificationAllowed", false)
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || notifAllowed) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             binding.notificationCardView2.visibility = View.GONE
         } else {
             binding.notificationCardView2.visibility = View.VISIBLE
@@ -162,6 +161,7 @@ class home : Fragment() {
             resetSteps()
         }
 
+        updateWeeklyHeartPointsUI(sharedPref)
         return binding.root
     }
 
@@ -194,7 +194,7 @@ class home : Fragment() {
 
             val wrapper = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.VERTICAL
-                gravity = android.view.Gravity.CENTER
+                gravity = Gravity.CENTER
                 addView(circle)
                 addView(label)
             }
@@ -216,6 +216,21 @@ class home : Fragment() {
         }
 
         return result
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateWeeklyHeartPointsUI(sharedPref: SharedPreferences) {
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val todayKey = "heartPoints_$today"
+        val todayPoints = sharedPref.getInt(todayKey, 0)
+        val goal = 150
+
+        binding.materialTextView1922.text = "$todayPoints of $goal"
+
+        binding.weeklyProgressBar.apply {
+            max = goal
+            progress = todayPoints.coerceAtMost(goal)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -250,6 +265,13 @@ class home : Fragment() {
 
                 binding.tvCenterValueTop.text = currentSteps.toString()
                 binding.tvCenterValueBottom.text = heartPoints.toInt().toString()
+
+                val today = getTodayDate()
+                sharedPref.edit{
+                    putInt("heartPoints_$today",heartPoints.toInt())
+                }
+
+                updateWeeklyHeartPointsUI(sharedPref)
 
                 val stepsPercent = (currentSteps / stepGoal.toFloat()) * 100f
                 val heartPointsPercent = (heartPoints / hpGoal) * 100f

@@ -229,7 +229,6 @@ class profile : Fragment() {
         }
     }
 
-
     private fun scheduleNotification(triggerAtMillis: Long) {
         val context = requireContext()
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -317,11 +316,7 @@ class profile : Fragment() {
     }
 
     @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 101 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Snackbar.make(binding.root, "Notification permission granted", Snackbar.LENGTH_SHORT).show()

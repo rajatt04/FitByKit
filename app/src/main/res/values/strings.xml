@@ -61,6 +61,9 @@
     <string name="today">Today</string>
     <string name="daily_goals">Your daily goals</string>
     <string name="achieved">0/7\nAchieved</string>
+    <string name="weekly_goal">Your weekly target</string>
+    <string name="weekly_achieved">0 of 150</string>
+    <string name="weekly_goal_des">Scoring 150 Heart Points a week \ncan help you live longer, sleep \nbetter, and boost your mood</string>
     <string name="sync_des1">
         To help you stay on top of all your goals, Fit can now sync with Health Connect to share data with the other apps you use.\n \n
         This means you can add data to Fit from your other apps and devices, and share your Fit data with them.

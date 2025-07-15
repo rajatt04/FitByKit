@@ -32,6 +32,7 @@ class track : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
             } else {
                 Snackbar.make(binding.root, "Permission already granted", Snackbar.LENGTH_SHORT).show()
+                startActivity(Intent(this, AboutUser::class.java))
             }
         }
 
@@ -49,6 +50,15 @@ class track : AppCompatActivity() {
                 .setMessage("You Have To Turn On Physical Activity Access , This Makes App Give You Real Time Data")
                 .setPositiveButton("Ok", null)
                 .show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    override fun onResume() {
+        super.onResume()
+        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(Intent(this, AboutUser::class.java))
+            finish()
         }
     }
 

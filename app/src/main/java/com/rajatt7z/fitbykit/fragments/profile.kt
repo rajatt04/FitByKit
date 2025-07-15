@@ -1,5 +1,6 @@
 package com.rajatt7z.fitbykit.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -16,19 +17,38 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.rajatt7z.fitbykit.AlarmScheduler
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.ReminderReceiver
 import com.rajatt7z.fitbykit.activity.heartpoints
 import com.rajatt7z.fitbykit.activity.steps
 import com.rajatt7z.fitbykit.databinding.FragmentProfileBinding
 import java.util.Calendar
+
+fun Context.hasExactAlarmPermission(): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.canScheduleExactAlarms()
+    } else true
+}
+
+fun Context.requestExactAlarmPermission() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+    }
+}
 
 class profile : Fragment() {
 
@@ -60,6 +80,9 @@ class profile : Fragment() {
 
         binding.userNameView.setText(name)
         binding.genderDropdownView.setText(gender,false)
+        val alarmPref = requireContext().getSharedPreferences("alarmTimes", Context.MODE_PRIVATE)
+        binding.getInBedTime.setText(alarmPref.getString("bedTime", "N/A"))
+        binding.wakeUpTime.setText(alarmPref.getString("wakeTime", "N/A"))
         binding.heightDropdownView.setText("$height cm",false)
         binding.weightDropdownView.setText("$weight kg",false)
 
@@ -126,6 +149,13 @@ class profile : Fragment() {
         picker.show((context as AppCompatActivity).supportFragmentManager, "MATERIAL_TIME_PICKER")
 
         picker.addOnPositiveButtonClickListener {
+
+            if (!requireContext().hasExactAlarmPermission()) {
+                requireContext().requestExactAlarmPermission()
+                Toast.makeText(requireContext(), "Please allow exact alarm access in Settings", Toast.LENGTH_LONG).show()
+                return@addOnPositiveButtonClickListener
+            }
+
             val selectedHour = picker.hour
             val selectedMinute = picker.minute
             val amPm = if (selectedHour >= 12) "PM" else "AM"
@@ -133,21 +163,44 @@ class profile : Fragment() {
             val time = String.format("%02d:%02d %s", hourFormatted, selectedMinute, amPm)
             editTextView.setText(time)
 
-            // Convert to trigger time in milliseconds
+            val now = Calendar.getInstance()
             val calendar = Calendar.getInstance().apply {
-                timeInMillis = System.currentTimeMillis()
                 set(Calendar.HOUR_OF_DAY, selectedHour)
                 set(Calendar.MINUTE, selectedMinute)
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
+            }
 
-                // If time is before current time, schedule for next day
-                if (before(Calendar.getInstance())) {
-                    add(Calendar.MINUTE, 1)
-                }
+            if (calendar.timeInMillis <= now.timeInMillis + 1000) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
             }
 
             val triggerAtMillis = calendar.timeInMillis
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.VIBRATE)
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.VIBRATE), 102)
+            }
+
+            val alarmScheduler = AlarmScheduler(requireContext())
+            if (editTextView.id == binding.getInBedTime.id) {
+                alarmScheduler.scheduleBedAlarm(triggerAtMillis - 60000)
+            } else if (editTextView.id == binding.wakeUpTime.id) {
+                alarmScheduler.scheduleWakeAlarm(triggerAtMillis)
+            }
+
+
+            val sharedPref = requireContext().getSharedPreferences("alarmTimes", Context.MODE_PRIVATE)
+            sharedPref.edit().apply {
+                if (editTextView.id == binding.getInBedTime.id) {
+                    putString("bedTime", time)
+                    putLong("bedTimeMillis", triggerAtMillis - 60000)
+                } else if (editTextView.id == binding.wakeUpTime.id) {
+                    putString("wakeTime", time)
+                    putLong("wakeTimeMillis", triggerAtMillis)
+                }
+                apply()
+            }
 
             if (editTextView.id == binding.getInBedTime.id) {
                 scheduleNotification(triggerAtMillis - 60000)
@@ -156,6 +209,7 @@ class profile : Fragment() {
             }
         }
     }
+
 
 
     private fun scheduleNotification(triggerAtMillis: Long) {
@@ -180,7 +234,7 @@ class profile : Fragment() {
             return
         }
 
-        alarmManager.setExact(
+        alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             triggerAtMillis,
             pendingIntent)
@@ -207,7 +261,7 @@ class profile : Fragment() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        alarmManager.setExact(
+        alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             triggerAtMillis,
             pendingIntent
@@ -256,6 +310,10 @@ class profile : Fragment() {
             Snackbar.make(binding.root, "Notification permission granted", Snackbar.LENGTH_SHORT).show()
         } else {
             Snackbar.make(binding.root, "Please allow notifications for reminders", Snackbar.LENGTH_LONG).show()
+        }
+
+        if (requestCode == 102 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Snackbar.make(binding.root, "Vibration permission granted", Snackbar.LENGTH_SHORT).show()
         }
     }
 }

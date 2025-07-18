@@ -27,9 +27,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import com.rajatt7z.fitbykit.AlarmScheduler
+import com.rajatt7z.fitbykit.receivers.AlarmScheduler
 import com.rajatt7z.fitbykit.R
-import com.rajatt7z.fitbykit.ReminderReceiver
+import com.rajatt7z.fitbykit.receivers.ReminderReceiver
 import com.rajatt7z.fitbykit.activity.heartpoints
 import com.rajatt7z.fitbykit.activity.steps
 import com.rajatt7z.fitbykit.databinding.FragmentProfileBinding

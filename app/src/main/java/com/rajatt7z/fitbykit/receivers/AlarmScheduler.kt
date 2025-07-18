@@ -1,4 +1,4 @@
-package com.rajatt7z.fitbykit
+package com.rajatt7z.fitbykit.receivers
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager

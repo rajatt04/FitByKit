@@ -1,4 +1,4 @@
-package com.rajatt7z.fitbykit
+package com.rajatt7z.fitbykit.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context

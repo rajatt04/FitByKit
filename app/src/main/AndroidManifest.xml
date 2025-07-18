@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitByKit">
 
-        <receiver android:name=".ReminderReceiver"
+        <receiver android:name=".receivers.ReminderReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -29,7 +29,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".BootReceiver"
+        <receiver android:name=".receivers.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

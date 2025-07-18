@@ -144,6 +144,30 @@ class home : Fragment() {
                 .show()
         }
 
+        binding.dailyGoals.setOnClickListener{
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Daily Goals")
+                .setMessage("Currently Under Development")
+                .setPositiveButton("Ok", null)
+                .show()
+        }
+
+        binding.dailyGoals2.setOnClickListener{
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Weekly Target")
+                .setMessage("Currently Under Development")
+                .setPositiveButton("Ok", null)
+                .show()
+        }
+
+        binding.bmiCardView1.setOnClickListener{
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("BMI Card")
+                .setMessage("Currently Under Development")
+                .setPositiveButton("Ok", null)
+                .show()
+        }
+
         binding.btnSync.setOnClickListener {
             startActivity(Intent(requireContext(), syncFit::class.java))
         }
@@ -161,8 +185,37 @@ class home : Fragment() {
             resetSteps()
         }
 
+        val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.firstDayOfWeek = Calendar.SUNDAY
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.firstDayOfWeek)
+        val startOfWeek = calendar.time
+        calendar.add(Calendar.DAY_OF_WEEK, 6)
+        val endOfWeek = calendar.time
+        val formattedWeek = "${dateFormat.format(startOfWeek)} - ${SimpleDateFormat("dd", Locale.getDefault()).format(endOfWeek)}"
+        binding.materialTextView1822.text = formattedWeek
+
         updateWeeklyHeartPointsUI(sharedPref)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        resetStepsIfNewDay()
+    }
+
+    private fun resetStepsIfNewDay() {
+        val sharedPref = requireContext().getSharedPreferences("userPref",Context.MODE_PRIVATE)
+        val today = getTodayDate()
+        val savedDate = sharedPref.getString("stepsDate",null)
+        if (savedDate != today) {
+            sharedPref.edit {
+                putFloat("previousTotalSteps", previousTotalSteps)
+                putString("stepsDate", today)
+            }
+        } else {
+            previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

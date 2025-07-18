@@ -1,4 +1,4 @@
-package com.rajatt7z.fitbykit
+package com.rajatt7z.fitbykit.receivers
 
 import android.annotation.SuppressLint
 import android.app.*
@@ -7,6 +7,7 @@ import android.media.*
 import android.os.*
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.rajatt7z.fitbykit.R
 
 class ReminderReceiver : BroadcastReceiver() {
 

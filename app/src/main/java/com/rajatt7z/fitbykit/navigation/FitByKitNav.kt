@@ -1,12 +1,15 @@
 package com.rajatt7z.fitbykit.navigation
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -37,6 +40,9 @@ class FitByKitNav : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        val sharedPref = getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val isFirstLaunchAfterNotification = sharedPref.getBoolean("firstTimeAfterNotification", true)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED
@@ -60,8 +66,38 @@ class FitByKitNav : AppCompatActivity() {
                         101
                     )
                 }
+            } else {
+                // ✅ Notification permission already granted
+                if (isFirstLaunchAfterNotification) {
+                    if (!isInternetAvailable(this)) {
+                        showNoInternetDialog {
+                            if (isInternetAvailable(this)) {
+                                Toast.makeText(this, "Connected!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                showNoInternetDialog { } // Retry again
+                            }
+                        }
+                    }
+
+                    sharedPref.edit().putBoolean("firstTimeAfterNotification", false).apply()
+                }
             }
         }
+    }
+
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
+
+    fun showNoInternetDialog(onRetry: () -> Unit) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("No Internet Connection")
+            .setMessage("Please check your internet connection and try again.")
+            .setCancelable(false)
+            .setPositiveButton("Retry") { _, _ -> onRetry() }
+            .show()
     }
 
 

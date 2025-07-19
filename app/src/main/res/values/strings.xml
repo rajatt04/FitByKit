@@ -82,4 +82,6 @@
         You can change the data Fit shares with Health Connect, or turn this feature off, from your Fit app settings. Turning off this feature won\'t delete any data. \n
     </string>
     <string name="turn_On">Turn on</string>
+    <string name="exercise_name">Exercise Name</string>
+    <string name="exercise_description">Exercise Description</string>"
 </resources>

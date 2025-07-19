@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/workout_frag"
-        android:name="com.rajatt7z.fitbykit.fragments.workouts"
+        android:name="com.rajatt7z.fitbykit.fragments.Workouts"
         android:label="@string/workout_"
         tools:layout="@layout/fragment_workouts"/>
 

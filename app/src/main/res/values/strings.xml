@@ -84,4 +84,6 @@
     <string name="turn_On">Turn on</string>
     <string name="exercise_name">Exercise Name</string>
     <string name="exercise_description">Exercise Description</string>"
+    <string name="muscle_name">Muscle Name</string>
+    <string name="muscle_type">Front Muscle</string>
 </resources>

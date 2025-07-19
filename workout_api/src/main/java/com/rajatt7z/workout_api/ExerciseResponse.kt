@@ -30,3 +30,17 @@ data class Equipment(
     val id: Int,
     val name: String
 )
+
+data class MuscleResponse(
+    val count: Int,
+    val results: List<Muscle>
+)
+
+data class Muscle(
+    val id: Int,
+    val name: String,
+    val name_en: String?,
+    val is_front: Boolean,
+    val image_url_main: String?,
+    val image_url_secondary: String?
+)

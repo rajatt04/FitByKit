@@ -44,8 +44,6 @@ android {
 dependencies {
 
     implementation(project(":workout_api"))
-    implementation(libs.coil)
-    implementation(libs.coil.svg)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.lifecycle.runtime.ktx)

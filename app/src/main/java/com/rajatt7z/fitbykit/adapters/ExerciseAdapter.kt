@@ -1,4 +1,4 @@
-package com.rajatt7z.fitbykit.fragments
+package com.rajatt7z.fitbykit.adapters
 
 import android.view.LayoutInflater
 import android.view.View

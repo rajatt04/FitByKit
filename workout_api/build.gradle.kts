@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -36,8 +35,6 @@ android {
 dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

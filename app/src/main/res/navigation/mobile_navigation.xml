@@ -15,7 +15,20 @@
         android:id="@+id/workout_frag"
         android:name="com.rajatt7z.fitbykit.fragments.Workouts"
         android:label="@string/workout_"
-        tools:layout="@layout/fragment_workouts"/>
+        tools:layout="@layout/fragment_workouts">
+
+        <action
+            android:id="@+id/action_workouts_to_exercisesFragment"
+            app:destination="@id/exercisesFragment">
+            <argument
+                android:name="muscleId"
+                app:argType="integer" />
+            <argument
+                android:name="muscleName"
+                app:argType="string" />
+        </action>
+
+    </fragment>
 
     <fragment
         android:id="@+id/diet_frag"
@@ -29,5 +42,10 @@
         android:label="@string/profile_"
         tools:layout="@layout/fragment_profile"/>
 
+    <fragment
+        android:id="@+id/exercisesFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.ExercisesFragment"
+        android:label="@string/exercise"
+        tools:layout="@layout/fragment_exercises"/>
 
 </navigation>

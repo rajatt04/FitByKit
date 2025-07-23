@@ -86,6 +86,5 @@
     <string name="exercise_description">Exercise Description</string>"
     <string name="muscle_name">Muscle Name</string>
     <string name="muscle_type">Front Muscle</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="exercise">Exercise</string>
 </resources>

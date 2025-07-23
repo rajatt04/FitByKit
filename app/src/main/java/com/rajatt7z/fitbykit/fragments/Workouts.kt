@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rajatt7z.fitbykit.adapters.MuscleAdapter
 import com.rajatt7z.fitbykit.databinding.FragmentWorkoutsBinding
@@ -35,14 +36,27 @@ class Workouts : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        muscleAdapter = MuscleAdapter(emptyList())
+        muscleAdapter = MuscleAdapter(emptyList()) {
+            muscle ->
+            val action = WorkoutsDirections.actionWorkoutsToExercisesFragment(
+                muscleId = muscle.id,
+                muscleName = muscle.name_en ?: muscle.name
+            )
+            findNavController().navigate(action)
+        }
         binding.recyclerViewExercises.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewExercises.adapter = muscleAdapter
 
-        if(workoutViewModel.muscleList.isNullOrEmpty()) {
+        workoutViewModel.muscleList.observe(viewLifecycleOwner) { muscles ->
+            if (muscles.isNotEmpty()) {
+                muscleAdapter.updateList(muscles)
+                binding.recyclerViewExercises.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+
+        if (workoutViewModel.muscleList.value.isNullOrEmpty()) {
             loadMuscles()
-        } else {
-            muscleAdapter.updateList(workoutViewModel.muscleList!!)
         }
     }
 
@@ -54,9 +68,7 @@ class Workouts : Fragment() {
             delay(1111)
             try {
                 val list = WorkoutModule.repository.fetchMuscles()
-                workoutViewModel.muscleList = list
-                muscleAdapter.updateList(list)
-                binding.recyclerViewExercises.visibility = View.VISIBLE
+                workoutViewModel.setMuscles(list)
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             } finally {

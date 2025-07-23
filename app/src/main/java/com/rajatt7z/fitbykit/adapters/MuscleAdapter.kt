@@ -11,7 +11,8 @@ import com.rajatt7z.fitbykit.R
 import com.rajatt7z.workout_api.Muscle
 
 class MuscleAdapter(
-    private var muscleList: List<Muscle>
+    private var muscleList: List<Muscle>,
+    private val onMuscleClick: (Muscle) -> Unit
 ) : RecyclerView.Adapter<MuscleAdapter.MuscleViewHolder>() {
 
     inner class MuscleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,6 +34,10 @@ class MuscleAdapter(
 
         val imageResId = getMuscleImageResId(muscle.name_en ?: muscle.name)
         holder.image.setImageResource(imageResId)
+
+        holder.itemView.setOnClickListener{
+            onMuscleClick(muscle)
+        }
 
     }
 

@@ -10,37 +10,31 @@ import com.rajatt7z.fitbykit.R
 import com.rajatt7z.workout_api.Exercise
 
 class ExerciseAdapter(
-    private var exerciseList: List<Exercise>
+    private var list: List<Exercise>
 ) : RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
 
-    inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val id: MaterialTextView = itemView.findViewById(R.id.textExerciseName)
-        val name: MaterialTextView = itemView.findViewById(R.id.textExerciseDescription)
+    inner class ExerciseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val nameText: MaterialTextView = view.findViewById(R.id.exercise_name)
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.exercise_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.exercise_item, parent, false)
         return ExerciseViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-        val exercise = exerciseList[position]
-
-        val translation = exercise.translations.firstOrNull { it.language == 2 }
-
-        val name = translation?.name ?: "Unnamed"
-        val descriptionHtml = translation?.description ?: "No description"
-        val parsedDescription = HtmlCompat.fromHtml(descriptionHtml, HtmlCompat.FROM_HTML_MODE_LEGACY)
-
-        holder.id.text = name
-        holder.name.text = parsedDescription
+        val item = list[position]
+        val name = item.translations.firstOrNull { it.language == 2 }?.name
+        holder.nameText.text = name ?: "Unnamed"
     }
 
 
-    override fun getItemCount(): Int = exerciseList.size
+    override fun getItemCount(): Int = list.size
 
     fun updateList(newList: List<Exercise>) {
-        exerciseList = newList
+        list = newList
         notifyDataSetChanged()
     }
 }

@@ -1,5 +1,6 @@
 package com.rajatt7z.workout_api
 
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,9 +14,10 @@ interface WorkoutApiService {
 
     @GET("exerciseinfo/")
     suspend fun getExercises(
+        @Query("muscles") muscleId: Int,
         @Query("language") language: Int = 2,
-        @Query("limit") limit: Int = 7,
+        @Query("limit") limit: Int = 10,
         @Query("page") page: Int = 1
-    ): ExerciseResponse
+    ): Response<ExerciseResponse>
 
 }

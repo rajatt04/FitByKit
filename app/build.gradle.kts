@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
+apply(
+    plugin = "androidx.navigation.safeargs.kotlin"
+)
+
 android {
     namespace = "com.rajatt7z.fitbykit"
     compileSdk = 36

@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rajatt7z.fitbykit.adapters.ExerciseAdapter
 import com.rajatt7z.fitbykit.databinding.FragmentExercisesBinding
-import com.rajatt7z.fitbykit.navigation.FitByKitNav
 import com.rajatt7z.fitbykit.viewModels.ExerciseViewModel
 import kotlinx.coroutines.launch
 
@@ -28,6 +27,9 @@ class ExercisesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExercisesBinding.inflate(inflater, container, false)
+        binding.materialToolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
         return binding.root
     }
 

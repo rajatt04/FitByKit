@@ -7,6 +7,20 @@
     tools:context=".fragments.ExercisesFragment"
     android:fitsSystemWindows="true">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="?attr/colorSurface"
+        app:title="@string/exercise"
+        app:titleCentered="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:navigationIcon="@drawable/round_arrow_back_ios_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/exerciseProgressBar"
         android:layout_width="wrap_content"
@@ -24,10 +38,9 @@
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
         tools:listitem="@layout/exercise_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

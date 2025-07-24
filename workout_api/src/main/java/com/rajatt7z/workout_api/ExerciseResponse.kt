@@ -11,7 +11,7 @@ data class Exercise(
     val name: String?,
     val description: String?,
     val category: Category?,
-    val equipment: List<Equipment>?
+    val equipment: List<Equipment>?,
 )
 
 data class Translation(

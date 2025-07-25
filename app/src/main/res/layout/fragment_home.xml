@@ -41,575 +41,583 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.rajatt7z.fitbykit.CircularProgressView
-        android:id="@+id/circular_progress_view"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_center_value_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/steps_text"
-        android:textColor="#2D72F3"
-        android:textSize="36sp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_center_value_bottom"
-        app:layout_constraintEnd_toEndOf="@id/circular_progress_view"
-        app:layout_constraintStart_toStartOf="@id/circular_progress_view"
-        app:layout_constraintTop_toTopOf="@id/circular_progress_view"
-        app:layout_constraintVertical_chainStyle="packed"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_center_value_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hp_text"
-        android:textColor="#00D2C8"
-        android:fontFamily="sans-serif"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/circular_progress_view"
-        app:layout_constraintEnd_toEndOf="@id/circular_progress_view"
-        app:layout_constraintStart_toStartOf="@id/circular_progress_view"
-        app:layout_constraintTop_toBottomOf="@+id/tv_center_value_top" />
-
-    <LinearLayout
-        android:id="@+id/labels_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circular_progress_view">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_heart_pts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:drawableStart="@drawable/cardiology_24dp"
-            android:drawablePadding="8dp"
-            android:text="@string/set_hp"
-            android:textColor="?attr/colorControlNormal"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            app:drawableTint="#00D2C8" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_steps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:drawableStart="@drawable/footprint_24dp"
-            android:drawablePadding="8dp"
-            android:text="@string/set_steps"
-            android:textColor="?attr/colorControlNormal"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            app:drawableTint="#2D72F3" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/stats_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labels_container">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_cal_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="@string/calorie"
-                android:textColor="?attr/colorControlActivated"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="@string/calorie_text"
-                android:textColor="?attr/colorControlNormal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_km_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="@string/Km"
-                android:textColor="?attr/colorControlActivated"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="@string/Km_text"
-                android:textColor="?attr/colorControlNormal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_walking_min_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="@string/walking_min"
-                android:textColor="?attr/colorControlActivated"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="@string/walking_min_text"
-                android:textColor="?attr/colorControlNormal" />
-        </LinearLayout>
-    </LinearLayout>
-
     <ScrollView
-        android:id="@+id/scrollView"
-        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stats_container">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingBottom="16dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/dailyGoals"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_width="match_parent"
-                android:layout_height="152dp"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.Material3.CardView.Elevated"
-                android:backgroundTint="?attr/colorSurface"
-                android:elevation="8dp"
-                app:cardCornerRadius="16dp">
+            <com.rajatt7z.fitbykit.CircularProgressView
+                android:id="@+id/circular_progress_view"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_center_value_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/steps_text"
+                android:textColor="#2D72F3"
+                android:textSize="36sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_center_value_bottom"
+                app:layout_constraintEnd_toEndOf="@id/circular_progress_view"
+                app:layout_constraintStart_toStartOf="@id/circular_progress_view"
+                app:layout_constraintTop_toTopOf="@id/circular_progress_view"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_center_value_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hp_text"
+                android:textColor="#00D2C8"
+                android:fontFamily="sans-serif"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/circular_progress_view"
+                app:layout_constraintEnd_toEndOf="@id/circular_progress_view"
+                app:layout_constraintStart_toStartOf="@id/circular_progress_view"
+                app:layout_constraintTop_toBottomOf="@+id/tv_center_value_top" />
+
+            <LinearLayout
+                android:id="@+id/labels_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/circular_progress_view">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_heart_pts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:drawableStart="@drawable/cardiology_24dp"
+                    android:drawablePadding="8dp"
+                    android:text="@string/set_hp"
+                    android:textColor="?attr/colorControlNormal"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:textSize="18sp"
+                    app:drawableTint="#00D2C8" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:drawableStart="@drawable/footprint_24dp"
+                    android:drawablePadding="8dp"
+                    android:text="@string/set_steps"
+                    android:textColor="?attr/colorControlNormal"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:textSize="18sp"
+                    app:drawableTint="#2D72F3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/stats_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/labels_container">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView17"
+                        android:id="@+id/tv_cal_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif"
-                        android:text="@string/daily_goals"
+                        android:text="@string/calorie"
                         android:textColor="?attr/colorControlActivated"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:textColor="?attr/colorControlNormal"
-                        android:text="@string/energy_duration"
-                        app:layout_constraintStart_toStartOf="@+id/materialTextView17"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView17" />
+                        android:text="@string/calorie_text"
+                        android:textColor="?attr/colorControlNormal" />
+                </LinearLayout>
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/shapeableImageView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/round_arrow_forward_ios_24"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/materialTextView17" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView19"
+                        android:id="@+id/tv_km_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginBottom="16dp"
                         android:fontFamily="sans-serif"
-                        android:text="@string/achieved"
-                        android:textColor="?attr/colorPrimary"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <LinearLayout
-                        android:id="@+id/dayStatusContainer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/materialTextView19" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/dailyGoals2"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_width="match_parent"
-                android:layout_height="182dp"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.Material3.CardView.Elevated"
-                android:backgroundTint="?attr/colorSurface"
-                android:elevation="8dp"
-                app:cardCornerRadius="16dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView1722"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/weekly_goal"
+                        android:text="@string/Km"
                         android:textColor="?attr/colorControlActivated"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView1822"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@string/today"
-                        android:textColor="?attr/colorControlNormal"
-                        app:layout_constraintStart_toStartOf="@+id/materialTextView1722"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView1722" />
+                        android:text="@string/Km_text"
+                        android:textColor="?attr/colorControlNormal" />
+                </LinearLayout>
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/shapeableImageView522"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/round_arrow_forward_ios_24"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/materialTextView1722" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView1922"
+                        android:id="@+id/tv_walking_min_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="sans-serif-condensed-medium"
-                        android:text="@string/weekly_achieved"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/materialTextView24"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView1822" />
+                        android:fontFamily="sans-serif"
+                        android:text="@string/walking_min"
+                        android:textColor="?attr/colorControlActivated"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/weekly_goal_des"
-                        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView8"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/shapeableImageView8" />
+                        android:fontFamily="sans-serif"
+                        android:text="@string/walking_min_text"
+                        android:textColor="?attr/colorControlNormal" />
+                </LinearLayout>
+            </LinearLayout>
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/shapeableImageView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:src="@drawable/cannabis_48dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
-
-                    <ProgressBar
-                        android:id="@+id/weeklyProgressBar"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:layout_width="0dp"
-                        android:layout_height="8dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginEnd="16dp"
-                        android:max="150"
-                        android:progressDrawable="@drawable/progress_bar_custom"
-                        app:layout_constraintBottom_toBottomOf="@+id/materialTextView1922"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/materialTextView1922"
-                        app:layout_constraintTop_toTopOf="@+id/materialTextView1922" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/bmiCardView1"
-                android:clickable="true"
-                android:focusable="true"
-                style="@style/Widget.Material3.CardView.Elevated"
-                android:layout_marginBottom="16dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="152dp"
-                android:backgroundTint="?attr/colorSurface"
-                android:elevation="8dp"
-                app:cardCornerRadius="16dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stats_container">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/dailyGoals"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="152dp"
+                    android:layout_marginBottom="16dp"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="16dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView173"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/bmi_title"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView183"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/bmi_des"
-                        android:textAlignment="viewStart"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView173" />
+                        android:layout_height="match_parent">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/user_bmi3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/bmi_btn"
-                        android:textColor="?attr/colorPrimary"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView183" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView17"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/daily_goals"
+                            android:textColor="?attr/colorControlActivated"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:textColor="?attr/colorControlNormal"
+                            android:text="@string/energy_duration"
+                            app:layout_constraintStart_toStartOf="@+id/materialTextView17"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView17" />
 
-            </com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/shapeableImageView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/round_arrow_forward_ios_24"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/materialTextView17" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/notificationCardView2"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                style="@style/Widget.Material3.CardView.Elevated"
-                android:layout_width="match_parent"
-                android:layout_height="152dp"
-                android:backgroundTint="?attr/colorSurface"
-                android:elevation="8dp"
-                app:cardCornerRadius="16dp">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/achieved"
+                            android:textColor="?attr/colorPrimary"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                        <LinearLayout
+                            android:id="@+id/dayStatusContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/materialTextView19" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/dailyGoals2"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="182dp"
+                    android:layout_marginBottom="16dp"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="16dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView172"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/notificationTitle"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/noPermission"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/close_24dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/materialTextView172"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/materialTextView172" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView182"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/notificationDes"
-                        android:textAlignment="viewStart"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView172" />
+                        android:layout_height="match_parent">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/send_notification"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="sans-serif"
-                        android:textStyle="bold"
-                        android:text="@string/notificationButton"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView182" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView1722"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/weekly_goal"
+                            android:textColor="?attr/colorControlActivated"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView1822"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/today"
+                            android:textColor="?attr/colorControlNormal"
+                            app:layout_constraintStart_toStartOf="@+id/materialTextView1722"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView1722" />
 
-            </com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/shapeableImageView522"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/round_arrow_forward_ios_24"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/materialTextView1722" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/notificationCardView13"
-                android:focusable="true"
-                android:clickable="true"
-                style="@style/Widget.Material3.CardView.Elevated"
-                android:layout_width="match_parent"
-                android:layout_height="152dp"
-                android:backgroundTint="?attr/colorSurface"
-                android:elevation="8dp"
-                app:cardCornerRadius="16dp">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView1922"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:text="@string/weekly_achieved"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/materialTextView24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView1822" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/weekly_goal_des"
+                            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView8"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/shapeableImageView8" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/shapeableImageView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:src="@drawable/cannabis_48dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <ProgressBar
+                            android:id="@+id/weeklyProgressBar"
+                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                            android:layout_width="0dp"
+                            android:layout_height="8dp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="16dp"
+                            android:max="150"
+                            android:progressDrawable="@drawable/progress_bar_custom"
+                            app:layout_constraintBottom_toBottomOf="@+id/materialTextView1922"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/materialTextView1922"
+                            app:layout_constraintTop_toTopOf="@+id/materialTextView1922" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/bmiCardView1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:layout_marginBottom="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="152dp"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="16dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView1713"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/sync_title"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/dismissSync3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/close_24dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/materialTextView1713"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/materialTextView1713" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/materialTextView1813"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/sync_des"
-                        android:textAlignment="viewStart"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView1713" />
+                        android:layout_height="match_parent">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_sync"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/get_start"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView1813" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView173"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/bmi_title"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView183"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/bmi_des"
+                            android:textAlignment="viewStart"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView173" />
 
-            </com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/user_bmi3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/bmi_btn"
+                            android:textColor="?attr/colorPrimary"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView183" />
 
-        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/notificationCardView2"
+                    android:layout_marginBottom="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:layout_width="match_parent"
+                    android:layout_height="152dp"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="16dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView172"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/notificationTitle"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/noPermission"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/close_24dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/materialTextView172"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/materialTextView172" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView182"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/notificationDes"
+                            android:textAlignment="viewStart"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView172" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/send_notification"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            android:text="@string/notificationButton"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView182" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/notificationCardView13"
+                    android:focusable="true"
+                    android:clickable="true"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:layout_width="match_parent"
+                    android:layout_height="152dp"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="16dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView1713"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/sync_title"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/dismissSync3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/close_24dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/materialTextView1713"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/materialTextView1713" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView1813"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/sync_des"
+                            android:textAlignment="viewStart"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView1713" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_sync"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/get_start"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView1813" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 

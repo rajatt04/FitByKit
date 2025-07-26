@@ -22,6 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitByKit">
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.VideoPlayerActivity"
             android:exported="false" />
 

@@ -49,6 +49,7 @@ dependencies {
 
     implementation(project(":workout_api"))
     implementation(libs.core)
+    implementation(libs.glide)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.lifecycle.runtime.ktx)

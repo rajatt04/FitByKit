@@ -44,3 +44,16 @@ data class Muscle(
     val image_url_main: String?,
     val image_url_secondary: String?
 )
+
+data class MealResponse(
+    val meals: List<Meal>?
+)
+
+data class Meal(
+    val idMeal: String,
+    val strMeal: String,
+    val strCategory: String?,
+    val strMealThumb: String,
+    val strInstructions: String
+)
+

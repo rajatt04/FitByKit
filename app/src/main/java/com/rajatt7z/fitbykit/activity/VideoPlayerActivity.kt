@@ -20,10 +20,6 @@ class VideoPlayerActivity : AppCompatActivity() {
         binding = ActivityVideoPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.materialToolbar2.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-
         val videoUrl = intent.getStringExtra("video_url") ?: return
         val videoId = extractYoutubeVideoId(videoUrl)
 

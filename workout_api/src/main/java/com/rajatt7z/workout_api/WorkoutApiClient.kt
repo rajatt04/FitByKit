@@ -12,3 +12,13 @@ object WorkoutApiClient {
             .create(WorkoutApiService::class.java)
     }
 }
+
+object MealApiClient {
+    val api: MealApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://www.themealdb.com/api/json/v1/1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(MealApiService::class.java)
+    }
+}

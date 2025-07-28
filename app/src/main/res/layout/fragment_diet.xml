@@ -8,17 +8,18 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:elevation="8dp"
-        android:focusable="true"
-        android:clickable="true"
-        style="@style/Widget.Material3.CardView.Elevated"
         android:backgroundTint="?attr/colorSurface"
+        android:clickable="true"
+        android:elevation="8dp"
 
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,5 +34,66 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/searchButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchEdit"
+            android:maxLines="1"
+            android:maxEms="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search Meals"
+            android:padding="12dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/app_name"
+        android:src="@android:drawable/ic_menu_search"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="@id/searchInput"
+        app:layout_constraintBottom_toBottomOf="@id/searchInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/loadingIndicator"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:indeterminate="true"
+        app:layout_constraintTop_toBottomOf="@id/searchInput"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:indicatorSize="48dp"
+        app:trackThickness="4dp"
+        app:indicatorColor="?attr/colorPrimary" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mealRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        tools:listitem="@layout/item_meal"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.diet"
-    android:fitsSystemWindows="true">
+    tools:context=".fragments.diet">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
@@ -47,8 +46,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/searchEdit"
-            android:maxLines="1"
             android:maxEms="1"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search Meals"
@@ -66,7 +66,8 @@
         app:layout_constraintTop_toTopOf="@id/searchInput"
         app:layout_constraintBottom_toBottomOf="@id/searchInput"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        app:tint="?attr/colorControlActivated" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loadingIndicator"
@@ -87,13 +88,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        tools:listitem="@layout/item_meal"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchInput" />
+        app:layout_constraintTop_toBottomOf="@id/searchInput"
+        tools:listitem="@layout/item_meal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

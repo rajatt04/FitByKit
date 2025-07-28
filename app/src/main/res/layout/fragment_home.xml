@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.home"
-    android:fitsSystemWindows="true">
+    tools:context=".fragments.home">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

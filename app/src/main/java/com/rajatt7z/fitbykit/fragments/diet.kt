@@ -1,6 +1,7 @@
 package com.rajatt7z.fitbykit.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.Utils.calculateMacros
+import com.rajatt7z.fitbykit.activity.MealPlayer
 import com.rajatt7z.fitbykit.adapters.MealAdapter
 import com.rajatt7z.fitbykit.viewModels.DietViewModel
 
@@ -52,7 +54,31 @@ class diet : Fragment() {
 
         viewModel.loadTopMealsIfNoQuery()
 
-        mealAdapter = MealAdapter(emptyList())
+        mealAdapter = MealAdapter(emptyList()) { meal ->
+            val ingredientPairs = meal.ingredientPairs ?: emptyList()
+            val ingredientStrings = ArrayList<String>()
+            val measureStrings = ArrayList<String>()
+
+            for (pair in ingredientPairs) {
+                ingredientStrings.add(pair.ingredient)
+                measureStrings.add(pair.measure)
+            }
+
+            val intent = Intent(requireContext(), MealPlayer::class.java).apply {
+                putExtra("mealName", meal.strMeal)
+                putExtra("mealInstructions", meal.strInstructions)
+                putExtra("mealThumb", meal.strMealThumb)
+                putExtra("mealCategory", meal.strCategory)
+                putExtra("mealArea", meal.strArea)
+                putExtra("mealTags", meal.strTags)
+                putExtra("mealVideo", meal.strYoutube)
+                putStringArrayListExtra("mealIngredients", ingredientStrings)
+                putStringArrayListExtra("mealMeasures", measureStrings)
+            }
+            startActivity(intent)
+
+        }
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = mealAdapter
 

@@ -22,9 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitByKit">
         <activity
-            android:screenOrientation="portrait"
-            android:name=".activity.VideoPlayerActivity"
+            android:name=".activity.MealPlayer"
             android:exported="false" />
+        <activity
+            android:name=".activity.VideoPlayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".receivers.ReminderReceiver"
@@ -58,8 +61,8 @@
         <activity
             android:name=".navigation.FitByKitNav"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.track"
             android:exported="false"
@@ -67,18 +70,19 @@
         <activity
             android:name=".activity.AboutUser"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.LauncherActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

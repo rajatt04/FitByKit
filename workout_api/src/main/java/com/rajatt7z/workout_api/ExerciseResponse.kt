@@ -54,6 +54,9 @@ data class Meal(
     val strMeal: String,
     val strCategory: String?,
     val strMealThumb: String,
-    val strInstructions: String
+    val strInstructions: String,
+    val strArea: String,
+    val strTags: String?,
+    val strYoutube: String,
+    val ingredientPairs: List<IngredientPair>?
 )
-

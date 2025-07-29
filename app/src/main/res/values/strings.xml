@@ -87,4 +87,8 @@
     <string name="muscle_name">Muscle Name</string>
     <string name="muscle_type">Front Muscle</string>
     <string name="exercise">Exercise</string>
+    <string name="home_meal">Home</string>
+    <string name="meal_video">Video</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -84,7 +84,7 @@ class Workouts : Fragment() {
                 val list = WorkoutModule.repository.fetchMuscles()
                 workoutViewModel.setMuscles(list)
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
             } finally {
                 binding.progressBar.visibility = View.GONE
             }

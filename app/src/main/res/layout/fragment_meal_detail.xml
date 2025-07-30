@@ -30,53 +30,99 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/TV_mealName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Meal Name"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/IV_mealImage" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/TV_mealCategory"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Meal Category"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/TV_mealInstructions" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/TV_mealArea"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Meal Area"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/TV_mealCategory" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/TV_mealTags"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Meal Tags"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/TV_mealArea" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/TV_mealInstructions"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Meal Instructions"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/TV_mealName" />
+
+            <com.google.android.material.button.MaterialSplitButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/TV_mealTags">
+
+                <Button
+                    android:id="@+id/buy_meal"
+                    style="?attr/materialSplitButtonIconFilledStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/buy_meal"
+                    app:iconPadding="8dp"
+                    app:icon="@drawable/paid_24dp"/>
+
+                <Button
+                    style="?attr/materialSplitButtonIconFilledStyle"
+                    android:id="@+id/expand_more_or_less_filled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/forward_24dp"/>
+
+            </com.google.android.material.button.MaterialSplitButton>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

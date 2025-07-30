@@ -1,5 +1,4 @@
-package com.rajatt7z.workout_api  // or any package you're using
-
+package com.rajatt7z.workout_api
 import java.io.Serializable
 
 data class IngredientPair(

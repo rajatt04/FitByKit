@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.loadingindicator.LoadingIndicator
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -33,7 +34,7 @@ class diet : Fragment() {
     private lateinit var mealAdapter: MealAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: DietViewModel
-    private lateinit var loadingIndicator: CircularProgressIndicator
+    private lateinit var loadingIndicator: LoadingIndicator
     private lateinit var searchEditText: TextInputEditText
     private lateinit var searchButton: ImageButton
 

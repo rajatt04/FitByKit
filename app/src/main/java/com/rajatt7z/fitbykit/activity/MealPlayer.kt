@@ -28,13 +28,17 @@ class MealPlayer : AppCompatActivity() {
             insets
         }
 
-        val mealName = intent.getStringExtra("mealName") ?: "N/A"
+        binding.materialToolbar2.setOnClickListener {
+            finish()
+        }
+
+        val mealName = intent.getStringExtra("mealName") ?: "Meal Name Unavailable"
         val mealInstructions = intent.getStringExtra("mealInstructions")
             ?: "Meal Instructions are not available please refer video."
-        val mealCategory = intent.getStringExtra("mealCategory") ?: "N/A"
+        val mealCategory = intent.getStringExtra("mealCategory") ?: "Meal Category Unavailable"
         val mealThumb = intent.getStringExtra("mealThumb") ?: ""
-        val mealArea = intent.getStringExtra("mealArea") ?: "N/A"
-        val mealTags = intent.getStringExtra("mealTags") ?: "N/A"
+        val mealArea = intent.getStringExtra("mealArea") ?: "Meal Area Unavailable"
+        val mealTags = intent.getStringExtra("mealTags") ?: "Meal Tags Unavailable"
         val mealVideo = intent.getStringExtra("mealVideo") ?: ""
         val ingredientStrings = intent.getStringArrayListExtra("mealIngredients") ?: ArrayList()
         val measureStrings = intent.getStringArrayListExtra("mealMeasures") ?: ArrayList()

@@ -42,15 +42,15 @@ class AboutUser : AppCompatActivity() {
         }
 
         val genderOptions = listOf("Male", "Female", "Other")
-        val genderAdapter = ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, genderOptions)
+        val genderAdapter = ArrayAdapter(this, com.google.android.material.R.layout.m3_auto_complete_simple_item, genderOptions)
         binding.genderDropdown.setAdapter(genderAdapter)
 
         val weights = (30..200).map { "$it kg" }
-        val weightAdapter = ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, weights)
+        val weightAdapter = ArrayAdapter(this, com.google.android.material.R.layout.m3_auto_complete_simple_item, weights)
         binding.weightDropdown.setAdapter(weightAdapter)
 
         val heights = (100..220).map { "$it cm" }
-        val heightAdapter = ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, heights)
+        val heightAdapter = ArrayAdapter(this, com.google.android.material.R.layout.m3_auto_complete_simple_item, heights)
         binding.heightDropdown.setAdapter(heightAdapter)
 
         binding.nextBtn.setOnClickListener {

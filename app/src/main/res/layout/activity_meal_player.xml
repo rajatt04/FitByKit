@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/round_arrow_back_ios_24"
-        app:title="@string/app_name" />
+        app:title="Back" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

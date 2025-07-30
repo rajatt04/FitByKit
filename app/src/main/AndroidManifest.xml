@@ -23,6 +23,7 @@
         android:theme="@style/Theme.FitByKit">
         <activity
             android:name=".activity.MealPlayer"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activity.VideoPlayerActivity"

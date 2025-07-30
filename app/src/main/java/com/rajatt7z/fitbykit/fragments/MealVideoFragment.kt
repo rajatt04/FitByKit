@@ -55,7 +55,7 @@ class MealVideoFragment : Fragment() {
             }
         }
 
-        binding.MealIngredient.text = ingredientText
+        binding.MealIngredientText.text = ingredientText
     }
 
     override fun onDestroyView() {

@@ -6,6 +6,7 @@ import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -248,10 +249,22 @@ class profile : Fragment() {
         )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-            val intent1 = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
-            startActivity(intent1)
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Enable Exact Alarms")
+                .setMessage("To ensure precise reminders, allow exact alarms in settings.")
+                .setPositiveButton("Go to Settings") { _, _ ->
+                    try {
+                        val intent1 = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                        startActivity(intent1)
+                    } catch (e: ActivityNotFoundException) {
+                        Toast.makeText(requireContext(), "Settings screen not available", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setCancelable(false)
+                .show()
             return
         }
+
 
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,

@@ -13,6 +13,11 @@ import com.bumptech.glide.Glide
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.databinding.FragmentMealDetailBinding
 import androidx.core.net.toUri
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.rajatt7z.fitbykit.Utils.Store
+import com.rajatt7z.fitbykit.adapters.StoreAdapter
 
 class MealDetailFragment : Fragment() {
 
@@ -40,20 +45,41 @@ class MealDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.buyMeal.setOnClickListener {
-            val query = mealName ?: "healthy food"
-            val flipkartIntent = Intent(Intent.ACTION_VIEW).apply {
-                data = "https://www.google.com/search?q=${Uri.encode(query)}".toUri()
-                setPackage("com.flipkart.android")
+            val mealNameQuery = mealName ?: "healthy food"
+            val sanitizedQuery = when {
+                mealNameQuery.contains("mac", ignoreCase = true) -> "burger"
+                mealNameQuery.contains("salad", ignoreCase = true) -> "fresh salad"
+                else -> mealNameQuery
             }
-            try {
-                startActivity(flipkartIntent)
-            } catch (e: ActivityNotFoundException) {
-                val browserIntent = Intent(Intent.ACTION_VIEW,
-                    "https://www.google.com/search?q=${Uri.encode(query)}".toUri())
-                startActivity(browserIntent)
+            val encodedQuery = Uri.encode(sanitizedQuery)
+
+            val stores = listOf(
+                Store("Amazon", R.drawable.amazon_icon, "https://www.amazon.in/s?k=$encodedQuery&rh=n%3A2454178031"),
+                Store("Flipkart", R.drawable.flipkart_icon, "https://www.flipkart.com/search?q=$encodedQuery&sid=eat"),
+                Store("BigBasket", R.drawable.bb_icon, "https://www.bigbasket.com/ps/?q=$encodedQuery&nc=fb"),
+                Store("Blinkit", R.drawable.blinkit_icon, "https://blinkit.com/s/?q=$encodedQuery&category=Grocery"),
+                Store("Zomato", R.drawable.zomato_icon, "https://www.zomato.com/search?query=$encodedQuery"),
+                Store("Swiggy", R.drawable.swiggy_icon, "https://www.swiggy.com/search?q=$encodedQuery")
+            )
+
+            val dialogView = layoutInflater.inflate(R.layout.dialog_store_picker, null)
+            val recyclerView = dialogView.findViewById<RecyclerView>(R.id.storeRecyclerView)
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.adapter = StoreAdapter(stores) { store ->
+                val intent = Intent(Intent.ACTION_VIEW, store.url.toUri())
+                startActivity(intent)
             }
+
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Buy from Store")
+                .setView(dialogView)
+                .setNegativeButton("Not Now", null)
+                .show()
         }
+
+
         binding.expandMoreOrLessFilled.setOnClickListener {
             val shareText = buildShareText()
             val shareIntent = Intent(Intent.ACTION_SEND).apply {

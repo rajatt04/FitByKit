@@ -58,7 +58,7 @@ class FitByKitNav : AppCompatActivity() {
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
                     MaterialAlertDialogBuilder(this)
                         .setTitle("Allow Notifications")
-                        .setMessage("1. Tap 'Go to Settings'\n2. Tap 'Notifications'\n3. Enable 'Allow Notifications'")
+                        .setMessage("Please Enable 'Allow Notifications'")
                         .setPositiveButton("Go to Settings") { _, _ ->
                             val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
                                 putExtra(Settings.EXTRA_APP_PACKAGE, packageName)

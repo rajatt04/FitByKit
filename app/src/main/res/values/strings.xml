@@ -92,5 +92,6 @@
     <string name="buy_meal">Buy Meal</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="like_button">Like Button</string>
+    <string name="amazon">Amazon</string>
     <string name="store_icon">Store Icon</string>
 </resources>

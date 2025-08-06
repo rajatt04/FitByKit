@@ -9,19 +9,38 @@
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youTubePlayerView"
         android:layout_width="match_parent"
-        android:layout_height="256dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="0dp"
+        android:keepScreenOn="true"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintBottom_toTopOf="@+id/MealIngredientView"
+        tools:ignore="MissingConstraints"
+        tools:visibility="visible" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/MealIngredientText"
+        android:id="@+id/MealIngredientView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Meal Ingredient"
+        android:textSize="24sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:text="@string/ingredients_amp_measures"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/youTubePlayerView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/MealIngredientText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:text="@string/meal_ingredient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MealIngredientView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

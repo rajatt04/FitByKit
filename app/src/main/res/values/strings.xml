@@ -94,4 +94,6 @@
     <string name="like_button">Like Button</string>
     <string name="amazon">Amazon</string>
     <string name="store_icon">Store Icon</string>
+    <string name="ingredients_amp_measures"><![CDATA[Ingredients & Measures]]></string>
+    <string name="meal_ingredient">Meal Ingredient</string>
 </resources>

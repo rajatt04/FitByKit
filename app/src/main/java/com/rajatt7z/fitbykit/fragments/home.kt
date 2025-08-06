@@ -27,6 +27,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rajatt7z.fitbykit.R
+import com.rajatt7z.fitbykit.activity.UserProfile
 import com.rajatt7z.fitbykit.activity.syncFit
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
 import java.text.SimpleDateFormat
@@ -139,11 +140,7 @@ class home : Fragment() {
         }
 
         binding.userImgView.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Your Profile")
-                .setMessage("Currently Under Development")
-                .setPositiveButton("Ok", null)
-                .show()
+            startActivity(Intent(requireContext(), UserProfile::class.java))
         }
 
         binding.dailyGoals.setOnClickListener{

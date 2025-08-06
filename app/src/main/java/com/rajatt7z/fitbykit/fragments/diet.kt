@@ -26,6 +26,7 @@ import com.rajatt7z.fitbykit.Utils.calculateMacros
 import com.rajatt7z.fitbykit.activity.MealPlayer
 import com.rajatt7z.fitbykit.adapters.MealAdapter
 import com.rajatt7z.fitbykit.viewModels.DietViewModel
+import com.rajatt7z.workout_api.getIngredientsPair
 
 class diet : Fragment() {
 
@@ -56,7 +57,7 @@ class diet : Fragment() {
         viewModel.loadTopMealsIfNoQuery()
 
         mealAdapter = MealAdapter(emptyList()) { meal ->
-            val ingredientPairs = meal.ingredientPairs ?: emptyList()
+            val ingredientPairs = meal.getIngredientsPair()
             val ingredientStrings = ArrayList<String>()
             val measureStrings = ArrayList<String>()
 

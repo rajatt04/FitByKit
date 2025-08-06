@@ -9,15 +9,12 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         style="@style/Widget.Material3.CardView.Elevated"
+        app:cardCornerRadius="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:backgroundTint="?attr/colorSurface"
         android:clickable="true"
         android:elevation="8dp"
-
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -32,6 +32,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.rajatt7z.fitbykit.receivers.AlarmScheduler
 import com.rajatt7z.fitbykit.R
+import com.rajatt7z.fitbykit.activity.UserProfile
 import com.rajatt7z.fitbykit.receivers.ReminderReceiver
 import com.rajatt7z.fitbykit.activity.heartpoints
 import com.rajatt7z.fitbykit.activity.steps
@@ -94,11 +95,7 @@ class profile : Fragment() {
         binding.weightDropdownView.setText("$weight kg",false)
 
         binding.userImgView.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("User Profile")
-                .setMessage("Currently Under Development")
-                .setPositiveButton("Ok", null)
-                .show()
+            startActivity(Intent(requireContext(),UserProfile::class.java))
         }
 
         binding.userNameView.isEnabled = false

@@ -22,9 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitByKit">
         <activity
-            android:name=".activity.MealPlayer"
-            android:screenOrientation="portrait"
+            android:name=".activity.UserProfile"
             android:exported="false" />
+        <activity
+            android:name=".activity.MealPlayer"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.VideoPlayerActivity"
             android:exported="false"

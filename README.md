@@ -18,8 +18,6 @@ FitByKit is a modern Android application built with Kotlin, designed to help use
 
 ## Features
 
-*(Replace or expand these with the actual features of your application)*
-
 - **Workout Tracking**  
   Log and track various types of workouts (e.g., strength training, cardio).
 

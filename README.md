@@ -39,19 +39,17 @@ FitByKit is a modern Android application built with Kotlin, designed to help use
 
 ## Screenshots
 
-| Dashboard | Workout Logging |
+| Welcome | About User |
 |---|---|
-| ![Dashboard](screenshots/01_dashboard.png) | ![Workout Logging](screenshots/02_workout_logging.png) |
+| ![First](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/1.jpeg?raw=true) | ![User Data](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/2.jpeg?raw=true) |
 
-| Exercise List | Progress Charts |
+| Home Screen | Workout Screen |
 |---|---|
-| ![Exercise List](screenshots/03_exercise_list.png) | ![Progress Charts](screenshots/04_progress_charts.png) |
+| ![Exercise List](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/3.jpeg?raw=true) | ![Progress Charts](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/4.jpeg?raw=true) |
 
-| Settings |
-|---|
-| ![Settings](screenshots/05_settings.png) |
-
-*Add additional screenshots as needed.*
+| Diet Screen | User Profile |
+|---|---|
+| ![Diet](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/5.jpeg?raw=true) | ![User](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/6.jpeg?raw=true) |
 
 ---
 
@@ -83,3 +81,46 @@ To get a local copy of FitByKit up and running:
 1. **Clone the repository**
    ```bash
    git clone https://github.com/rajatt04/FitByKit.git
+
+## Usage
+After installing and launching the application:
+
+Navigate to the main dashboard
+View an overview of your fitness activities.
+
+# Start a new workout
+Select from predefined workout types or create a custom one.
+
+# Log exercises
+Input details for each exercise, including sets, reps, and weights.
+
+# View progress
+Access historical data and visualize improvements over time.
+
+## Contributing
+Contributions are welcome! To contribute:
+
+Fork the repository.
+# Create a new branch:
+bash
+Copy
+Edit
+git checkout -b feature/YourFeature
+Make your changes.
+
+# Commit your changes:
+bash
+Copy
+Edit
+git commit -m "Add some feature"
+
+# Push to the branch:
+bash
+Copy
+Edit
+git push origin feature/YourFeature
+
+# Open a Pull Request.
+
+## License
+# This project is licensed under the see the LICENSE.md file for details.

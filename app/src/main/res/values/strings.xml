@@ -26,7 +26,7 @@
     <string name="home_">Home</string>
     <string name="workout_">Workouts</string>
     <string name="diet_">Diet</string>
-    <string name="profile_">Profile</string>
+    <string name="profile_">Goals &amp; Sleep Cycle</string>
     <string name="b_s">Bedtime schedule</string>
     <string name="allow">Allow Fit to access your physical activity?</string>
     <string name="btn_allow">Allow</string>
@@ -96,4 +96,11 @@
     <string name="store_icon">Store Icon</string>
     <string name="ingredients_amp_measures"><![CDATA[Ingredients & Measures]]></string>
     <string name="meal_ingredient">Meal Ingredient</string>
+    <string name="create_playlist">Create Playlist</string>
+    <string name="liked_workouts">Liked Workouts</string>
+    <string name="empty_list">Empty list</string>
+    <string name="tap_to_add_workouts">Tap to add workouts</string>
+    <string name="activity">Activity</string>
+    <string name="macros_will_appear_here">Macros will appear here.</string>
+    <string name="search_meals">Search Meals</string>
 </resources>

@@ -9,23 +9,24 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         style="@style/Widget.Material3.CardView.Elevated"
-        app:cardCornerRadius="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="?attr/colorSurface"
-        android:clickable="true"
         android:elevation="8dp"
-        android:focusable="true"
+        app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/searchInput">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/macrosCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Macros will appear here."
+            android:text="@string/macros_will_appear_here"
             android:textSize="16sp" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -37,21 +38,22 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:hint="@string/search_meals"
         app:layout_constraintEnd_toStartOf="@id/searchButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/searchEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_meals"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLength="10"
             android:maxLines="1"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search Meals"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,14 +87,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchInput"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
         tools:listitem="@layout/item_meal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,8 +13,11 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Base64
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +25,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -37,6 +42,7 @@ import com.rajatt7z.fitbykit.receivers.ReminderReceiver
 import com.rajatt7z.fitbykit.activity.heartpoints
 import com.rajatt7z.fitbykit.activity.steps
 import com.rajatt7z.fitbykit.databinding.FragmentProfileBinding
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

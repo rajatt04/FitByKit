@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.devtools.ksp")
 }
 
 apply(
@@ -49,6 +50,10 @@ android {
 dependencies {
 
     implementation(project(":workout_api"))
+    implementation(libs.material.tap.target.prompt)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
     implementation(libs.core)
     implementation(libs.glide)
     implementation(libs.retrofit)

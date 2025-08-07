@@ -23,6 +23,7 @@ class ExercisesFragment : Fragment() {
 
     private lateinit var exerciseAdapter: ExerciseAdapter
     private val exerciseViewModel: ExerciseViewModel by viewModels()
+    private val likedNamesSet = mutableSetOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +45,11 @@ class ExercisesFragment : Fragment() {
 
         requireActivity().title = "$muscleName Exercises"
 
-        exerciseAdapter = ExerciseAdapter(emptyList()) {videoUrl ->
+        exerciseAdapter = ExerciseAdapter(
+            requireContext(),
+            emptyList(),
+            likedNamesSet
+        ) { videoUrl ->
             val intent = Intent(requireContext(), VideoPlayerActivity::class.java)
             intent.putExtra("video_url", videoUrl)
             startActivity(intent)

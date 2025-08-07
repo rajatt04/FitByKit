@@ -1,13 +1,10 @@
 package com.rajatt7z.fitbykit.activity
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,10 +23,6 @@ class UserProfile : AppCompatActivity() {
 
         setupEdgeToEdgeUI()
 
-        binding.profileCard.setOnClickListener {
-            flipCard(binding.profileCard, FlipDirection.LEFT_RIGHT)
-        }
-
         val sharedPref = getSharedPreferences("userPref", MODE_PRIVATE)
 
         displayUserInfo(sharedPref.getString("userName", "N/A"))
@@ -38,6 +31,10 @@ class UserProfile : AppCompatActivity() {
             sharedPref.getString("userWeight", null),
             sharedPref.getString("userHeight", null)
         )
+
+        binding.likedWorkoutCV.setOnClickListener {
+            startActivity(Intent(applicationContext, LikedWorkoutsActivity::class.java))
+        }
     }
 
     private fun setupEdgeToEdgeUI() {
@@ -94,29 +91,6 @@ class UserProfile : AppCompatActivity() {
         } else {
             binding.userBmiTV.text = "BMI: Not set"
         }
-    }
-
-    private fun flipCard(view: View, direction: FlipDirection) {
-        val rotationProperty = when (direction) {
-            FlipDirection.LEFT_RIGHT -> "rotationY"
-            FlipDirection.UP_DOWN -> "rotationX"
-        }
-        val flipOut = ObjectAnimator.ofFloat(view, rotationProperty, 0f, 90f).apply {
-            duration = 200
-        }
-        val flipIn = ObjectAnimator.ofFloat(view, rotationProperty, -90f, 0f).apply {
-            duration = 200
-        }
-        flipOut.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                flipIn.start()
-            }
-        })
-        flipOut.start()
-    }
-    enum class FlipDirection {
-        LEFT_RIGHT,
-        UP_DOWN
     }
 
 }

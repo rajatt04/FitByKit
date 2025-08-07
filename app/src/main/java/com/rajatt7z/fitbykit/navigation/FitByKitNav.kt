@@ -33,15 +33,23 @@ class FitByKitNav : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        // Set up BottomNavView with NavController
         binding.navView.setupWithNavController(navController)
 
-        // Control BottomNav visibility
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.exercisesFragment -> setBottomNavVisibility(false)
                 else -> setBottomNavVisibility(true)
             }
+        }
+
+        intent.getStringExtra("navigate_to")?.let { destination ->
+            when (destination) {
+                "home" -> binding.navView.selectedItemId = R.id.home_frag
+                "workouts" -> binding.navView.selectedItemId = R.id.workout_frag
+                "diet" -> binding.navView.selectedItemId = R.id.diet_frag
+                "profile" -> binding.navView.selectedItemId = R.id.profile_frag
+            }
+            intent.removeExtra("navigate_to")
         }
     }
 

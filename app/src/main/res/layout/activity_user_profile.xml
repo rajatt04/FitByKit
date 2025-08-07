@@ -8,57 +8,149 @@
     android:layout_height="match_parent"
     tools:context=".activity.UserProfile">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profileCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userImgView"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0"
+            android:src="@drawable/account_circle_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/userNameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/user_name"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userImgView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/userBmiTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/bmi_title"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userNameTV" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/playlistCV"
         style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="?attr/colorSurface"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/profileCard">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userImgView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/playlistTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/account_circle_24dp"
-                android:alpha="0"/>
+                android:text="@string/create_playlist"
+                android:drawableStart="@drawable/add_24dp"
+                android:drawablePadding="16dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed-light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/likedWorkoutCV"
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="?attr/colorSurface"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playlistCV">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/userNameTV"
-                android:layout_width="wrap_content"
+                android:id="@+id/workoutTV"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/user_name"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/userBmiTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/bmi_title"
-                android:textSize="16sp" />
+                android:drawableStart="@drawable/favorite_24dp_filled"
+                android:drawablePadding="16dp"
+                android:text="@string/liked_workouts"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed-light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitByKit">
         <activity
+            android:name=".activity.LikedWorkoutsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.UserProfile"
             android:exported="false" />
         <activity

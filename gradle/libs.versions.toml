@@ -3,11 +3,11 @@ agp = "8.12.0"
 circleimageview = "3.1.0"
 core = "12.1.2"
 glide = "4.16.0"
-kotlin = "2.2.0"
+kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
 appcompat = "1.7.1"
 kotlinxCoroutinesCore = "1.10.2"
 kotlinxCoroutinesAndroid = "1.10.2"
@@ -15,16 +15,21 @@ lifecycleRuntimeKtx = "2.9.2"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
-materialVersion = "1.14.0-alpha01"
-navigationFragment = "2.9.2"
-navigationUiKtx = "2.9.2"
+materialTapTargetPrompt = "3.3.2"
+materialVersion = "1.14.0-alpha03"
+navigationFragment = "2.9.3"
+navigationUiKtx = "2.9.3"
 retrofit = "3.0.0"
+roomRuntime = "2.7.2"
 
 [libraries]
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationFragment" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 core = { module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "core" }
@@ -40,6 +45,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+material-tap-target-prompt = { module = "uk.co.samuelwall:material-tap-target-prompt", version.ref = "materialTapTargetPrompt" }
 material-v1140alpha01 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 

@@ -12,7 +12,10 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Base64
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -21,15 +24,18 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.resources.MaterialResources.getDrawable
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.activity.UserProfile
 import com.rajatt7z.fitbykit.activity.syncFit
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -288,6 +294,16 @@ class home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sharedPref = requireActivity().getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val isFirstLaunch = sharedPref.getBoolean("firstLaunchUserTip", true)
+
+        if (isFirstLaunch) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                showUserProfileTooltip()
+                sharedPref.edit { putBoolean("firstLaunchUserTip", false) }
+            }, 500)
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(
@@ -296,10 +312,8 @@ class home : Fragment() {
                 v.paddingRight,
                 v.paddingBottom
             )
-
             insets
         }
-
 
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
@@ -384,5 +398,27 @@ class home : Fragment() {
             putFloat("previousTotalSteps", previousTotalSteps)
             putString("stepsDate", getTodayDate())
         }
+    }
+    private fun showUserProfileTooltip() {
+        MaterialTapTargetPrompt.Builder(requireActivity())
+            .setTarget(binding.userImgView)
+            .setPrimaryText("Checkout user profile too!")
+            .setSecondaryText("Tap here to view your liked workouts and Create custom day-wise plans.")
+            .setIconDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.account_circle_24dp))
+            .setBackgroundColour(getThemeColor(android.R.attr.colorControlActivated))
+            .setFocalColour(getThemeColor(com.google.android.material.R.attr.colorOnSecondary))
+            .setPromptStateChangeListener { _, state ->
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED ||
+                    state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
+                    Toast.makeText(requireContext(), "Profile tooltip dismissed!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .show()
+    }
+    private fun getThemeColor(attrRes: Int): Int {
+        val typedValue = TypedValue()
+        val theme = requireContext().theme
+        theme.resolveAttribute(attrRes, typedValue, true)
+        return typedValue.data
     }
 }

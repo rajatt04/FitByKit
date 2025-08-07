@@ -48,29 +48,22 @@ android {
 }
 
 dependencies {
-
     implementation(project(":workout_api"))
     implementation(libs.material.tap.target.prompt)
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.lifecycle.service)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.core)
     implementation(libs.glide)
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.circleimageview)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.material.v1140alpha01)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

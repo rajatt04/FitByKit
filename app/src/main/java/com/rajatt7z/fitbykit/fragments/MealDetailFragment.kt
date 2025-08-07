@@ -71,7 +71,7 @@ class MealDetailFragment : Fragment() {
                 startActivity(intent)
             }
 
-            MaterialAlertDialogBuilder(requireContext())
+            MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.MaterialAlertDialog_Material3Expressive)
                 .setTitle("Buy from Store")
                 .setView(dialogView)
                 .setNegativeButton("Not Now", null)

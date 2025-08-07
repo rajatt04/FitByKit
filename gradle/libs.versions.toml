@@ -2,6 +2,7 @@
 agp = "8.12.0"
 circleimageview = "3.1.0"
 core = "12.1.2"
+githubNewpipeextractor = "0.24.8"
 glide = "4.16.0"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
@@ -21,6 +22,7 @@ navigationFragment = "2.9.3"
 navigationUiKtx = "2.9.3"
 retrofit = "3.0.0"
 roomRuntime = "2.7.2"
+lifecycleService = "2.9.2"
 
 [libraries]
 
@@ -47,7 +49,9 @@ androidx-navigation-fragment = { group = "androidx.navigation", name = "navigati
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 material-tap-target-prompt = { module = "uk.co.samuelwall:material-tap-target-prompt", version.ref = "materialTapTargetPrompt" }
 material-v1140alpha01 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+newpipeextractor-vv0233 = { module = "com.github.TeamNewPipe:NewPipeExtractor", version.ref = "githubNewpipeextractor" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+androidx-lifecycle-service = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycleService" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -11,9 +11,43 @@
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/player_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/buttons_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/buttons_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:backgroundTint="?attr/colorSurface"
+            android:padding="16dp"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_pip"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    app:icon="@drawable/pip_24dp"
+                    app:iconPadding="8dp"
+                    android:text="@string/enter_pip_mode" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_download"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    app:icon="@drawable/download_24dp"
+                    app:iconPadding="8dp"
+                    android:text="@string/download_video" />
+
+        </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

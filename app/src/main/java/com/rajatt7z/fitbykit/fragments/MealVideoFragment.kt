@@ -57,7 +57,7 @@ class MealVideoFragment : Fragment() {
         lifecycle.addObserver(youTubePlayerView)
 
         val iFramePlayerOptions = IFramePlayerOptions.Builder()
-            .controls(1)
+            .controls(0)
             .rel(0)
             .build()
         val videoId = extractYouTubeVideoId(mealVideo)

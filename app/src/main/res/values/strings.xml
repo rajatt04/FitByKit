@@ -103,4 +103,6 @@
     <string name="activity">Activity</string>
     <string name="macros_will_appear_here">Macros will appear here.</string>
     <string name="search_meals">Search Meals</string>
+    <string name="enter_pip_mode">Enter PIP Mode</string>
+    <string name="download_video">Download Video</string>
 </resources>

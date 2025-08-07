@@ -17,7 +17,6 @@ class StoreAdapter (
 ) : RecyclerView.Adapter<StoreAdapter.StoreViewHolder>() {
 
     inner class StoreViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val icon: ShapeableImageView = view.findViewById(R.id.storeIcon)
         val name: MaterialTextView = view.findViewById(R.id.storeName)
     }
 
@@ -31,7 +30,6 @@ class StoreAdapter (
 
     override fun onBindViewHolder(holder: StoreAdapter.StoreViewHolder, position: Int) {
         val store = stores[position]
-        holder.icon.setImageResource(store.iconResId)
         holder.name.text = store.name
         holder.view.setOnClickListener {
             onStoreClick(store)

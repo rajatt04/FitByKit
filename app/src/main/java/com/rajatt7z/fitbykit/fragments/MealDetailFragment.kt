@@ -23,7 +23,6 @@ class MealDetailFragment : Fragment() {
 
     private var _binding: FragmentMealDetailBinding? = null
     private val binding get() = _binding!!
-
     private var mealThumb: String? = null
     private var mealName: String? = null
     private var mealInstructions: String? = null
@@ -56,12 +55,12 @@ class MealDetailFragment : Fragment() {
             val encodedQuery = Uri.encode(sanitizedQuery)
 
             val stores = listOf(
-                Store("Amazon", R.drawable.amazon_icon, "https://www.amazon.in/s?k=$encodedQuery&rh=n%3A2454178031"),
-                Store("Flipkart", R.drawable.flipkart_icon, "https://www.flipkart.com/search?q=$encodedQuery&sid=eat"),
-                Store("BigBasket", R.drawable.bb_icon, "https://www.bigbasket.com/ps/?q=$encodedQuery&nc=fb"),
-                Store("Blinkit", R.drawable.blinkit_icon, "https://blinkit.com/s/?q=$encodedQuery&category=Grocery"),
-                Store("Zomato", R.drawable.zomato_icon, "https://www.zomato.com/search?query=$encodedQuery"),
-                Store("Swiggy", R.drawable.swiggy_icon, "https://www.swiggy.com/search?q=$encodedQuery")
+                Store("Amazon Fresh", "https://www.amazon.in/s?k=$encodedQuery&rh=n%3A2454178031"),
+                Store("Flipkart Grocery", "https://www.flipkart.com/search?q=$encodedQuery&sid=eat"),
+                Store("BigBasket Market", "https://www.bigbasket.com/ps/?q=$encodedQuery&nc=fb"),
+                Store("Blinkit Store", "https://blinkit.com/s/?q=$encodedQuery&category=Grocery"),
+                Store("Zomato Grocery Store", "https://www.zomato.com/search?query=$encodedQuery"),
+                Store("Swiggy Instamart", "https://www.swiggy.com/search?q=$encodedQuery")
             )
 
             val dialogView = layoutInflater.inflate(R.layout.dialog_store_picker, null)

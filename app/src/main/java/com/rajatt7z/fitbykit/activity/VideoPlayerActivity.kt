@@ -1,20 +1,26 @@
 package com.rajatt7z.fitbykit.activity
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PictureInPictureParams
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Rational
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.rajatt7z.fitbykit.databinding.ActivityVideoPlayerBinding
 import com.rajatt7z.fitbykit.viewModels.VideoPlayerViewModel
+import java.io.File
 
 class VideoPlayerActivity : AppCompatActivity() {
 
@@ -64,8 +70,53 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("MissingPermission")
     private fun downloadVideo() {
-        TODO("Not yet implemented")
+        val url = "https://youtu.be/xvFZjo5PgG0"
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = "fake_download_channel"
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel =
+                NotificationChannel(channelId, "Fake Downloads", NotificationManager.IMPORTANCE_LOW)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(android.R.drawable.stat_sys_download)
+            .setContentTitle("Downloading video...")
+            .setContentText("Progress: 0%")
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setOnlyAlertOnce(true)
+            .setProgress(100, 0, false)
+
+        notificationManager.notify(1, builder.build())
+
+        Thread {
+            for (progress in 1..100) {
+                Thread.sleep(300) // 30 sec total (100 × 0.3s)
+                builder.setProgress(100, progress, false)
+                    .setContentText("Progress: $progress%")
+                notificationManager.notify(1, builder.build())
+            }
+
+            builder.setContentText("Download complete")
+                .setProgress(0, 0, false)
+                .setSmallIcon(android.R.drawable.stat_sys_download_done)
+            notificationManager.notify(1, builder.build())
+
+            saveUrlToDownloads(url)
+        }.start()
+    }
+
+    private fun saveUrlToDownloads(url: String) {
+        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val file = File(downloadsDir, "video_url.txt")
+        try {
+            file.writeText(url)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun extractYoutubeVideoId(url: String): String {

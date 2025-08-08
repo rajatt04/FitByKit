@@ -2,24 +2,19 @@ package com.rajatt7z.fitbykit.activity
 
 import android.annotation.SuppressLint
 import android.app.PictureInPictureParams
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.Rational
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.rajatt7z.fitbykit.databinding.ActivityVideoPlayerBinding
 import com.rajatt7z.fitbykit.viewModels.VideoPlayerViewModel
-import kotlinx.coroutines.launch
 
 class VideoPlayerActivity : AppCompatActivity() {
 

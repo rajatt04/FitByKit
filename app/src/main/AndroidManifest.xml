@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,7 +24,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitByKit">
-
+        <activity
+            android:name=".activity.PlaylistListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CreatePlaylistActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.LikedWorkoutsActivity"
             android:exported="false" />
@@ -37,10 +42,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.VideoPlayerActivity"
-            android:exported="false"
-            android:supportsPictureInPicture="true"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true" />
 
         <receiver
             android:name=".receivers.ReminderReceiver"

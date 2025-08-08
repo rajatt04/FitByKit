@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.rajatt7z.fitbykit"
-        minSdk = 26
+        minSdk = 24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"

@@ -64,8 +64,13 @@ class VideoPlayerActivity : AppCompatActivity() {
         }
 
         binding.btnDownload.setOnClickListener {
+            downloadVideo()
         }
 
+    }
+
+    private fun downloadVideo() {
+        TODO("Not yet implemented")
     }
 
     private fun extractYoutubeVideoId(url: String): String {

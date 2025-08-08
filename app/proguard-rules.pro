@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# NewPipeExtractor ProGuard rules
+-keep class org.schabi.newpipe.** { *; }
+-keep class com.grack.nanojson.** { *; }
+-dontwarn org.schabi.newpipe.**
+-dontwarn com.grack.nanojson.**

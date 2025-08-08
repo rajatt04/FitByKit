@@ -5,50 +5,48 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.rajatt7z.fitbykit.database.AppDatabase
 import com.rajatt7z.fitbykit.database.LikedExercise
-import com.rajatt7z.fitbykit.di.WorkoutModule
 import com.rajatt7z.fitbykit.adapters.ExerciseVideoLinks.exerciseVideoMap
 import com.rajatt7z.workout_api.Exercise
+import com.rajatt7z.workout_api.Translation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
+class LikedWorkoutsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _exercises = MutableStateFlow<List<Exercise>>(emptyList())
-    val exercises: StateFlow<List<Exercise>> = _exercises
+    private val dao = AppDatabase.getDatabase(application).likedExerciseDao()
+
+    private val _likedExercises = MutableStateFlow<List<Exercise>>(emptyList())
+    val likedExercises: StateFlow<List<Exercise>> = _likedExercises
 
     private val _likedSet = MutableStateFlow<Set<String>>(emptySet())
     val likedSet: StateFlow<Set<String>> = _likedSet
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading
-
-    private val _error = MutableStateFlow<String?>(null)
-    val error: StateFlow<String?> = _error
-
-    private val dao = AppDatabase.getDatabase(application).likedExerciseDao()
-
-    fun fetchExercises(muscleId: Int) {
-        _isLoading.value = true
-        _error.value = null
-
-        viewModelScope.launch {
-            try {
-                val result = WorkoutModule.repository.fetchExercises(muscleId)
-                _exercises.value = result
-                loadLikedExercises()
-            } catch (e: Exception) {
-                _error.value = e.message
-            } finally {
-                _isLoading.value = false
-            }
-        }
+    init {
+        loadLikedExercises()
     }
 
     private fun loadLikedExercises() {
         viewModelScope.launch {
-            val likedList = dao.getAll() // List<LikedExercise>
+            val likedList = dao.getAll()
             _likedSet.value = likedList.map { it.name }.toSet()
+            _likedExercises.value = likedList.map {
+                Exercise(
+                    id = 0,
+                    name = it.name,
+                    category = null,
+                    description = "",
+                    equipment = emptyList(),
+                    translations = listOf(
+                        Translation(
+                            language = 2,
+                            id = 0,
+                            name = it.name,
+                            description = ""
+                        )
+                    )
+                )
+            }
         }
     }
 
@@ -65,6 +63,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
                 currentSet.add(name)
             }
             _likedSet.value = currentSet
+            loadLikedExercises()
         }
     }
 }

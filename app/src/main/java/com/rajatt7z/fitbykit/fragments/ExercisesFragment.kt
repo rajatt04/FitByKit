@@ -14,6 +14,7 @@ import com.rajatt7z.fitbykit.activity.VideoPlayerActivity
 import com.rajatt7z.fitbykit.adapters.ExerciseAdapter
 import com.rajatt7z.fitbykit.databinding.FragmentExercisesBinding
 import com.rajatt7z.fitbykit.viewModels.ExerciseViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class ExercisesFragment : Fragment() {
@@ -23,7 +24,6 @@ class ExercisesFragment : Fragment() {
 
     private lateinit var exerciseAdapter: ExerciseAdapter
     private val exerciseViewModel: ExerciseViewModel by viewModels()
-    private val likedNamesSet = mutableSetOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,39 +42,52 @@ class ExercisesFragment : Fragment() {
 
         val muscleId = arguments?.getInt("muscleId") ?: return
         val muscleName = arguments?.getString("muscleName") ?: "Exercises"
-
         requireActivity().title = "$muscleName Exercises"
 
         exerciseAdapter = ExerciseAdapter(
             requireContext(),
             emptyList(),
-            likedNamesSet
-        ) { videoUrl ->
-            val intent = Intent(requireContext(), VideoPlayerActivity::class.java)
-            intent.putExtra("video_url", videoUrl)
-            startActivity(intent)
-        }
+            emptySet(),
+            onLikeClick = { name -> exerciseViewModel.toggleLike(name) },
+            onExerciseClick = { videoUrl ->
+                val intent = Intent(requireContext(), VideoPlayerActivity::class.java)
+                intent.putExtra("video_url", videoUrl)
+                startActivity(intent)
+            }
+        )
+
         binding.exerciseRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.exerciseRecyclerView.adapter = exerciseAdapter
 
+        // load data
         exerciseViewModel.fetchExercises(muscleId)
 
+        // observe exercises list
         viewLifecycleOwner.lifecycleScope.launch {
-            exerciseViewModel.exercises.collect {
-                exerciseAdapter.updateList(it)
+            exerciseViewModel.exercises.collectLatest { exercises ->
+                exerciseAdapter.updateList(exercises)
             }
         }
 
+        // observe liked set
         viewLifecycleOwner.lifecycleScope.launch {
-            exerciseViewModel.isLoading.collect {
-                binding.exerciseProgressBar.visibility = if (it) View.VISIBLE else View.GONE
+            exerciseViewModel.likedSet.collectLatest { likedSet ->
+                exerciseAdapter.updateLikedSet(likedSet)
             }
         }
 
+        // observe loading
         viewLifecycleOwner.lifecycleScope.launch {
-            exerciseViewModel.error.collect {
-                it?.let { msg ->
-                    Toast.makeText(requireContext(), "Failed: $msg", Toast.LENGTH_SHORT).show()
+            exerciseViewModel.isLoading.collectLatest { loading ->
+                binding.exerciseProgressBar.visibility = if (loading) View.VISIBLE else View.GONE
+            }
+        }
+
+        // observe errors
+        viewLifecycleOwner.lifecycleScope.launch {
+            exerciseViewModel.error.collectLatest { msg ->
+                msg?.let {
+                    Toast.makeText(requireContext(), "Failed: $it", Toast.LENGTH_SHORT).show()
                 }
             }
         }

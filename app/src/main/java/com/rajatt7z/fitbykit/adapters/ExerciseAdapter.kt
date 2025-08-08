@@ -10,24 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.adapters.ExerciseVideoLinks.exerciseVideoMap
-import com.rajatt7z.fitbykit.database.AppDatabase
-import com.rajatt7z.fitbykit.database.LikedExercise
 import com.rajatt7z.workout_api.Exercise
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ExerciseAdapter(
     private val context: Context,
     private var list: List<Exercise>,
-    private val likedNamesSet: MutableSet<String>,
+    private var likedNamesSet: Set<String>,
+    private val onLikeClick: (String) -> Unit,
     private val onExerciseClick: (String) -> Unit
 ) : RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
-
-    private var likedSet = likedNamesSet.toMutableSet()
-    private val db = AppDatabase.getDatabase(context)
-    private val dao = db.likedExerciseDao()
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     inner class ExerciseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameText: MaterialTextView = view.findViewById(R.id.exercise_name)
@@ -46,45 +37,20 @@ class ExerciseAdapter(
 
         holder.nameText.text = name
 
-        if (likedSet.contains(name)) {
-            holder.likeButton.setImageResource(R.drawable.favorite_24dp_filled)
-        } else {
-            holder.likeButton.setImageResource(R.drawable.favorite_24dp_outline)
-        }
+        // set heart icon based on liked set
+        holder.likeButton.setImageResource(
+            if (likedNamesSet.contains(name))
+                R.drawable.favorite_24dp_filled
+            else
+                R.drawable.favorite_24dp_outline
+        )
 
+        // like/unlike click
         holder.likeButton.setOnClickListener {
-            if (likedSet.contains(name)) {
-                likedSet.remove(name)
-                holder.likeButton.animate()
-                    .alpha(0f)
-                    .setDuration(300)
-                    .withEndAction {
-                        holder.likeButton.setImageResource(R.drawable.favorite_24dp_outline)
-                        holder.likeButton.alpha = 1f
-                    }
-                    .start()
-
-                coroutineScope.launch {
-                    dao.delete(LikedExercise(name, exerciseVideoMap[name] ?: ""))
-                }
-            } else {
-                likedSet.add(name)
-                holder.likeButton.animate()
-                    .alpha(0f)
-                    .setDuration(300)
-                    .withEndAction {
-                        holder.likeButton.setImageResource(R.drawable.favorite_24dp_filled)
-                        holder.likeButton.alpha = 1f
-                    }
-                    .start()
-
-                coroutineScope.launch {
-                    dao.insert(LikedExercise(name, exerciseVideoMap[name] ?: ""))
-                }
-            }
+            onLikeClick(name)
         }
 
-
+        // exercise click
         holder.itemView.setOnClickListener {
             val videoUrl = exerciseVideoMap[name]
             if (videoUrl != null) {
@@ -103,7 +69,7 @@ class ExerciseAdapter(
     }
 
     fun updateLikedSet(newSet: Set<String>) {
-        likedSet = newSet.toMutableSet()
+        likedNamesSet = newSet
         notifyDataSetChanged()
     }
 }

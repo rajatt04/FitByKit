@@ -19,6 +19,7 @@ materialTapTargetPrompt = "3.3.2"
 materialVersion = "1.14.0-alpha03"
 navigationFragment = "2.9.3"
 navigationUiKtx = "2.9.3"
+newpipeextractor = "0.24.8"
 retrofit = "3.0.0"
 roomRuntime = "2.7.2"
 lifecycleService = "2.9.2"
@@ -48,6 +49,7 @@ androidx-navigation-fragment = { group = "androidx.navigation", name = "navigati
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 material-tap-target-prompt = { module = "uk.co.samuelwall:material-tap-target-prompt", version.ref = "materialTapTargetPrompt" }
 material-v1140alpha01 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+newpipeextractor = { module = "com.github.TeamNewPipe:NewPipeExtractor", version = "0.24.8" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-lifecycle-service = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycleService" }
 

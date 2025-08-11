@@ -129,4 +129,12 @@
     <string name="muscle_name_">Muscle Name - </string>
     <string name="day_name_">Day Name -</string>
     <string name="category_">Category -</string>
+    <string name="save_playlist">Save Playlist</string>
+    <string name="cancel">Cancel</string>
+    <string name="day_of_the_week">Day of the Week</string>
+    <string name="work">Work</string>
+    <string name="personal">Personal</string>
+    <string name="urgent">Urgent</string>
+    <string name="feedback">Feedback</string>
+    <string name="enable_analytics">Enable Analytics</string>
 </resources>

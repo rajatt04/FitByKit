@@ -29,18 +29,23 @@
         android:theme="@style/Theme.FitByKit">
         <activity
             android:name=".activity.DistanceTrackerActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activity.PlaylistListActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activity.CreatePlaylistActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activity.LikedWorkoutsActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activity.UserProfile"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activity.MealPlayer"

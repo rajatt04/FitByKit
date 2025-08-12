@@ -145,4 +145,6 @@
     <string name="share">SHARE</string>
     <string name="save">SAVE</string>
     <string name="reset_steps">Reset Steps</string>
+    <string name="meal_name">Meal Name</string>
+    <string name="meal_category">Meal Category</string>
 </resources>

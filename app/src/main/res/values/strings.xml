@@ -137,4 +137,12 @@
     <string name="urgent">Urgent</string>
     <string name="feedback">Feedback</string>
     <string name="enable_analytics">Enable Analytics</string>
+    <string name="tap_on_map_to_set_start_point">Tap on map to set start point</string>
+    <string name="distance_0_0_km">Distance: 0.0 km</string>
+    <string name="duration_00_00_00">Duration: 00:00:00</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="share">SHARE</string>
+    <string name="save">SAVE</string>
+    <string name="reset_steps">Reset Steps</string>
 </resources>

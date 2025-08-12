@@ -20,6 +20,8 @@ materialVersion = "1.14.0-alpha03"
 navigationFragment = "2.9.3"
 navigationUiKtx = "2.9.3"
 newpipeextractor = "0.24.8"
+osmdroidAndroid = "6.1.20"
+playServicesLocation = "21.3.0"
 retrofit = "3.0.0"
 roomRuntime = "2.7.2"
 lifecycleService = "2.9.2"
@@ -50,6 +52,8 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 material-tap-target-prompt = { module = "uk.co.samuelwall:material-tap-target-prompt", version.ref = "materialTapTargetPrompt" }
 material-v1140alpha01 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 newpipeextractor = { module = "com.github.TeamNewPipe:NewPipeExtractor", version = "0.24.8" }
+osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroid" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-lifecycle-service = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycleService" }
 

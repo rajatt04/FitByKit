@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.resources.MaterialResources.getDrawable
 import com.rajatt7z.fitbykit.R
+import com.rajatt7z.fitbykit.activity.DistanceTrackerActivity
 import com.rajatt7z.fitbykit.activity.UserProfile
 import com.rajatt7z.fitbykit.activity.syncFit
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
@@ -65,7 +66,7 @@ class home : Fragment() {
         }
     }
 
-    @SuppressLint("ObsoleteSdkInt", "DefaultLocale", "SetTextI18n")
+    @SuppressLint("ObsoleteSdkInt", "DefaultLocale", "SetTextI18n", "DetachAndAttachSameFragment")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -133,6 +134,23 @@ class home : Fragment() {
             }
         }
 
+        binding.btnRun.setOnClickListener {
+            startActivity(Intent(context, DistanceTrackerActivity::class.java))
+            Toast.makeText(context,"Long Press To Reset Start-End Points", Toast.LENGTH_LONG).show()
+        }
+
+        binding.btnResetSteps.setOnClickListener {
+            binding.progressIndicator.visibility = View.VISIBLE // Show loader
+            resetSteps()
+            Handler(Looper.getMainLooper()).postDelayed({
+                parentFragmentManager.beginTransaction()
+                    .detach(this@home)
+                    .attach(this@home)
+                    .commit()
+                binding.progressIndicator.visibility = View.GONE
+            }, 3000)
+        }
+
         binding.noPermission.setOnClickListener {
             binding.notificationCardView2.visibility = View.GONE
         }
@@ -179,15 +197,6 @@ class home : Fragment() {
 
         binding.dismissSync3.setOnClickListener{
             binding.notificationCardView13.visibility = View.GONE
-        }
-
-        binding.tvSteps.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Steps Cleared Switch The Fragment To Check",
-                Toast.LENGTH_LONG
-            ).show()
-            resetSteps()
         }
 
         val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())

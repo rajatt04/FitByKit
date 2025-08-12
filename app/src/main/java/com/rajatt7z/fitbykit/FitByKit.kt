@@ -15,6 +15,7 @@ import android.view.View
 import androidx.core.graphics.toColorInt
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.MaterialColors
+import org.osmdroid.config.Configuration
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
@@ -23,6 +24,7 @@ class FitByKit : Application()  {
     override fun onCreate() {
         super.onCreate()
         DynamicColors.applyToActivitiesIfAvailable(this)
+        Configuration.getInstance().userAgentValue = packageName
     }
 }
 

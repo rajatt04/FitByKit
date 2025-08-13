@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.databinding.ActivityAboutUserBinding
 import com.rajatt7z.fitbykit.navigation.FitByKitNav
 import java.io.ByteArrayOutputStream
@@ -61,17 +62,21 @@ class AboutUser : AppCompatActivity() {
                 Toast.makeText(this, "Please enter a valid name", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            
+
             val gender = binding.genderDropdown.text.toString().trim()
             val weight = binding.weightDropdown.text.toString().replace(" kg", "").trim()
             val height = binding.heightDropdown.text.toString().replace(" cm", "").trim()
 
-            if (byteArray == null) {
-                Toast.makeText(this, "Please upload an image", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            val finalByteArray = if (byteArray == null) {
+                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.def)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+                byteArrayOutputStream.toByteArray()
+            } else {
+                byteArray!!
             }
 
-            val imgString = Base64.encodeToString(byteArray,Base64.DEFAULT)
+            val imgString = Base64.encodeToString(finalByteArray, Base64.DEFAULT)
 
             if (gender.isNotEmpty() && weight.isNotEmpty() && height.isNotEmpty()) {
                 val sharedPref = getSharedPreferences("userPref", MODE_PRIVATE)

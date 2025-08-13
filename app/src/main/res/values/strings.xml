@@ -147,4 +147,10 @@
     <string name="reset_steps">Reset Steps</string>
     <string name="meal_name">Meal Name</string>
     <string name="meal_category">Meal Category</string>
+    <string name="enter_start_address">Enter start address</string>
+    <string name="search">Search</string>
+    <string name="enter_destination_address">Enter destination address</string>
+    <string name="my_location">My Location</string>
+    <string name="reset">Reset</string>
+    <string name="find_route">Find Route</string>
 </resources>

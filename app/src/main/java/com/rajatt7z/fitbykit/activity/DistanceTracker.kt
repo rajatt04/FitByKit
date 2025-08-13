@@ -252,7 +252,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: IOException) {
-                // Handle geocoding error silently or show minimal error
+                e.printStackTrace()
             }
         }
     }
@@ -294,7 +294,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun getRouteFromORS(start: GeoPoint, end: GeoPoint): List<GeoPoint> {
+    private fun getRouteFromORS(start: GeoPoint, end: GeoPoint): List<GeoPoint> {
         return try {
             val apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjJhNGYwZjNlODlkNTQ0OWFhZTNlMzY3ZmQyZTZiZjM0IiwiaCI6Im11cm11cjY0In0="
 

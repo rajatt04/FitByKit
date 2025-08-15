@@ -1,6 +1,7 @@
 package com.rajatt7z.fitbykit.activity
 
 import android.Manifest
+import android.R
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,6 +15,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +34,8 @@ import com.rajatt7z.fitbykit.database.TrackingDatabase
 import com.rajatt7z.fitbykit.database.TrackingRecord
 import com.rajatt7z.fitbykit.databinding.ActivityDistanceTrackerBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -44,6 +49,7 @@ import org.osmdroid.views.overlay.Polyline
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import java.net.URLEncoder
 import java.util.Locale
 
 @Suppress("DEPRECATION")
@@ -89,6 +95,9 @@ class DistanceTrackerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDistanceTrackerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupAddressAutocomplete(binding.etStartPoint, isStart = true)
+        setupAddressAutocomplete(binding.etEndPoint, isStart = false)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -290,6 +299,85 @@ class DistanceTrackerActivity : AppCompatActivity() {
             } finally {
                 binding.progressBar.visibility = View.GONE
                 binding.btnStart.isEnabled = true
+            }
+        }
+    }
+
+    private fun setupAddressAutocomplete(autoCompleteTextView: AutoCompleteTextView, isStart: Boolean) {
+        val adapter = ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line)
+        autoCompleteTextView.setAdapter(adapter)
+
+        var searchJob: Job? = null
+
+        autoCompleteTextView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString()
+                if (text.length < 3) return
+
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    delay(1000) // avoid API spam while typing
+                    fetchAddressSuggestions(text) { suggestions ->
+                        adapter.clear()
+                        adapter.addAll(suggestions)
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        autoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
+            val selected = adapter.getItem(position) ?: return@setOnItemClickListener
+            autoCompleteTextView.setText(selected)
+
+            lifecycleScope.launch {
+                val results = withContext(Dispatchers.IO) {
+                    geocoder.getFromLocationName(selected, 1)
+                }
+                if (!results.isNullOrEmpty()) {
+                    val point = GeoPoint(results[0].latitude, results[0].longitude)
+                    if (isStart) {
+                        setStartPoint(point)
+                    } else {
+                        setEndPoint(point)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun fetchAddressSuggestions(query: String, callback: (List<String>) -> Unit) {
+        lifecycleScope.launch {
+            try {
+                val suggestions = withContext(Dispatchers.IO) {
+                    val apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjJhNGYwZjNlODlkNTQ0OWFhZTNlMzY3ZmQyZTZiZjM0IiwiaCI6Im11cm11cjY0In0="
+                    val urlStr = "https://api.openrouteservice.org/geocode/autocomplete" +
+                            "?api_key=$apiKey&text=${URLEncoder.encode(query, "UTF-8")}&boundary.country=IN"
+
+                    val url = URL(urlStr)
+                    val conn = url.openConnection() as HttpURLConnection
+                    conn.requestMethod = "GET"
+                    conn.connectTimeout = 5000
+                    conn.readTimeout = 5000
+
+                    if (conn.responseCode == HttpURLConnection.HTTP_OK) {
+                        val response = conn.inputStream.bufferedReader().readText()
+                        val json = JSONObject(response)
+                        val features = json.optJSONArray("features") ?: return@withContext emptyList<String>()
+
+                        (0 until features.length()).map { i ->
+                            features.getJSONObject(i).getJSONObject("properties").getString("label")
+                        }
+                    } else {
+                        emptyList()
+                    }
+                }
+                callback(suggestions)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                callback(emptyList())
             }
         }
     }

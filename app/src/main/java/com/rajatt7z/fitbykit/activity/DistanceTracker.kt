@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
@@ -21,44 +20,28 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
 import com.rajatt7z.fitbykit.database.TrackingDatabase
 import com.rajatt7z.fitbykit.database.TrackingRecord
 import com.rajatt7z.fitbykit.databinding.ActivityDistanceTrackerBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import org.osmdroid.config.Configuration
-import org.osmdroid.events.MapEventsReceiver
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.overlay.MapEventsOverlay
-import org.osmdroid.views.overlay.Marker
-import org.osmdroid.views.overlay.Polyline
 import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.URL
 import java.util.Locale
 
 @Suppress("DEPRECATION")
 class DistanceTrackerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDistanceTrackerBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var database: TrackingDatabase
     private lateinit var geocoder: Geocoder
+    private lateinit var mapManager: DistanceMapManager
+    private lateinit var locationHelper: DistanceLocationHelper
 
     private var startPoint: GeoPoint? = null
     private var endPoint: GeoPoint? = null
-    private var startMarker: Marker? = null
-    private var endMarker: Marker? = null
-    private var routeLine: Polyline? = null
     private var routePoints: List<GeoPoint> = emptyList()
 
     private var isTracking = false
@@ -105,24 +88,19 @@ class DistanceTrackerActivity : AppCompatActivity() {
 
         database = TrackingDatabase.getDatabase(this)
         geocoder = Geocoder(this, Locale.getDefault())
+        mapManager = DistanceMapManager(binding.mapView, resources, theme)
+        locationHelper = DistanceLocationHelper(this)
 
-        initializeMap()
+        setupMap()
         checkLocationPermissions()
         setupClickListeners()
         setupEditTextListeners()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun initializeMap() {
-        binding.mapView.apply {
-            setTileSource(TileSourceFactory.MAPNIK)
-            setMultiTouchControls(true)
-            controller.setZoom(15.0)
-        }
-
-        val mapEventsReceiver = object : MapEventsReceiver {
-            override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
-                if (!isTracking && p != null) {
+    private fun setupMap() {
+        mapManager.initializeMap(
+            onSingleTap = { p ->
+                if (!isTracking) {
                     when {
                         binding.etStartPoint.hasFocus() -> {
                             setStartPoint(p)
@@ -147,18 +125,9 @@ class DistanceTrackerActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
-                return true
-            }
-
-            override fun longPressHelper(p: GeoPoint?): Boolean {
-                resetPoints()
-                return true
-            }
-        }
-
-        val eventsOverlay = MapEventsOverlay(mapEventsReceiver)
-        binding.mapView.overlays.add(eventsOverlay)
-        binding.mapView.invalidate()
+            },
+            onLongPress = { resetPoints() }
+        )
     }
 
     private fun setupEditTextListeners() {
@@ -178,7 +147,6 @@ class DistanceTrackerActivity : AppCompatActivity() {
             }
         })
 
-        // Search buttons for geocoding
         binding.btnSearchStart.setOnClickListener {
             val address = binding.etStartPoint.text.toString().trim()
             if (address.isNotEmpty()) {
@@ -221,9 +189,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
                         updateStatus("End point set: ${location.getAddressLine(0)}")
                     }
 
-                    // Center map on the found location
-                    binding.mapView.controller.setCenter(geoPoint)
-                    binding.mapView.controller.setZoom(16.0)
+                    mapManager.center(geoPoint, 16.0)
 
                 } else {
                     Toast.makeText(this@DistanceTrackerActivity,
@@ -267,23 +233,23 @@ class DistanceTrackerActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val route = withContext(Dispatchers.IO) {
-                    getRouteFromORS(start, end)
+                    DistanceRoutingService.getRouteFromORS(start, end)
                 }
 
                 if (route.isNotEmpty()) {
                     routePoints = route
-                    drawRouteWithPath(route)
+                    mapManager.drawRouteWithPath(route)
                     calculateRouteDistance()
                     updateStatus("Route found!")
                 } else {
-                    // Fallback to straight line if routing fails
-                    drawRouteLine()
+                    currentDistance = mapManager.drawStraightLine(start, end)
+                    updateDistance()
                     updateStatus("Using direct route (routing service unavailable)")
                 }
             } catch (e: Exception) {
                 Log.e("DistanceTracker", "Routing error: ${e.message}", e)
-                // Fallback to straight line
-                drawRouteLine()
+                currentDistance = mapManager.drawStraightLine(start, end)
+                updateDistance()
                 updateStatus("Using direct route (routing failed)")
                 Toast.makeText(this@DistanceTrackerActivity,
                     "Routing failed: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -291,82 +257,6 @@ class DistanceTrackerActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE
                 binding.btnStart.isEnabled = true
             }
-        }
-    }
-
-    private fun getRouteFromORS(start: GeoPoint, end: GeoPoint): List<GeoPoint> {
-        return try {
-            val apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjJhNGYwZjNlODlkNTQ0OWFhZTNlMzY3ZmQyZTZiZjM0IiwiaCI6Im11cm11cjY0In0="
-
-            Log.d("DistanceTracker", "Making routing request with API key: ${apiKey.take(10)}...")
-
-            val urlString = "https://api.openrouteservice.org/v2/directions/driving-car?" +
-                    "api_key=$apiKey&" +
-                    "start=${start.longitude},${start.latitude}&" +
-                    "end=${end.longitude},${end.latitude}"
-
-            Log.d("DistanceTracker", "Request URL: $urlString")
-
-            val url = URL(urlString)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.setRequestProperty("Accept", "application/geo+json")
-            connection.connectTimeout = 10000
-            connection.readTimeout = 10000
-
-            val responseCode = connection.responseCode
-            Log.d("DistanceTracker", "Response code: $responseCode")
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                val response = connection.inputStream.bufferedReader().use { it.readText() }
-                Log.d("DistanceTracker", "Response: ${response.take(200)}...")
-
-                val json = JSONObject(response)
-
-                if (json.has("features") && json.getJSONArray("features").length() > 0) {
-                    val coordinates = json.getJSONArray("features")
-                        .getJSONObject(0)
-                        .getJSONObject("geometry")
-                        .getJSONArray("coordinates")
-
-                    val points = mutableListOf<GeoPoint>()
-                    for (i in 0 until coordinates.length()) {
-                        val coord = coordinates.getJSONArray(i)
-                        points.add(GeoPoint(coord.getDouble(1), coord.getDouble(0)))
-                    }
-                    Log.d("DistanceTracker", "Route found with ${points.size} points")
-                    points
-                } else {
-                    Log.e("DistanceTracker", "No features in response")
-                    emptyList()
-                }
-            } else {
-                val errorResponse = connection.errorStream?.bufferedReader()?.use { it.readText() }
-                Log.e("DistanceTracker", "HTTP Error $responseCode: $errorResponse")
-                emptyList()
-            }
-        } catch (e: Exception) {
-            Log.e("DistanceTracker", "Exception in routing: ${e.message}", e)
-            emptyList()
-        }
-    }
-
-    private fun drawRouteWithPath(routePoints: List<GeoPoint>) {
-        routeLine?.let { binding.mapView.overlays.remove(it) }
-
-        routeLine = Polyline().apply {
-            setPoints(routePoints)
-            color = Color.BLUE
-            width = 8f
-        }
-
-        binding.mapView.overlays.add(routeLine)
-        binding.mapView.invalidate()
-
-        // Fit map to show entire route
-        if (routePoints.isNotEmpty()) {
-            val boundingBox = org.osmdroid.util.BoundingBox.fromGeoPoints(routePoints)
-            binding.mapView.zoomToBoundingBox(boundingBox, true, 100)
         }
     }
 
@@ -390,39 +280,11 @@ class DistanceTrackerActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun initializeLocation() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-        val locationRequest = LocationRequest.Builder(
-            Priority.PRIORITY_HIGH_ACCURACY, 1000
-        ).setMaxUpdates(1)
-            .setMinUpdateIntervalMillis(500)
-            .build()
-
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            object : LocationCallback() {
-                @SuppressLint("UseCompatLoadingForDrawables")
-                override fun onLocationResult(result: LocationResult) {
-                    val location = result.lastLocation ?: return
-                    val currentGeoPoint = GeoPoint(location.latitude, location.longitude)
-
-                    binding.mapView.controller.setZoom(17.0)
-                    binding.mapView.controller.setCenter(currentGeoPoint)
-
-                    val myLocationMarker = Marker(binding.mapView).apply {
-                        position = currentGeoPoint
-                        title = "You are here"
-                        setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-                        icon = resources.getDrawable(android.R.drawable.ic_notification_overlay, theme)
-                    }
-                    binding.mapView.overlays.add(myLocationMarker)
-                    binding.mapView.invalidate()
-
-                    fusedLocationClient.removeLocationUpdates(this)
-                }
-            },
-            Looper.getMainLooper()
-        )
+        locationHelper.requestSingleHighAccuracyUpdate { location ->
+            val currentGeoPoint = GeoPoint(location.latitude, location.longitude)
+            mapManager.center(currentGeoPoint, 17.0)
+            mapManager.addMyLocationMarker(currentGeoPoint)
+        }
     }
 
     private fun resetPoints() {
@@ -431,10 +293,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
         routePoints = emptyList()
         binding.etStartPoint.setText("")
         binding.etEndPoint.setText("")
-        startMarker?.let { binding.mapView.overlays.remove(it) }
-        endMarker?.let { binding.mapView.overlays.remove(it) }
-        routeLine?.let { binding.mapView.overlays.remove(it) }
-        binding.mapView.invalidate()
+        mapManager.reset()
         updateStatus("Enter addresses or tap to set points")
         binding.btnStart.isEnabled = false
     }
@@ -454,55 +313,19 @@ class DistanceTrackerActivity : AppCompatActivity() {
 
     private fun setStartPoint(point: GeoPoint) {
         startPoint = point
-        startMarker?.let { binding.mapView.overlays.remove(it) }
-        startMarker = createMarker(point, "Start Point", android.R.drawable.ic_menu_mylocation)
+        mapManager.setStartMarker(point)
         updateStatus("Set end point or search address")
         updateButtonStates()
     }
 
     private fun setEndPoint(point: GeoPoint) {
         endPoint = point
-        endMarker?.let { binding.mapView.overlays.remove(it) }
-        endMarker = createMarker(point, "End Point", android.R.drawable.ic_menu_compass)
+        mapManager.setEndMarker(point)
         updateStatus("Points set. Tap 'Find Route' for optimal path")
         updateButtonStates()
 
-        // Auto-find route if both points are set
         if (startPoint != null) {
             findRoute()
-        }
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun createMarker(point: GeoPoint, title: String, iconRes: Int): Marker {
-        return Marker(binding.mapView).apply {
-            position = point
-            this.title = title
-            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            icon = resources.getDrawable(iconRes, theme)
-            binding.mapView.overlays.add(this)
-            binding.mapView.invalidate()
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun drawRouteLine() {
-        startPoint?.let { start ->
-            endPoint?.let { end ->
-                routeLine?.let { binding.mapView.overlays.remove(it) }
-                routeLine = Polyline().apply {
-                    addPoint(start)
-                    addPoint(end)
-                    color = Color.BLUE
-                    width = 8f
-                }
-                binding.mapView.overlays.add(routeLine)
-                val results = FloatArray(1)
-                Location.distanceBetween(start.latitude, start.longitude, end.latitude, end.longitude, results)
-                currentDistance = results[0].toDouble()
-                updateDistance()
-                binding.mapView.invalidate()
-            }
         }
     }
 
@@ -519,11 +342,10 @@ class DistanceTrackerActivity : AppCompatActivity() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED) {
 
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            locationHelper.getLastLocation { location ->
                 if (location != null) {
                     val currentPoint = GeoPoint(location.latitude, location.longitude)
 
-                    // Set as start point if none exists, otherwise as end point
                     if (startPoint == null) {
                         setStartPoint(currentPoint)
                         updateAddressFromPoint(currentPoint, isStartPoint = true)
@@ -532,7 +354,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
                         updateAddressFromPoint(currentPoint, isStartPoint = false)
                     }
 
-                    binding.mapView.controller.setCenter(currentPoint)
+                    mapManager.center(currentPoint)
                 }
             }
         }

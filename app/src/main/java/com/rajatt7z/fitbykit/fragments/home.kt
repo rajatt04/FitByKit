@@ -31,8 +31,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rajatt7z.fitbykit.R
+import com.rajatt7z.fitbykit.activity.DailyGoals
 import com.rajatt7z.fitbykit.activity.DistanceTrackerActivity
+import com.rajatt7z.fitbykit.activity.UserBmi
 import com.rajatt7z.fitbykit.activity.UserProfile
+import com.rajatt7z.fitbykit.activity.WeeklyGoals
 import com.rajatt7z.fitbykit.activity.syncFit
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
@@ -45,7 +48,6 @@ class home : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
     private var totalSteps = 0f
@@ -167,27 +169,15 @@ class home : Fragment() {
         }
 
         binding.dailyGoals.setOnClickListener{
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Daily Goals")
-                .setMessage("Currently Under Development")
-                .setPositiveButton("Ok", null)
-                .show()
+            startActivity(Intent(requireContext(), DailyGoals::class.java))
         }
 
         binding.dailyGoals2.setOnClickListener{
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Weekly Target")
-                .setMessage("Currently Under Development")
-                .setPositiveButton("Ok", null)
-                .show()
+            startActivity(Intent(requireContext(), WeeklyGoals::class.java))
         }
 
         binding.bmiCardView1.setOnClickListener{
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("BMI Card")
-                .setMessage("Currently Under Development")
-                .setPositiveButton("Ok", null)
-                .show()
+            startActivity(Intent(requireContext(), UserBmi::class.java))
         }
 
         binding.btnSync.setOnClickListener {

@@ -153,4 +153,25 @@
     <string name="my_location">My Location</string>
     <string name="reset">Reset</string>
     <string name="find_route">Find Route</string>
+    <string name="today_s_progress">Today\'s Progress</string>
+    <string name="_3_of_5_goals_completed">3 of 5 goals completed</string>
+    <string name="steps_goal">Steps Goal</string>
+    <string name="_7_500_10_000">7,500 / 10,000</string>
+    <string name="update">Update</string>
+    <string name="_120">120</string>
+    <string name="goal_minutes">Goal (minutes)</string>
+    <string name="_75_120">75 / 120</string>
+    <string name="walking_minutes_goal">Walking Minutes Goal</string>
+    <string name="distance_goal_km">Distance Goal (km)</string>
+    <string name="_8_0">8.0</string>
+    <string name="goal_km">Goal (km)</string>
+    <string name="_5_7_8_0">5.7 / 8.0</string>
+    <string name="_500">500</string>
+    <string name="goal">Goal</string>
+    <string name="_300_500">300 / 500</string>
+    <string name="_10000">10000</string>
+    <string name="heart_points_goal">Heart Points Goal</string>
+    <string name="_38_100">38 / 100</string>
+    <string name="_100">100</string>
+    <string name="calories_goal">Calories Goal</string>
 </resources>

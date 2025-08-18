@@ -61,6 +61,17 @@
                     android:textSize="14sp"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
+                <!-- NEW: Streak label -->
+                <TextView
+                    android:id="@+id/tvStreak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="🔥 Streak: 0 days"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary" />
+
                 <ProgressBar
                     android:id="@+id/overallProgressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -69,6 +80,16 @@
                     android:layout_marginTop="12dp"
                     android:max="100"
                     android:progress="60" />
+
+                <!-- NEW: Personalized tip -->
+                <TextView
+                    android:id="@+id/tvPersonalTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="✨ Tip: Keep moving!"
+                    android:textSize="13sp"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

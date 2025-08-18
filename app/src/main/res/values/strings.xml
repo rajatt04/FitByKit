@@ -174,4 +174,20 @@
     <string name="_38_100">38 / 100</string>
     <string name="_100">100</string>
     <string name="calories_goal">Calories Goal</string>
+    <string name="enter_your_details">Enter Your Details</string>
+    <string name="bmi_calculator">BMI Calculator</string>
+    <string name="calculate_your_body_mass_index">Calculate your Body Mass Index</string>
+    <string name="calculate_bmi">Calculate BMI</string>
+    <string name="your_bmi_result">Your BMI Result</string>
+    <string name="_25_4">25.4</string>
+    <string name="normal_weight">Normal Weight</string>
+    <string name="your_bmi_is_in_the_normal_range_keep_up_the_good_work">Your BMI is in the normal range. Keep up the good work!</string>
+    <string name="bmi_categories">BMI Categories</string>
+    <string name="underweight_bmi_lt_18_5"><![CDATA[• Underweight: BMI < 18.5]]></string>
+    <string name="normal_weight_bmi_18_5_24_9">• Normal weight: BMI 18.5-24.9</string>
+    <string name="overweight_bmi_25_0_29_9">• Overweight: BMI 25.0-29.9</string>
+    <string name="obese_bmi_30_0">• Obese: BMI ≥ 30.0</string>
+    <string name="save_to_profile">Save to Profile</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="weight_kg">Weight (kg)</string>
 </resources>

@@ -49,6 +49,7 @@ android {
 
 dependencies {
     implementation(project(":workout_api"))
+    implementation(libs.mpandroidchart)
     implementation(libs.osmdroid.android)
     implementation(libs.play.services.location)
     implementation(libs.material.tap.target.prompt)

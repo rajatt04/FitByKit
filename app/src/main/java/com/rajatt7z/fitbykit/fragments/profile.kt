@@ -42,7 +42,6 @@ import com.rajatt7z.fitbykit.receivers.ReminderReceiver
 import com.rajatt7z.fitbykit.activity.heartpoints
 import com.rajatt7z.fitbykit.activity.steps
 import com.rajatt7z.fitbykit.databinding.FragmentProfileBinding
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

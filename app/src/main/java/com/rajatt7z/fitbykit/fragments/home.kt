@@ -38,7 +38,6 @@ import com.rajatt7z.fitbykit.activity.UserProfile
 import com.rajatt7z.fitbykit.activity.WeeklyGoals
 import com.rajatt7z.fitbykit.activity.syncFit
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -292,16 +291,6 @@ class home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPref = requireActivity().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-        val isFirstLaunch = sharedPref.getBoolean("firstLaunchUserTip", true)
-
-        if (isFirstLaunch) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                showUserProfileTooltip()
-                sharedPref.edit { putBoolean("firstLaunchUserTip", false) }
-            }, 500)
-        }
-
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(
@@ -396,22 +385,6 @@ class home : Fragment() {
             putFloat("previousTotalSteps", previousTotalSteps)
             putString("stepsDate", getTodayDate())
         }
-    }
-    private fun showUserProfileTooltip() {
-        MaterialTapTargetPrompt.Builder(requireActivity())
-            .setTarget(binding.userImgView)
-            .setPrimaryText("Checkout user profile too!")
-            .setSecondaryText("Tap here to view your liked workouts and Create custom day-wise plans.")
-            .setIconDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.account_circle_24dp))
-            .setBackgroundColour(getThemeColor(android.R.attr.colorControlActivated))
-            .setFocalColour(getThemeColor(com.google.android.material.R.attr.colorOnSecondary))
-            .setPromptStateChangeListener { _, state ->
-                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED ||
-                    state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
-                    Toast.makeText(requireContext(), "Profile tooltip dismissed!", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .show()
     }
     private fun getThemeColor(attrRes: Int): Int {
         val typedValue = TypedValue()

@@ -52,7 +52,6 @@ dependencies {
     implementation(libs.mpandroidchart)
     implementation(libs.osmdroid.android)
     implementation(libs.play.services.location)
-    implementation(libs.material.tap.target.prompt)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.lifecycle.service)
     implementation(libs.androidx.appcompat)

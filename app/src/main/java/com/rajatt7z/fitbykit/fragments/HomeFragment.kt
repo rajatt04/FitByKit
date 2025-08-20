@@ -118,6 +118,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("DefaultLocale", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

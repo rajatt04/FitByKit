@@ -4,15 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.home">
-
-    <com.google.android.material.loadingindicator.LoadingIndicator
-        android:id="@+id/progressIndicator"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".fragments.HomeFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView28"
@@ -23,7 +15,7 @@
         android:gravity="center"
         android:text="@string/home_"
         android:textSize="28sp"
-        app:layout_constraintStart_toEndOf="@+id/progressIndicator"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

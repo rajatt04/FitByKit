@@ -44,7 +44,7 @@ class FitByKitNav : AppCompatActivity() {
 
         intent.getStringExtra("navigate_to")?.let { destination ->
             when (destination) {
-                "home" -> binding.navView.selectedItemId = R.id.home_frag
+                "homeFragment" -> binding.navView.selectedItemId = R.id.homeFragment
                 "workouts" -> binding.navView.selectedItemId = R.id.workout_frag
                 "diet" -> binding.navView.selectedItemId = R.id.diet_frag
                 "profile" -> binding.navView.selectedItemId = R.id.profile_frag

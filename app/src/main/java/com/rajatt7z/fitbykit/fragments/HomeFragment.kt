@@ -12,10 +12,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Base64
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -24,12 +21,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.activity.DailyGoals
 import com.rajatt7z.fitbykit.activity.DistanceTrackerActivity
@@ -43,7 +40,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class home : Fragment() {
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -51,7 +48,57 @@ class home : Fragment() {
     private var stepSensor: Sensor? = null
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
+    private val stepListener = object : SensorEventListener {
+        @SuppressLint("DefaultLocale")
+        override fun onSensorChanged(event: SensorEvent?) {
+            if (event != null) {
+                totalSteps = event.values[0]
 
+                val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
+                val sharedPref2 = requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
+
+                val stepGoal = sharedPref.getInt("userStepGoal", 10000)
+                val hpGoal = sharedPref2.getInt("userHeartGoal", 100)
+
+                val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
+                val heartPoints = (currentSteps / 1000f) * 5f
+
+                binding.tvCenterValueTop.text = currentSteps.toString()
+                binding.tvCenterValueBottom.text = heartPoints.toInt().toString()
+
+                val today = getTodayDate()
+                sharedPref.edit{
+                    putInt("heartPoints_$today",heartPoints.toInt())
+                }
+
+                updateWeeklyHeartPointsUI(sharedPref)
+
+                val stepsPercent = (currentSteps / stepGoal.toFloat()) * 100f
+                val heartPointsPercent = (heartPoints / hpGoal) * 100f
+
+                binding.circularProgressView.setProgress(
+                    heartPointsPercent.coerceAtMost(100f),
+                    stepsPercent.coerceAtMost(100f)
+                )
+
+                val kmCovered = currentSteps * 0.000762f
+                val caloriesBurned = currentSteps * 0.04f
+                val walkingMinutes = currentSteps / 100f
+
+                binding.tvCalValue.text = caloriesBurned.toInt().toString()
+                binding.tvKmValue.text = String.format("%.2f", kmCovered)
+                binding.tvWalkingMinValue.text = walkingMinutes.toInt().toString()
+
+                if(currentSteps >= stepGoal){
+                    val today = getTodayDate()
+                    val weekPref = requireContext().getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
+                    weekPref.edit { putBoolean(today, true) }
+                    updateWeeklyUI()
+                }
+            }
+        }
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+    }
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     )  {
@@ -66,12 +113,24 @@ class home : Fragment() {
         }
     }
 
-    @SuppressLint("ObsoleteSdkInt", "DefaultLocale", "SetTextI18n", "DetachAndAttachSameFragment")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(
+                v.paddingLeft,
+                statusBarInsets.top,
+                v.paddingRight,
+                v.paddingBottom
+            )
+            insets
+        }
 
         val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
         requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
@@ -140,15 +199,12 @@ class home : Fragment() {
         }
 
         binding.btnResetSteps.setOnClickListener {
-            binding.progressIndicator.visibility = View.VISIBLE // Show loader
-            resetSteps()
-            Handler(Looper.getMainLooper()).postDelayed({
-                parentFragmentManager.beginTransaction()
-                    .detach(this@home)
-                    .attach(this@home)
-                    .commit()
-                binding.progressIndicator.visibility = View.GONE
-            }, 3000)
+            Snackbar.make(
+                binding.root,
+                "Under Development",
+                Snackbar.LENGTH_LONG)
+                .setAnchorView(binding.btnResetSteps)
+                .show()
         }
 
         binding.noPermission.setOnClickListener {
@@ -198,12 +254,17 @@ class home : Fragment() {
         binding.materialTextView1822.text = formattedWeek
 
         updateWeeklyHeartPointsUI(sharedPref)
-        return binding.root
-    }
 
-    override fun onResume() {
-        super.onResume()
-        resetStepsIfNewDay()
+        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        updateWeeklyUI()
+
+        if (stepSensor != null) {
+            sensorManager.registerListener(stepListener, stepSensor, SensorManager.SENSOR_DELAY_UI)
+        } else {
+            Toast.makeText(requireContext(), "Sensor Not Found", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun resetStepsIfNewDay() {
@@ -288,83 +349,9 @@ class home : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
-            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(
-                v.paddingLeft,
-                statusBarInsets.top,
-                v.paddingRight,
-                v.paddingBottom
-            )
-            insets
-        }
-
-        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-
-        updateWeeklyUI()
-
-        if (stepSensor != null) {
-            sensorManager.registerListener(stepListener, stepSensor, SensorManager.SENSOR_DELAY_UI)
-        } else {
-            Toast.makeText(requireContext(), "Sensor Not Found", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private val stepListener = object : SensorEventListener {
-        @SuppressLint("DefaultLocale")
-        override fun onSensorChanged(event: SensorEvent?) {
-            if (event != null) {
-                totalSteps = event.values[0]
-
-                val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-                val sharedPref2 = requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
-
-                val stepGoal = sharedPref.getInt("userStepGoal", 10000)
-                val hpGoal = sharedPref2.getInt("userHeartGoal", 100)
-
-                val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
-                val heartPoints = (currentSteps / 1000f) * 5f
-
-                binding.tvCenterValueTop.text = currentSteps.toString()
-                binding.tvCenterValueBottom.text = heartPoints.toInt().toString()
-
-                val today = getTodayDate()
-                sharedPref.edit{
-                    putInt("heartPoints_$today",heartPoints.toInt())
-                }
-
-                updateWeeklyHeartPointsUI(sharedPref)
-
-                val stepsPercent = (currentSteps / stepGoal.toFloat()) * 100f
-                val heartPointsPercent = (heartPoints / hpGoal) * 100f
-
-                binding.circularProgressView.setProgress(
-                    heartPointsPercent.coerceAtMost(100f),
-                    stepsPercent.coerceAtMost(100f)
-                )
-
-                val kmCovered = currentSteps * 0.000762f
-                val caloriesBurned = currentSteps * 0.04f
-                val walkingMinutes = currentSteps / 100f
-
-                binding.tvCalValue.text = caloriesBurned.toInt().toString()
-                binding.tvKmValue.text = String.format("%.2f", kmCovered)
-                binding.tvWalkingMinValue.text = walkingMinutes.toInt().toString()
-
-                if(currentSteps >= stepGoal){
-                    val today = getTodayDate()
-                    val weekPref = requireContext().getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
-                    weekPref.edit { putBoolean(today, true) }
-                    updateWeeklyUI()
-                }
-            }
-        }
-
-        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+    override fun onResume() {
+        super.onResume()
+        resetStepsIfNewDay()
     }
 
     override fun onPause() {
@@ -376,20 +363,5 @@ class home : Fragment() {
         val cal = Calendar.getInstance()
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return sdf.format(cal.time)
-    }
-
-    private fun resetSteps() {
-        previousTotalSteps = totalSteps
-        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-        sharedPref.edit {
-            putFloat("previousTotalSteps", previousTotalSteps)
-            putString("stepsDate", getTodayDate())
-        }
-    }
-    private fun getThemeColor(attrRes: Int): Int {
-        val typedValue = TypedValue()
-        val theme = requireContext().theme
-        theme.resolveAttribute(attrRes, typedValue, true)
-        return typedValue.data
     }
 }

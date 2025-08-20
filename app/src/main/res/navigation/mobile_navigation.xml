@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/home_frag">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/home_frag"
-        android:name="com.rajatt7z.fitbykit.fragments.home"
+        android:id="@+id/homeFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.HomeFragment"
         android:label="@string/home_"
         tools:layout="@layout/fragment_home"/>
 

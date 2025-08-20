@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -21,10 +22,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.R
@@ -48,6 +51,17 @@ class HomeFragment : Fragment() {
     private var stepSensor: Sensor? = null
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
+    private val activityPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            Toast.makeText(requireContext(), "Activity Recognition Permission Granted", Toast.LENGTH_SHORT).show()
+            registerStepSensor() // re-register if just granted
+        } else {
+            Toast.makeText(requireContext(), "Activity Recognition Permission Denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private val stepListener = object : SensorEventListener {
         @SuppressLint("DefaultLocale")
         override fun onSensorChanged(event: SensorEvent?) {
@@ -196,7 +210,7 @@ class HomeFragment : Fragment() {
 
         binding.btnRun.setOnClickListener {
             startActivity(Intent(context, DistanceTrackerActivity::class.java))
-            Toast.makeText(context,"Long Press To Reset Start-End Points", Toast.LENGTH_LONG).show()
+            Toast.makeText(context,"Long Press On Map To Reset Start-End Points", Toast.LENGTH_LONG).show()
         }
 
         binding.btnResetSteps.setOnClickListener {
@@ -259,6 +273,13 @@ class HomeFragment : Fragment() {
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACTIVITY_RECOGNITION)
+                != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                activityPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
+            }
+        }
+
         updateWeeklyUI()
 
         if (stepSensor != null) {
@@ -289,34 +310,54 @@ class HomeFragment : Fragment() {
         container.removeAllViews()
 
         val days = listOf("M", "T", "W", "T", "F", "S", "S")
-        for ((index,achieved) in statuses.withIndex()){
+
+        for ((index, achieved) in statuses.withIndex()){
             val circle = View(requireContext()).apply {
-                val size = 52
-                layoutParams = LinearLayout.LayoutParams(size,size).apply{
-                    bottomMargin = 16
-                    marginStart = 16
-                    marginEnd = 16
+                val size = dpToPx(20) // Convert dp to pixels
+                layoutParams = LinearLayout.LayoutParams(size, size)
+                background = if (achieved) {
+                    ContextCompat.getDrawable(requireContext(), R.drawable.circle_filled)
+                } else {
+                    ContextCompat.getDrawable(requireContext(), R.drawable.circle_outlined)
                 }
-                background = if (achieved)
-                    resources.getDrawable(R.drawable.circle_filled, null)
-                else
-                    resources.getDrawable(R.drawable.circle_outlined, null)
             }
 
             val label = TextView(requireContext()).apply {
                 text = days[index]
-                textSize = 12f
-                textAlignment = View.TEXT_ALIGNMENT_CENTER
+                textSize = 10f
+                setTextColor(MaterialColors.getColor(
+                    requireContext(),
+                    com.google.android.material.R.attr.colorOnSurface,
+                    Color.RED))
+                gravity = Gravity.CENTER
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    topMargin = dpToPx(4)
+                }
             }
 
             val wrapper = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.VERTICAL
                 gravity = Gravity.CENTER
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    if (index > 0) {
+                        marginStart = dpToPx(8)
+                    }
+                }
                 addView(circle)
                 addView(label)
             }
+
             container.addView(wrapper)
         }
+    }
+    private fun dpToPx(dp: Int): Int {
+        return (dp * resources.displayMetrics.density).toInt()
     }
 
     private fun getLast7DaysStatus(): List<Boolean> {
@@ -353,11 +394,20 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         resetStepsIfNewDay()
+        registerStepSensor()
     }
 
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(stepListener)
+    }
+
+    private fun registerStepSensor() {
+        stepSensor?.let {
+            sensorManager.registerListener(stepListener, it, SensorManager.SENSOR_DELAY_UI)
+        } ?: run {
+            Toast.makeText(requireContext(), "Step Sensor Not Found", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getTodayDate(): String {

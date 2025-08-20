@@ -32,6 +32,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.rajatt7z.fitbykit.receivers.AlarmScheduler
 import com.rajatt7z.fitbykit.R
+import com.rajatt7z.fitbykit.activity.SettingsActivity
 import com.rajatt7z.fitbykit.activity.UserProfile
 import com.rajatt7z.fitbykit.receivers.ReminderReceiver
 import com.rajatt7z.fitbykit.activity.heartpoints
@@ -62,11 +63,7 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     @SuppressLint("SetTextI18n")
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?):
-            View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -148,11 +145,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.settings.setOnClickListener{
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("App Settings")
-                .setMessage("Currently Under Development Please Co-operate with Developers")
-                .setPositiveButton("Ok", null)
-                .show()
+            startActivity(Intent(requireContext(), SettingsActivity::class.java))
         }
 
     }

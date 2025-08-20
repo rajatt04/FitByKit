@@ -6,4 +6,23 @@
     </style>
 
     <style name="Theme.FitByKit" parent="Base.Theme.FitByKit" />
+
+    <style name="ThemeOverlay.FitByKit.Red" parent="ThemeOverlay.Material3">
+        <item name="colorPrimary">@color/red_500</item>
+        <item name="colorPrimaryVariant">@color/red_700</item>
+        <item name="colorSecondary">@color/red_200</item>
+    </style>
+
+    <style name="ThemeOverlay.FitByKit.Blue" parent="ThemeOverlay.Material3">
+        <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorPrimaryVariant">@color/blue_700</item>
+        <item name="colorSecondary">@color/blue_200</item>
+    </style>
+
+    <style name="ThemeOverlay.FitByKit.Green" parent="ThemeOverlay.Material3">
+        <item name="colorPrimary">@color/green_500</item>
+        <item name="colorPrimaryVariant">@color/green_700</item>
+        <item name="colorSecondary">@color/green_200</item>
+    </style>
+
 </resources>

@@ -463,7 +463,7 @@ class DailyGoals : AppCompatActivity() {
     private fun setProgress(bar: android.widget.ProgressBar, target: Int) {
         // Animate from current to target for a smoother feel
         val anim = ObjectAnimator.ofInt(bar, "progress", bar.progress, target)
-        anim.duration = 350L
+        anim.duration = 3000
         anim.start()
     }
 

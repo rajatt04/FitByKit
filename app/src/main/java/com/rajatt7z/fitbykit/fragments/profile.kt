@@ -13,11 +13,8 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.util.Base64
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,11 +22,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -72,8 +67,25 @@ class profile : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?):
             View {
-
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(
+                v.paddingLeft,
+                statusBarInsets.top,
+                v.paddingRight,
+                v.paddingBottom
+            )
+            insets
+        }
+
         createNotificationChannel(requireContext())
 
         val sharedPref = requireContext().getSharedPreferences("userPref",Context.MODE_PRIVATE)
@@ -143,7 +155,6 @@ class profile : Fragment() {
                 .show()
         }
 
-        return binding.root
     }
 
     @SuppressLint("DefaultLocale")
@@ -258,7 +269,7 @@ class profile : Fragment() {
                     try {
                         val intent1 = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
                         startActivity(intent1)
-                    } catch (e: ActivityNotFoundException) {
+                    } catch (_: ActivityNotFoundException) {
                         Toast.makeText(requireContext(), "Settings screen not available", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -334,6 +345,7 @@ class profile : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        @Suppress("DEPRECATION")
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 101 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Snackbar.make(binding.root, "Notification permission granted", Snackbar.LENGTH_SHORT).show()
@@ -343,20 +355,6 @@ class profile : Fragment() {
 
         if (requestCode == 102 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Snackbar.make(binding.root, "Vibration permission granted", Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
-            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(
-                v.paddingLeft,
-                statusBarInsets.top,
-                v.paddingRight,
-                v.paddingBottom
-            )
-            insets
         }
     }
 }

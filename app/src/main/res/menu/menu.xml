@@ -18,7 +18,7 @@
 
 
     <item
-        android:id="@+id/profile_frag"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/account_circle_24dp"
         android:title="@string/activity"/>
 

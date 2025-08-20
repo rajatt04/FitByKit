@@ -37,8 +37,8 @@
         tools:layout="@layout/fragment_diet"/>
 
     <fragment
-        android:id="@+id/profile_frag"
-        android:name="com.rajatt7z.fitbykit.fragments.profile"
+        android:id="@+id/profileFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.ProfileFragment"
         android:label="@string/profile_"
         tools:layout="@layout/fragment_profile"/>
 

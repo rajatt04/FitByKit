@@ -47,7 +47,7 @@ class FitByKitNav : AppCompatActivity() {
                 "homeFragment" -> binding.navView.selectedItemId = R.id.homeFragment
                 "workouts" -> binding.navView.selectedItemId = R.id.workout_frag
                 "diet" -> binding.navView.selectedItemId = R.id.diet_frag
-                "profile" -> binding.navView.selectedItemId = R.id.profile_frag
+                "profileFragment" -> binding.navView.selectedItemId = R.id.profileFragment
             }
             intent.removeExtra("navigate_to")
         }

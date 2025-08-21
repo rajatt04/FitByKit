@@ -76,10 +76,13 @@
                     android:id="@+id/overallProgressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
+                    android:progressDrawable="@drawable/progress_bar_drawable"
+                    android:indeterminate="false"
+                    android:backgroundTint="@android:color/transparent"
                     android:layout_marginTop="12dp"
                     android:max="100"
-                    android:progress="60" />
+                    android:progress="60"/>
 
                 <!-- NEW: Personalized tip -->
                 <TextView
@@ -149,7 +152,10 @@
                     android:id="@+id/stepsProgressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
+                    android:progressDrawable="@drawable/progress_bar_drawable"
+                    android:indeterminate="false"
+                    android:backgroundTint="@android:color/transparent"
                     android:layout_marginTop="12dp"
                     android:max="100"
                     android:progress="75" />
@@ -245,7 +251,10 @@
                     android:id="@+id/heartPointsProgressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
+                    android:progressDrawable="@drawable/progress_bar_drawable"
+                    android:indeterminate="false"
+                    android:backgroundTint="@android:color/transparent"
                     android:layout_marginTop="12dp"
                     android:max="100"
                     android:progress="38" />
@@ -341,7 +350,10 @@
                     android:id="@+id/caloriesProgressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
+                    android:progressDrawable="@drawable/progress_bar_drawable"
+                    android:indeterminate="false"
+                    android:backgroundTint="@android:color/transparent"
                     android:layout_marginTop="12dp"
                     android:max="100"
                     android:progress="60" />
@@ -436,7 +448,10 @@
                     android:id="@+id/distanceProgressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
+                    android:progressDrawable="@drawable/progress_bar_drawable"
+                    android:indeterminate="false"
+                    android:backgroundTint="@android:color/transparent"
                     android:layout_marginTop="12dp"
                     android:max="100"
                     android:progress="71" />
@@ -533,7 +548,10 @@
                     android:id="@+id/walkingMinutesProgressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
+                    android:progressDrawable="@drawable/progress_bar_drawable"
+                    android:indeterminate="false"
+                    android:backgroundTint="@android:color/transparent"
                     android:layout_marginTop="12dp"
                     android:max="100"
                     android:progress="63" />

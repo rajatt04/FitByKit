@@ -119,7 +119,7 @@
                 android:id="@+id/tv_center_value_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hp_text"
+                android:text="@string/steps_text"
                 android:textColor="#00D2C8"
                 android:fontFamily="sans-serif"
                 android:textSize="24sp"
@@ -195,7 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@string/calorie"
+                        android:text="@string/steps_text"
                         android:textColor="?attr/colorControlActivated"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -220,7 +220,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@string/Km"
+                        android:text="@string/steps_text"
                         android:textColor="?attr/colorControlActivated"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -245,7 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@string/walking_min"
+                        android:text="@string/steps_text"
                         android:textColor="?attr/colorControlActivated"
                         android:textSize="22sp"
                         android:textStyle="bold" />

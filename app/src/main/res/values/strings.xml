@@ -39,7 +39,7 @@
     <string name="hp_des">You score Heart Points for doing activities at a higher pace, like taking a brisk walk. Increases the intensity to earn more points.</string>
     <string name="def_hp">50</string>
     <string name="hp_a_day">points a day</string>
-    <string name="steps_text">4500</string>
+    <string name="steps_text">Wait…</string>
     <string name="hp_text">25</string>
     <string name="calorie">944</string>
     <string name="calorie_text">Calories burned</string>
@@ -184,8 +184,8 @@
     <string name="your_bmi_is_in_the_normal_range_keep_up_the_good_work">Your BMI is in the normal range. Keep up the good work!</string>
     <string name="bmi_categories">BMI Categories</string>
     <string name="underweight_bmi_lt_18_5"><![CDATA[• Underweight: BMI < 18.5]]></string>
-    <string name="normal_weight_bmi_18_5_24_9">• Normal weight: BMI 18.5-24.9</string>
-    <string name="overweight_bmi_25_0_29_9">• Overweight: BMI 25.0-29.9</string>
+    <string name="normal_weight_bmi_18_5_24_9">• Normal weight: BMI 18.5–24.9</string>
+    <string name="overweight_bmi_25_0_29_9">• Overweight: BMI 25.0–29.9</string>
     <string name="obese_bmi_30_0">• Obese: BMI ≥ 30.0</string>
     <string name="save_to_profile">Save to Profile</string>
     <string name="height_cm">Height (cm)</string>
@@ -193,7 +193,7 @@
     <string name="weekly_summary">Weekly Summary</string>
     <string name="next_week">Next Week</string>
     <string name="this_week">This Week</string>
-    <string name="aug_12_18_2025">Aug 12 - 18, 2025</string>
+    <string name="aug_12_18_2025">Aug 12 – 18, 2025</string>
     <string name="previous_week">Previous Week</string>
     <string name="_52_340">52,340</string>
     <string name="total_steps">Total Steps</string>

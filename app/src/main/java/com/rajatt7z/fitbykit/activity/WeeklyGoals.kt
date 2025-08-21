@@ -37,7 +37,7 @@ class WeeklyGoals : AppCompatActivity() {
     private val KEY_ACTIVE_DAYS_GOAL = "activeDaysGoal"
     private val KEY_USER_DAILY_GOAL = "userStepGoal"          // daily steps goal
     private val KEY_LAST_WEEK_OFFSET = "lastWeekOffset"
-    private fun dayStepsKey(date: String) = "steps_$date"
+    private fun dayStepsKey(date: String) = "dailySteps_$date"
 
     // state
     private var currentWeekOffset = 0         // 0=this week, -1=last week, etc
@@ -416,7 +416,7 @@ class WeeklyGoals : AppCompatActivity() {
         else -> number.toString()
     }
 
-    private fun showSuccessMessage(Message: String) = showToast(Message)
+    private fun showSuccessMessage(@Suppress("SameParameterValue") Message: String) = showToast(Message)
     private fun showErrorMessage(message: String) = showToast(message, long = true)
     private fun showToast(msg: String, long: Boolean = false) {
         Toast.makeText(this, msg, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()

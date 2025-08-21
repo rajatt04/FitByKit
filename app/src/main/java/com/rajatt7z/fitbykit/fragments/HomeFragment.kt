@@ -177,6 +177,8 @@ class HomeFragment : Fragment() {
             insets
         }
 
+        loadSavedData()
+
         val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
         requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
 
@@ -420,9 +422,50 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("DefaultLocale")
+    private fun loadSavedData() {
+        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val sharedPref2 = requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
+
+        val today = getTodayDate()
+
+        // Restore values
+        val currentSteps = sharedPref.getInt("dailySteps_$today", 0)
+        val heartPoints = sharedPref.getInt("heartPoints_$today", 0)
+        val calories = sharedPref.getFloat("calories_$today", 0f)
+        val distance = sharedPref.getFloat("distance_$today", 0f)
+        val walkingMinutes = sharedPref.getFloat("walkingMinutes_$today", 0f)
+
+        val stepGoal = sharedPref.getInt("userStepGoal", 10000)
+        val hpGoal = sharedPref2.getInt("userHeartGoal", 100)
+
+        // Update UI
+        binding.tvCenterValueTop.text = currentSteps.toString()
+        binding.tvCenterValueBottom.text = heartPoints.toString()
+        binding.tvCalValue.text = calories.toInt().toString()
+        binding.tvKmValue.text = String.format("%.2f", distance)
+        binding.tvWalkingMinValue.text = walkingMinutes.toInt().toString()
+
+        val stepsPercent = (currentSteps / stepGoal.toFloat()) * 100f
+        val heartPercent = (heartPoints / hpGoal.toFloat()) * 100f
+
+        binding.circularProgressView.setProgress(
+            heartPercent.coerceAtMost(100f),
+            stepsPercent.coerceAtMost(100f)
+        )
+
+        updateWeeklyHeartPointsUI(sharedPref)
+        updateWeeklyUI()
+    }
+
     override fun onResume() {
         super.onResume()
+
+        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
+
         resetStepsIfNewDay()
+        loadSavedData()   // ensures UI is never stuck at zeros
         registerStepSensor()
     }
 

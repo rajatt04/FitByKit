@@ -49,7 +49,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
-    private var totalSteps = 0f
     private var previousTotalSteps = 0f
     private val activityPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -65,54 +64,85 @@ class HomeFragment : Fragment() {
     private val stepListener = object : SensorEventListener {
         @SuppressLint("DefaultLocale")
         override fun onSensorChanged(event: SensorEvent?) {
-            if (event != null) {
-                totalSteps = event.values[0]
+            if (event?.sensor?.type != Sensor.TYPE_STEP_COUNTER) return
 
-                val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-                val sharedPref2 = requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
+            val totalStepsFromSensor = event.values[0]
 
-                val stepGoal = sharedPref.getInt("userStepGoal", 10000)
-                val hpGoal = sharedPref2.getInt("userHeartGoal", 100)
+            // Initialize previousTotalSteps if first run
+            if (previousTotalSteps == 0f) {
+                previousTotalSteps = totalStepsFromSensor
+            }
 
-                val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
-                val heartPoints = (currentSteps / 1000f) * 5f
+            resetStepsIfNewDay(totalStepsFromSensor) // Pass the sensor value
 
-                binding.tvCenterValueTop.text = currentSteps.toString()
-                binding.tvCenterValueBottom.text = heartPoints.toInt().toString()
+            val currentSteps = (totalStepsFromSensor - previousTotalSteps).toInt()
+            if (currentSteps < 0) return  // Safety: avoid negative values
 
-                val today = getTodayDate()
-                sharedPref.edit{
-                    putInt("heartPoints_$today",heartPoints.toInt())
-                }
+            // Goals
+            val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
+            val sharedPref2 = requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
 
-                updateWeeklyHeartPointsUI(sharedPref)
+            val stepGoal = sharedPref.getInt("userStepGoal", 10000)
+            val hpGoal = sharedPref2.getInt("userHeartGoal", 100)
 
-                val stepsPercent = (currentSteps / stepGoal.toFloat()) * 100f
-                val heartPointsPercent = (heartPoints / hpGoal) * 100f
+            val heartPoints = (currentSteps / 1000f) * 5f
 
-                binding.circularProgressView.setProgress(
-                    heartPointsPercent.coerceAtMost(100f),
-                    stepsPercent.coerceAtMost(100f)
-                )
+            // --- Update UI ---
+            binding.tvCenterValueTop.text = currentSteps.toString()
+            binding.tvCenterValueBottom.text = heartPoints.toInt().toString()
 
+            // IMPORTANT: Save today's data for DailyGoals activity
+            val today = getTodayDate()
+            sharedPref.edit {
+                putInt("heartPoints_$today", heartPoints.toInt())
+                putFloat("previousTotalSteps", previousTotalSteps) // Persist baseline
+                putString("stepsDate", today)
+
+                // NEW: Save calculated metrics for DailyGoals sync
+                putInt("dailySteps_$today", currentSteps)
+                putFloat("totalSteps", totalStepsFromSensor) // Save raw sensor value
+
+                // Calculate and save other metrics
                 val kmCovered = currentSteps * 0.000762f
                 val caloriesBurned = currentSteps * 0.04f
                 val walkingMinutes = currentSteps / 100f
 
-                binding.tvCalValue.text = caloriesBurned.toInt().toString()
-                binding.tvKmValue.text = String.format("%.2f", kmCovered)
-                binding.tvWalkingMinValue.text = walkingMinutes.toInt().toString()
+                putFloat("calories_$today", caloriesBurned)
+                putFloat("distance_$today", kmCovered)
+                putFloat("walkingMinutes_$today", walkingMinutes)
+            }
 
-                if(currentSteps >= stepGoal){
-                    val today = getTodayDate()
-                    val weekPref = requireContext().getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
-                    weekPref.edit { putBoolean(today, true) }
-                    updateWeeklyUI()
-                }
+            updateWeeklyHeartPointsUI(sharedPref)
+
+            // Circular progress
+            val stepsPercent = (currentSteps / stepGoal.toFloat()) * 100f
+            val heartPointsPercent = (heartPoints / hpGoal) * 100f
+
+            binding.circularProgressView.setProgress(
+                heartPointsPercent.coerceAtMost(100f),
+                stepsPercent.coerceAtMost(100f)
+            )
+
+            // Extra calculations (now being saved above)
+            val kmCovered = currentSteps * 0.000762f
+            val caloriesBurned = currentSteps * 0.04f
+            val walkingMinutes = currentSteps / 100f
+
+            binding.tvCalValue.text = caloriesBurned.toInt().toString()
+            binding.tvKmValue.text = String.format("%.2f", kmCovered)
+            binding.tvWalkingMinValue.text = walkingMinutes.toInt().toString()
+
+            // Weekly UI update
+            if (currentSteps >= stepGoal) {
+                val weekPref = requireContext().getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
+                weekPref.edit { putBoolean(today, true) }
+                updateWeeklyUI()
             }
         }
+
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
     }
+
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     )  {
@@ -150,9 +180,6 @@ class HomeFragment : Fragment() {
         val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
         requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
 
-        val today = getTodayDate()
-        val savedDate = sharedPref.getString("stepsDate", null)
-
         val weightStr = sharedPref.getString("userWeight", null)
         val heightStr = sharedPref.getString("userHeight", null)
 
@@ -178,16 +205,6 @@ class HomeFragment : Fragment() {
             }
         } else {
             binding.userBmi3.text = "Not set"
-        }
-
-        if (savedDate == today) {
-            previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
-        } else {
-            previousTotalSteps = totalSteps
-            sharedPref.edit {
-                putFloat("previousTotalSteps", previousTotalSteps)
-                putString("stepsDate", today)
-            }
         }
 
         val img = sharedPref.getString("userImg", null)
@@ -281,24 +298,36 @@ class HomeFragment : Fragment() {
         }
 
         updateWeeklyUI()
-
-        if (stepSensor != null) {
-            sensorManager.registerListener(stepListener, stepSensor, SensorManager.SENSOR_DELAY_UI)
-        } else {
-            Toast.makeText(requireContext(), "Sensor Not Found", Toast.LENGTH_SHORT).show()
-        }
     }
 
-    private fun resetStepsIfNewDay() {
-        val sharedPref = requireContext().getSharedPreferences("userPref",Context.MODE_PRIVATE)
+    private fun resetStepsIfNewDay(totalStepsFromSensor: Float? = null) {
+        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
         val today = getTodayDate()
-        val savedDate = sharedPref.getString("stepsDate",null)
+        val savedDate = sharedPref.getString("stepsDate", null)
+
         if (savedDate != today) {
+            // New day → reset baseline
+            val newBaseline = totalStepsFromSensor ?: 0f
+            previousTotalSteps = newBaseline
+
             sharedPref.edit {
                 putFloat("previousTotalSteps", previousTotalSteps)
                 putString("stepsDate", today)
+                putInt("heartPoints_$today", 0) // reset heart points for new day
+
+                // Reset daily metrics for new day
+                putInt("dailySteps_$today", 0)
+                putFloat("calories_$today", 0f)
+                putFloat("distance_$today", 0f)
+                putFloat("walkingMinutes_$today", 0f)
+
+                // Save the raw sensor value
+                if (totalStepsFromSensor != null) {
+                    putFloat("totalSteps", totalStepsFromSensor)
+                }
             }
         } else {
+            // Same day → just restore baseline
             previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
         }
     }

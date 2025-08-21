@@ -95,23 +95,71 @@ class DailyGoals : AppCompatActivity() {
 
     @SuppressLint("DefaultLocale")
     private fun loadCurrentProgress() {
-        // Steps (based on home fragment logic)
-        val totalSteps = sharedPref.getFloat("totalSteps", 0f)
-        val previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
-        currentSteps = (totalSteps - previousTotalSteps).toInt().coerceAtLeast(0)
-
-        // Heart points
         val today = getTodayDate()
-        val computedHeart = ((currentSteps / 1000f) * 5f).toInt()
-        val savedHeartPoints = sharedPref.getInt("heartPoints_$today", computedHeart)
-        currentHeartPoints = savedHeartPoints.coerceAtLeast(0)
 
-        // Other metrics
-        currentCalories = (currentSteps * 0.04f).coerceAtLeast(0f)
-        currentDistance = (currentSteps * 0.000762f).coerceAtLeast(0f)
-        currentWalkingMinutes = (currentSteps / 100f).coerceAtLeast(0f)
+        // FIXED: Get steps data from SharedPreferences the same way HomeFragment calculates it
+        // First check if we have saved steps for today
+        val savedSteps = sharedPref.getInt("dailySteps_$today", -1)
 
-        // Persist today’s snapshots for lightweight 7-day analytics
+        if (savedSteps != -1) {
+            // Use saved steps if available
+            currentSteps = savedSteps
+        } else {
+            // Calculate steps the same way HomeFragment does
+            val totalStepsFromSensor = sharedPref.getFloat("totalSteps", 0f)
+            val previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
+            currentSteps = (totalStepsFromSensor - previousTotalSteps).toInt().coerceAtLeast(0)
+
+            // Save calculated steps for consistency
+            sharedPref.edit {
+                putInt("dailySteps_$today", currentSteps)
+            }
+        }
+
+        // Heart points - Get from SharedPreferences or calculate
+        val savedHeartPoints = sharedPref.getInt("heartPoints_$today", -1)
+        if (savedHeartPoints != -1) {
+            currentHeartPoints = savedHeartPoints
+        } else {
+            currentHeartPoints = ((currentSteps / 1000f) * 5f).toInt().coerceAtLeast(0)
+            sharedPref.edit {
+                putInt("heartPoints_$today", currentHeartPoints)
+            }
+        }
+
+        // FIXED: Calculate other metrics based on current steps
+        // Get saved values or calculate from steps
+        val savedCalories = sharedPref.getFloat("calories_$today", -1f)
+        if (savedCalories != -1f) {
+            currentCalories = savedCalories
+        } else {
+            currentCalories = (currentSteps * 0.04f).coerceAtLeast(0f)
+            sharedPref.edit {
+                putFloat("calories_$today", currentCalories)
+            }
+        }
+
+        val savedDistance = sharedPref.getFloat("distance_$today", -1f)
+        if (savedDistance != -1f) {
+            currentDistance = savedDistance
+        } else {
+            currentDistance = (currentSteps * 0.000762f).coerceAtLeast(0f)
+            sharedPref.edit {
+                putFloat("distance_$today", currentDistance)
+            }
+        }
+
+        val savedWalkingMinutes = sharedPref.getFloat("walkingMinutes_$today", -1f)
+        if (savedWalkingMinutes != -1f) {
+            currentWalkingMinutes = savedWalkingMinutes
+        } else {
+            currentWalkingMinutes = (currentSteps / 100f).coerceAtLeast(0f)
+            sharedPref.edit {
+                putFloat("walkingMinutes_$today", currentWalkingMinutes)
+            }
+        }
+
+        // Persist today's snapshots for lightweight 7-day analytics
         saveTodaySnapshot()
     }
 
@@ -152,7 +200,7 @@ class DailyGoals : AppCompatActivity() {
         }
     }
 
-    /** Save today’s values, maintain a rolling 7-day average for adaptive goals. */
+    /** Save today's values, maintain a rolling 7-day average for adaptive goals. */
     private fun saveTodaySnapshot() {
         val today = getTodayDate()
         val lastSaved = sharedPref.getString("lastSnapshotDate", null)
@@ -182,7 +230,7 @@ class DailyGoals : AppCompatActivity() {
         currentCalories < caloriesGoal * 0.5 -> "🔥 A quick circuit can boost your calorie burn."
         currentDistance < distanceGoal * 0.5 -> "🗺️ Consider an evening stroll to close the distance."
         currentWalkingMinutes < walkingMinutesGoal * 0.5 -> "⏱️ Break into 3×10-min walks across the day."
-        else -> "💪 Great pace! You’re close to hitting everything."
+        else -> "💪 Great pace! You're close to hitting everything."
     }
 
     // ---------- UI UPDATE ----------
@@ -240,6 +288,7 @@ class DailyGoals : AppCompatActivity() {
         updateStreak(completedGoals, totalGoals)
     }
 
+    @Suppress("SameParameterValue")
     @SuppressLint("SetTextI18n")
     private fun updateStreak(completedGoals: Int, totalGoals: Int) {
         val today = getTodayDate()
@@ -253,7 +302,7 @@ class DailyGoals : AppCompatActivity() {
                 putString("lastGoalDate", today)
                 putInt("streakCount", streak)
             }
-            showSuccessMessage("🔥 You’re on a $streak-day streak!")
+            showSuccessMessage("🔥 You're on a $streak-day streak!")
         } else if (!allMet && lastDay != today) {
             // Optionally break streak if new day starts without meeting goals
             val lastBreak = sharedPref.getString("lastStreakBreak", null)
@@ -463,7 +512,7 @@ class DailyGoals : AppCompatActivity() {
     private fun setProgress(bar: android.widget.ProgressBar, target: Int) {
         // Animate from current to target for a smoother feel
         val anim = ObjectAnimator.ofInt(bar, "progress", bar.progress, target)
-        anim.duration = 3000
+        anim.duration = 300 // Reduced duration for better responsiveness
         anim.start()
     }
 

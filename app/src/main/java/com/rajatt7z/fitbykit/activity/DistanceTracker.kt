@@ -1,6 +1,7 @@
 package com.rajatt7z.fitbykit.activity
 
 import android.Manifest
+//noinspection SuspiciousImport
 import android.R
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -501,7 +502,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
                         position = currentGeoPoint
                         title = "You are here"
                         setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-                        icon = resources.getDrawable(android.R.drawable.ic_notification_overlay, theme)
+                        icon = resources.getDrawable(R.drawable.ic_notification_overlay, theme)
                     }
                     binding.mapView.overlays.add(myLocationMarker)
                     binding.mapView.invalidate()
@@ -543,7 +544,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
     private fun setStartPoint(point: GeoPoint) {
         startPoint = point
         startMarker?.let { binding.mapView.overlays.remove(it) }
-        startMarker = createMarker(point, "Start Point", android.R.drawable.ic_menu_mylocation)
+        startMarker = createMarker(point, "Start Point", R.drawable.ic_menu_mylocation)
         updateStatus("Set end point or search address")
         updateButtonStates()
     }
@@ -551,7 +552,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
     private fun setEndPoint(point: GeoPoint) {
         endPoint = point
         endMarker?.let { binding.mapView.overlays.remove(it) }
-        endMarker = createMarker(point, "End Point", android.R.drawable.ic_menu_compass)
+        endMarker = createMarker(point, "End Point", R.drawable.ic_menu_compass)
         updateStatus("Points set. Tap 'Find Route' for optimal path")
         updateButtonStates()
 
@@ -654,7 +655,7 @@ class DistanceTrackerActivity : AppCompatActivity() {
             Start: ${binding.etStartPoint.text}
             End: ${binding.etEndPoint.text}
             
-            Tracked with Distance Tracker App
+            Tracked with FitByKit - rajatt7z
         """.trimIndent().format(currentDistance / 1000)
 
         startActivity(Intent.createChooser(Intent().apply {

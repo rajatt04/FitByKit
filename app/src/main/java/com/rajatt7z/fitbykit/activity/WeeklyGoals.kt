@@ -1,7 +1,6 @@
 package com.rajatt7z.fitbykit.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
@@ -9,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.github.mikephil.charting.components.XAxis
@@ -24,7 +24,6 @@ import java.util.Date
 import java.util.Locale
 import kotlin.math.max
 import kotlin.math.min
-import androidx.core.graphics.toColorInt
 
 class WeeklyGoals : AppCompatActivity() {
 
@@ -56,7 +55,7 @@ class WeeklyGoals : AppCompatActivity() {
         binding = ActivityWeeklyGoalsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
 
         setupToolbar()
         loadWeeklyGoals()
@@ -243,7 +242,7 @@ class WeeklyGoals : AppCompatActivity() {
         val weekData = getWeekData()
         val totalSteps = weekData.sum()
         val dailyGoal = sharedPref.getInt(KEY_USER_DAILY_GOAL, 10_000)
-        val goalsAchieved = weekData.count { it >= dailyGoal }
+        weekData.count { it >= dailyGoal }
         val weeklyProgress = min(100, if (weeklyStepsGoal > 0) totalSteps * 100 / weeklyStepsGoal else 0)
 
         val bestDayIndex = weekData.indices.maxByOrNull { weekData[it] } ?: 0
@@ -416,7 +415,7 @@ class WeeklyGoals : AppCompatActivity() {
         else -> number.toString()
     }
 
-    private fun showSuccessMessage(@Suppress("SameParameterValue") Message: String) = showToast(Message)
+    private fun showSuccessMessage(@Suppress("SameParameterValue") message: String) = showToast(message)
     private fun showErrorMessage(message: String) = showToast(message, long = true)
     private fun showToast(msg: String, long: Boolean = false) {
         Toast.makeText(this, msg, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()

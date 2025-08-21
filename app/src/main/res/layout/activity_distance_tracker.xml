@@ -11,16 +11,6 @@
         android:layout_height="wrap_content"
         tools:context=".activity.DistanceTrackerActivity">
 
-        <com.google.android.material.loadingindicator.LoadingIndicator
-            android:id="@+id/progressBar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"

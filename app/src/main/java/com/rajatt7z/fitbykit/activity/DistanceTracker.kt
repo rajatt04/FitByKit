@@ -270,8 +270,6 @@ class DistanceTrackerActivity : AppCompatActivity() {
     private fun findRoute() {
         val start = startPoint ?: return
         val end = endPoint ?: return
-
-        binding.progressBar.visibility = View.VISIBLE
         updateStatus("Finding route...")
 
         lifecycleScope.launch {
@@ -298,7 +296,6 @@ class DistanceTrackerActivity : AppCompatActivity() {
                 Toast.makeText(this@DistanceTrackerActivity,
                     "Routing failed: ${e.message}", Toast.LENGTH_SHORT).show()
             } finally {
-                binding.progressBar.visibility = View.GONE
                 binding.btnStart.isEnabled = true
             }
         }

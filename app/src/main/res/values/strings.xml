@@ -130,7 +130,6 @@
     <string name="day_name_">Day Name -</string>
     <string name="category_">Category -</string>
     <string name="save_playlist">Save Playlist</string>
-    <string name="cancel">Cancel</string>
     <string name="day_of_the_week">Day of the Week</string>
     <string name="work">Work</string>
     <string name="personal">Personal</string>
@@ -224,4 +223,72 @@
     <string name="you_re_75_towards_your_weekly_goal_keep_up_the_momentum_your_most_active_day_was_wednesday_with_12_450_steps">You\'re 75% towards your weekly goal. Keep up the momentum! Your most active day was Wednesday with 12,450 steps.</string>
     <string name="view_trends">View Trends</string>
     <string name="great_progress_this_week">🎯 Great Progress This Week!</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_title">Settings</string>
+
+    <!-- Profile Section -->
+    <string name="profile_section">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+
+    <!-- App Settings Section -->
+    <string name="app_settings_section">App Settings</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_subtitle">Workout reminders, achievements</string>
+    <string name="dark_mode_title">Dark Mode</string>
+    <string name="dark_mode_subtitle">Switch to dark theme</string>
+    <string name="units_title">Units</string>
+    <string name="units_metric">Metric (kg, cm)</string>
+    <string name="units_imperial">Imperial (lbs, ft/in)</string>
+
+    <!-- Support Section -->
+    <string name="support_section">Support</string>
+    <string name="help_faq_title">Help &amp; FAQ</string>
+    <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="terms_of_service_title">Terms of Service</string>
+
+    <!-- About Section -->
+    <string name="about_section">About</string>
+    <string name="version_title">Version</string>
+    <string name="developer_name">Rajat Kevat</string>
+    <string name="made_with_love">Developed With ❤ in India</string>
+
+    <!-- URLs -->
+    <string name="instagram_url">https://www.instagram.com/rajatt.7z</string>
+    <string name="github_url">https://www.github.com/rajatt04</string>
+    <string name="privacy_policy_url">https://your-privacy-policy-url.com</string>
+    <string name="terms_of_service_url">https://your-terms-of-service-url.com</string>
+
+    <!-- Dialog Messages -->
+    <string name="select_units_title">Select Units</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Toast Messages -->
+    <string name="profile_settings_coming_soon">Profile settings coming soon!</string>
+    <string name="help_faq_coming_soon">Help &amp; FAQ coming soon!</string>
+    <string name="unable_to_open_link">Unable to open link</string>
+
+    <!-- Content Descriptions -->
+    <string name="back_button">Back</string>
+    <string name="chevron_right">Navigate to</string>
+    <string name="instagram_icon">Instagram</string>
+    <string name="github_icon">GitHub</string>
+    <string name="external_link_icon">Open in browser</string>
+    <string name="help_amp_faq"><![CDATA[Help & FAQ]]></string>
+    <string name="profile">Profile</string>
+    <string name="app_settings">App Settings</string>
+    <string name="notifications">Notifications</string>
+    <string name="workout_reminders_achievements">Workout reminders, achievements</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="switch_to_dark_theme">Switch to dark theme</string>
+    <string name="metric_kg_cm">Metric (kg, cm)</string>
+    <string name="units">Units</string>
+    <string name="support">Support</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="about">About</string>
+    <string name="_1_0_0">1.0.0</string>
+    <string name="version">Version</string>
+    <string name="rajat_kevat">Rajat Kevat</string>
+    <string name="developed_with_in_india">Developed With ❤ in India</string>
 </resources>

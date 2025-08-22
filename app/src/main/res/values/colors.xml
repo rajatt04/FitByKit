@@ -24,4 +24,41 @@
     <color name="green_200">#C8E6C9</color>
     <color name="green_500">#4CAF50</color>
     <color name="green_700">#388E3C</color>
+
+    <!-- Primary Colors -->
+    <color name="primary_color">#2196F3</color>
+    <color name="primary_dark_color">#1976D2</color>
+    <color name="primary_light_color">#BBDEFB</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary_color">#FF9800</color>
+    <color name="secondary_dark_color">#F57C00</color>
+    <color name="secondary_light_color">#FFE0B2</color>
+
+    <!-- Background Colors -->
+    <color name="background_color">#F5F5F5</color>
+    <color name="surface_color">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
+    <!-- Icon Colors -->
+    <color name="icon_color">#616161</color>
+
+    <!-- Divider Color -->
+    <color name="divider_color">#E0E0E0</color>
+
+    <!-- Social Media Colors -->
+    <color name="instagram_color">#E4405F</color>
+    <color name="github_color">#333333</color>
+
+    <!-- Status Colors -->
+    <color name="success_color">#4CAF50</color>
+    <color name="error_color">#F44336</color>
+    <color name="warning_color">#FF9800</color>
+
+    <!-- Card Colors -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_shadow">#1F000000</color>
 </resources>

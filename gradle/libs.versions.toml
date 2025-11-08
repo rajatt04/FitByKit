@@ -1,7 +1,7 @@
 [versions]
 agp = "8.12.1"
 circleimageview = "3.1.0"
-core = "12.1.2"
+core = "13.0.0"
 glide = "4.16.0"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"

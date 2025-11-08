@@ -24,6 +24,7 @@ import java.io.File
 
 class VideoPlayerActivity : AppCompatActivity() {
 
+    private lateinit var context : Context
     private lateinit var binding: ActivityVideoPlayerBinding
     private val viewModel: VideoPlayerViewModel by viewModels()
 
@@ -31,6 +32,8 @@ class VideoPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVideoPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        context = this
 
         val videoUrl = intent.getStringExtra("video_url") ?: return
         val videoId = extractYoutubeVideoId(videoUrl)
@@ -40,7 +43,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         youTubePlayerView.enableAutomaticInitialization = false
         lifecycle.addObserver(youTubePlayerView)
 
-        val iFramePlayerOptions = IFramePlayerOptions.Builder()
+        val iFramePlayerOptions = IFramePlayerOptions.Builder(context)
             .controls(0)
             .rel(0)
             .build()

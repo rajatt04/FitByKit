@@ -1,6 +1,7 @@
 package com.rajatt7z.fitbykit.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +20,6 @@ import com.rajatt7z.workout_api.IngredientPair
 
 @Suppress("DEPRECATION")
 class MealVideoFragment : Fragment() {
-
     private var _binding: FragmentMealVideoBinding? = null
     private val binding get() = _binding!!
 
@@ -56,7 +56,7 @@ class MealVideoFragment : Fragment() {
 
         lifecycle.addObserver(youTubePlayerView)
 
-        val iFramePlayerOptions = IFramePlayerOptions.Builder()
+        val iFramePlayerOptions = IFramePlayerOptions.Builder(requireContext())
             .controls(0)
             .rel(0)
             .build()

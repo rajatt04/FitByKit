@@ -1,12 +1,15 @@
 package com.rajatt7z.fitbykit.activity
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -19,6 +22,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 import com.rajatt7z.fitbykit.R
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import com.google.android.material.materialswitch.MaterialSwitch
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -31,8 +35,8 @@ class SettingsActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var toolbar: MaterialToolbar
-    private lateinit var switchNotifications: SwitchMaterial
-    private lateinit var switchDarkMode: SwitchMaterial
+    private lateinit var switchNotifications: MaterialSwitch
+    private lateinit var switchDarkMode: MaterialSwitch
     private lateinit var tvUnitsSubtitle: TextView
     private lateinit var tvAppVersion: TextView
 
@@ -302,13 +306,14 @@ class SettingsActivity : AppCompatActivity() {
     @SuppressLint("QueryPermissionsNeeded")
     private fun openWebLink(url: String) {
         try {
-            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            } else {
-                showToast("No browser app found")
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                // This ensures Android uses a browser app
+                addCategory(Intent.CATEGORY_BROWSABLE)
             }
-        } catch (_: Exception) {
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            showToast("No browser app found")
+        } catch (e: Exception) {
             showToast("Unable to open link")
         }
     }

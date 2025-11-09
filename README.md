@@ -37,17 +37,13 @@ FitByKit is a modern Android application built with Kotlin, designed to help use
 
 ## Screenshots
 
-| Welcome | About User |
-|---|---|
-| ![First](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/1.jpeg?raw=true) | ![User Data](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/2.jpeg?raw=true) |
+| Welcome | About User | Home Screen |
+|---|---|---|
+| ![First](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/1.jpeg?raw=true) | ![User Data](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/2.jpeg?raw=true) |![Exercise List](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/3.jpeg?raw=true) |
 
-| Home Screen | Workout Screen |
-|---|---|
-| ![Exercise List](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/3.jpeg?raw=true) | ![Progress Charts](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/4.jpeg?raw=true) |
-
-| Diet Screen | User Profile |
-|---|---|
-| ![Diet](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/5.jpeg?raw=true) | ![User](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/6.jpeg?raw=true) |
+|  Workout Screen | Diet Screen | User Profile |
+|---|---|---|
+| ![Progress Charts](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/4.jpeg?raw=true) |![Diet](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/5.jpeg?raw=true) | ![User](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/6.jpeg?raw=true) |
 
 ---
 

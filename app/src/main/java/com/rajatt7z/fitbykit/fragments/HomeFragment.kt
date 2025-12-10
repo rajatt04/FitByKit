@@ -42,6 +42,9 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -50,6 +53,7 @@ class HomeFragment : Fragment() {
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
     private var previousTotalSteps = 0f
+    private var totalStepsFromSensor = 0f
     private val activityPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -66,7 +70,7 @@ class HomeFragment : Fragment() {
         override fun onSensorChanged(event: SensorEvent?) {
             if (event?.sensor?.type != Sensor.TYPE_STEP_COUNTER) return
 
-            val totalStepsFromSensor = event.values[0]
+            totalStepsFromSensor = event.values[0]
 
             // Initialize previousTotalSteps if first run
             if (previousTotalSteps == 0f) {
@@ -75,8 +79,16 @@ class HomeFragment : Fragment() {
 
             resetStepsIfNewDay(totalStepsFromSensor) // Pass the sensor value
 
+            // Reboot detection
+            if (totalStepsFromSensor < previousTotalSteps) {
+                val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
+                val today = getTodayDate()
+                val savedSteps = sharedPref.getInt("dailySteps_$today", 0)
+                previousTotalSteps = totalStepsFromSensor - savedSteps
+                sharedPref.edit { putFloat("previousTotalSteps", previousTotalSteps) }
+            }
+
             val currentSteps = (totalStepsFromSensor - previousTotalSteps).toInt()
-            if (currentSteps < 0) return  // Safety: avoid negative values
 
             // Goals
             val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
@@ -91,26 +103,8 @@ class HomeFragment : Fragment() {
             binding.tvCenterValueTop.text = currentSteps.toString()
             binding.tvCenterValueBottom.text = heartPoints.toInt().toString()
 
-            // IMPORTANT: Save today's data for DailyGoals activity
-            val today = getTodayDate()
-            sharedPref.edit {
-                putInt("heartPoints_$today", heartPoints.toInt())
-                putFloat("previousTotalSteps", previousTotalSteps) // Persist baseline
-                putString("stepsDate", today)
-
-                // NEW: Save calculated metrics for DailyGoals sync
-                putInt("dailySteps_$today", currentSteps)
-                putFloat("totalSteps", totalStepsFromSensor) // Save raw sensor value
-
-                // Calculate and save other metrics
-                val kmCovered = currentSteps * 0.000762f
-                val caloriesBurned = currentSteps * 0.04f
-                val walkingMinutes = currentSteps / 100f
-
-                putFloat("calories_$today", caloriesBurned)
-                putFloat("distance_$today", kmCovered)
-                putFloat("walkingMinutes_$today", walkingMinutes)
-            }
+            // Save Data
+            saveStepData(currentSteps, totalStepsFromSensor, heartPoints.toInt())
 
             updateWeeklyHeartPointsUI(sharedPref)
 
@@ -134,6 +128,7 @@ class HomeFragment : Fragment() {
 
             // Weekly UI update
             if (currentSteps >= stepGoal) {
+                val today = getTodayDate()
                 val weekPref = requireContext().getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
                 weekPref.edit { putBoolean(today, true) }
                 updateWeeklyUI()
@@ -227,17 +222,62 @@ class HomeFragment : Fragment() {
             }
         }
 
+        // --- Water Intake Tracker ---
+        val waterViewModel = androidx.lifecycle.ViewModelProvider(this)[com.rajatt7z.fitbykit.viewModels.WaterViewModel::class.java]
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED) {
+                waterViewModel.todayWater.collect { amount ->
+                    binding.tvWaterAmount.text = "$amount ml"
+                    // Optional: Change color if target reached?
+                    if (amount >= 3000) {
+                        binding.tvWaterAmount.setTextColor(Color.GREEN)
+                    }
+                }
+            }
+        }
+
+        binding.btnAddWater.setOnClickListener {
+            waterViewModel.addWater(250)
+            Toast.makeText(requireContext(), "+250ml Added 💧", Toast.LENGTH_SHORT).show()
+        }
+        
+        binding.btnShare.setOnClickListener {
+            val steps = binding.tvCenterValueTop.text.toString()
+            val cal = binding.tvCalValue.text.toString()
+            val dist = binding.tvKmValue.text.toString()
+            val time = binding.tvWalkingMinValue.text.toString()
+            
+            com.rajatt7z.fitbykit.utils.ShareUtils.shareStats(requireContext(), steps, cal, dist, time)
+        }
+
+        binding.btnCalendar.setOnClickListener {
+            startActivity(Intent(context, com.rajatt7z.fitbykit.activity.CalendarActivity::class.java))
+        }
+        // ---------------------------
+
         binding.btnRun.setOnClickListener {
             startActivity(Intent(context, DistanceTrackerActivity::class.java))
             Toast.makeText(context,"Long Press On Map To Reset Start-End Points", Toast.LENGTH_LONG).show()
         }
 
         binding.btnResetSteps.setOnClickListener {
-            Snackbar.make(
-                binding.root,
-                "Under Development",
-                Snackbar.LENGTH_LONG)
-                .setAnchorView(binding.btnResetSteps)
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Reset Steps?")
+                .setMessage("This will reset your step count to 0 for today. This cannot be undone.")
+                .setPositiveButton("Reset") { _, _ ->
+                    previousTotalSteps = totalStepsFromSensor
+                    // Save 0 steps, current sensor value, 0 heart points
+                    saveStepData(0, totalStepsFromSensor, 0)
+                    
+                    // Force UI update
+                    binding.tvCenterValueTop.text = "0"
+                    binding.circularProgressView.setProgress(0f, 0f)
+                    binding.tvSteps.text = "0 Steps"
+                    
+                    Toast.makeText(context, "Steps reset to 0", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Cancel", null)
                 .show()
         }
 
@@ -479,6 +519,27 @@ class HomeFragment : Fragment() {
             sensorManager.registerListener(stepListener, it, SensorManager.SENSOR_DELAY_UI)
         } ?: run {
             Toast.makeText(requireContext(), "Step Sensor Not Found", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveStepData(currentSteps: Int, sensorValue: Float, heartPoints: Int) {
+        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val today = getTodayDate()
+        sharedPref.edit {
+            putInt("heartPoints_$today", heartPoints)
+            putFloat("previousTotalSteps", previousTotalSteps)
+            putString("stepsDate", today)
+
+            putInt("dailySteps_$today", currentSteps)
+            putFloat("totalSteps", sensorValue)
+
+            val kmCovered = currentSteps * 0.000762f
+            val caloriesBurned = currentSteps * 0.04f
+            val walkingMinutes = currentSteps / 100f
+
+            putFloat("calories_$today", caloriesBurned)
+            putFloat("distance_$today", kmCovered)
+            putFloat("walkingMinutes_$today", walkingMinutes)
         }
     }
 

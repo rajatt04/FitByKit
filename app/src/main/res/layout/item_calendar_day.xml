@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
+
+    <!-- Aspect Ratio container -->
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/dayBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundPercent="1" 
+        android:background="#2C2C2E"/>
+
+    <TextView
+        android:id="@+id/tvDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/dayBackground"
+        app:layout_constraintEnd_toEndOf="@+id/dayBackground"
+        app:layout_constraintStart_toStartOf="@+id/dayBackground"
+        app:layout_constraintTop_toTopOf="@+id/dayBackground" />
+
+    <View
+        android:id="@+id/dotStatus"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:background="@drawable/circle_filled"
+        android:backgroundTint="#00E676"
+        android:layout_marginTop="2dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tvDay"
+        app:layout_constraintStart_toStartOf="@+id/tvDay"
+        app:layout_constraintEnd_toEndOf="@+id/tvDay"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

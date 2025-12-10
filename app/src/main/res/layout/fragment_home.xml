@@ -63,6 +63,24 @@
                 android:src="@drawable/account_circle_24dp" />
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnCalendar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/calendar_today_24dp"
+                android:tint="?attr/colorControlNormal" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnShare"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/share_24dp"
+                android:tint="?attr/colorControlNormal" />
+
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/info"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -91,7 +109,7 @@
             android:layout_marginEnd="8dp"
             android:paddingBottom="16dp">
 
-            <com.rajatt7z.fitbykit.CircularProgressView
+            <com.rajatt7z.fitbykit.views.CircularProgressView
                 android:id="@+id/circular_progress_view"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
@@ -269,6 +287,71 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/stats_container">
+
+                <!-- Water Intake Tracker -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/waterTrackerCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="16dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvWaterTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Water Intake"
+                            android:textColor="?attr/colorControlActivated"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvWaterAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="0 ml"
+                            android:textColor="#2D72F3"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvWaterTitle" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvWaterTarget"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/ 3000 ml"
+                            android:textColor="?attr/colorControlNormal"
+                            android:textSize="14sp"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvWaterAmount"
+                            app:layout_constraintStart_toEndOf="@+id/tvWaterAmount" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnAddWater"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ 250ml"
+                            android:textColor="@android:color/white"
+                            android:backgroundTint="#2D72F3"
+                            app:cornerRadius="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/dailyGoals"

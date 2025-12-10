@@ -79,7 +79,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/heading" />
 
-            <com.rajatt7z.fitbykit.WaveView
+            <com.rajatt7z.fitbykit.views.WaveView
                 android:id="@+id/waveView"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
@@ -171,7 +171,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/materialTextView13" />
 
-            <com.rajatt7z.fitbykit.WaveView
+            <com.rajatt7z.fitbykit.views.WaveView
                 android:id="@+id/wavy_line_1"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
@@ -253,7 +253,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-            <com.rajatt7z.fitbykit.WaveView
+            <com.rajatt7z.fitbykit.views.WaveView
                 android:id="@+id/wavy_line_2"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"

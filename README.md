@@ -35,15 +35,18 @@ FitByKit is a modern Android application built with Kotlin, designed to help use
 
 ---
 
-## Screenshots
+## App Screenshots
 
-| Welcome | About User | Home Screen |
-|---|---|---|
-| ![First](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/1.jpeg?raw=true) | ![User Data](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/2.jpeg?raw=true) |![Exercise List](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/3.jpeg?raw=true) |
+Below are some screenshots of the FitByKit application showcasing its features and user interface:
 
-|  Workout Screen | Diet Screen | User Profile |
-|---|---|---|
-| ![Progress Charts](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/4.jpeg?raw=true) |![Diet](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/5.jpeg?raw=true) | ![User](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Faculty/images_faculty/6.jpeg?raw=true) |
+| Screenshot 1      | Screenshot 2      | Screenshot 3      |Screenshot 4       |
+|-------------------|-------------------|-------------------|-------------------|
+| ![Image1](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100219.jpg?raw=true) | ![Image2](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100222.jpg?raw=true) | ![Image3](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100248.jpg?raw=true) |![Image4](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100513.jpg?raw=true) |
+
+| Screenshot 5      | Screenshot 6      | Screenshot 7      |Screenshot 8       |
+|-------------------|-------------------|-------------------|-------------------|
+| ![Image5](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100258.jpg?raw=true) | ![Image6](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100518.jpg?raw=true) | ![Image7](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100559.jpg?raw=true) |![Image8](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100719.jpg?raw=true) |
+
 
 ---
 

@@ -3,7 +3,9 @@ package com.rajatt7z.fitbykit
 import android.app.Application
 import com.google.android.material.color.DynamicColors
 import org.osmdroid.config.Configuration
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class FitByKit : Application()  {
     override fun onCreate() {
         super.onCreate()

@@ -20,6 +20,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.databinding.ActivityFitByKitNavBinding
 
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class FitByKitNav : AppCompatActivity() {
 
     private lateinit var binding: ActivityFitByKitNavBinding

@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.databinding.ActivityTrackBinding
 import com.rajatt7z.fitbykit.navigation.FitByKitNav
 
-class track : AppCompatActivity() {
+class TrackActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTrackBinding
     @RequiresApi(Build.VERSION_CODES.Q)

@@ -1,20 +1,22 @@
 package com.rajatt7z.fitbykit.viewModels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rajatt7z.fitbykit.database.AppDatabase
 import com.rajatt7z.fitbykit.database.LikedExercise
 import com.rajatt7z.fitbykit.adapters.ExerciseVideoLinks.exerciseVideoMap
+import com.rajatt7z.fitbykit.repository.LocalDataRepository
 import com.rajatt7z.workout_api.Exercise
 import com.rajatt7z.workout_api.Translation
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LikedWorkoutsViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val dao = AppDatabase.getDatabase(application).likedExerciseDao()
+@HiltViewModel
+class LikedWorkoutsViewModel @Inject constructor(
+    private val localRepository: LocalDataRepository
+) : ViewModel() {
 
     private val _likedExercises = MutableStateFlow<List<Exercise>>(emptyList())
     val likedExercises: StateFlow<List<Exercise>> = _likedExercises
@@ -28,7 +30,7 @@ class LikedWorkoutsViewModel(application: Application) : AndroidViewModel(applic
 
     private fun loadLikedExercises() {
         viewModelScope.launch {
-            val likedList = dao.getAll()
+            val likedList = localRepository.getAllLikedExercises()
             _likedSet.value = likedList.map { it.name }.toSet()
             _likedExercises.value = likedList.map {
                 Exercise(
@@ -56,10 +58,10 @@ class LikedWorkoutsViewModel(application: Application) : AndroidViewModel(applic
             val currentSet = _likedSet.value.toMutableSet()
 
             if (currentSet.contains(name)) {
-                dao.delete(LikedExercise(name, videoUrl))
+                localRepository.deleteLikedExercise(LikedExercise(name, videoUrl))
                 currentSet.remove(name)
             } else {
-                dao.insert(LikedExercise(name, videoUrl))
+                localRepository.insertLikedExercise(LikedExercise(name, videoUrl))
                 currentSet.add(name)
             }
             _likedSet.value = currentSet

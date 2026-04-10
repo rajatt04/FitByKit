@@ -1,6 +1,7 @@
 package com.rajatt7z.fitbykit.fragments
 
 import android.Manifest
+import dagger.hilt.android.AndroidEntryPoint
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -32,15 +33,16 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.rajatt7z.fitbykit.receivers.AlarmScheduler
 import com.rajatt7z.fitbykit.R
+import com.rajatt7z.fitbykit.activity.HeartPointsActivity
 import com.rajatt7z.fitbykit.activity.SettingsActivity
+import com.rajatt7z.fitbykit.activity.StepsActivity
 import com.rajatt7z.fitbykit.activity.UserProfile
 import com.rajatt7z.fitbykit.receivers.ReminderReceiver
-import com.rajatt7z.fitbykit.activity.heartpoints
-import com.rajatt7z.fitbykit.activity.steps
 import com.rajatt7z.fitbykit.databinding.FragmentProfileBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.jvm.java
 
 fun Context.hasExactAlarmPermission(): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -57,6 +59,7 @@ fun Context.requestExactAlarmPermission() {
     }
 }
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
@@ -137,11 +140,11 @@ class ProfileFragment : Fragment() {
         }
 
         binding.totalSteps.setOnClickListener {
-            startActivity(Intent(requireContext(),steps::class.java))
+            startActivity(Intent(requireContext(), StepsActivity::class.java))
         }
 
         binding.heartCount.setOnClickListener {
-            startActivity(Intent(requireContext(),heartpoints::class.java))
+            startActivity(Intent(requireContext(), HeartPointsActivity::class.java))
         }
 
         binding.settings.setOnClickListener{

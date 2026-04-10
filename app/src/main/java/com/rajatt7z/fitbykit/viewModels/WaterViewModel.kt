@@ -1,10 +1,10 @@
 package com.rajatt7z.fitbykit.viewModels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rajatt7z.fitbykit.database.AppDatabase
 import com.rajatt7z.fitbykit.database.WaterIntake
+import com.rajatt7z.fitbykit.repository.LocalDataRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -12,10 +12,13 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import javax.inject.Inject
 
-class WaterViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class WaterViewModel @Inject constructor(
+    private val repository: LocalDataRepository
+) : ViewModel() {
 
-    private val dao = AppDatabase.getDatabase(application).waterIntakeDao()
     private val _todayWater = MutableStateFlow(0)
     val todayWater: StateFlow<Int> = _todayWater
 
@@ -26,7 +29,7 @@ class WaterViewModel(application: Application) : AndroidViewModel(application) {
     private fun fetchTodayWater() {
         val today = getTodayDate()
         viewModelScope.launch {
-            dao.getTotalWaterForDate(today).collectLatest { total ->
+            repository.getTotalWaterForDate(today).collectLatest { total ->
                 _todayWater.value = total ?: 0
             }
         }
@@ -38,7 +41,7 @@ class WaterViewModel(application: Application) : AndroidViewModel(application) {
                 date = getTodayDate(),
                 amountMl = amountMl
             )
-            dao.insert(intake)
+            repository.insertWaterIntake(intake)
             // Flow will automatically update _todayWater due to collectLatest
         }
     }

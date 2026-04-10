@@ -22,6 +22,9 @@ import com.rajatt7z.fitbykit.databinding.ActivityVideoPlayerBinding
 import com.rajatt7z.fitbykit.viewModels.VideoPlayerViewModel
 import java.io.File
 
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class VideoPlayerActivity : AppCompatActivity() {
 
     private lateinit var context : Context

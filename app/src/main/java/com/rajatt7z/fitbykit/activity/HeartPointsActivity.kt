@@ -7,7 +7,7 @@ import androidx.core.content.edit
 import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.databinding.ActivityHeartpointsBinding
 
-class heartpoints : AppCompatActivity() {
+class HeartPointsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHeartpointsBinding
 

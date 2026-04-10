@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.databinding.ActivityStepsBinding
 
-class steps : AppCompatActivity() {
+class StepsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStepsBinding
 

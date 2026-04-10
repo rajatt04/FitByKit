@@ -89,15 +89,15 @@
         </receiver>
 
         <activity
-            android:name=".activity.syncFit"
+            android:name=".activity.SyncFitActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.heartpoints"
+            android:name=".activity.HeartPointsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.steps"
+            android:name=".activity.StepsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -106,7 +106,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.track"
+            android:name=".activity.TrackActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

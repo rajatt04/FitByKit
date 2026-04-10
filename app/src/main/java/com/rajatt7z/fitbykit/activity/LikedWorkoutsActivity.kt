@@ -19,6 +19,9 @@ import com.rajatt7z.fitbykit.viewModels.LikedWorkoutsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class LikedWorkoutsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLikedWorkoutsBinding

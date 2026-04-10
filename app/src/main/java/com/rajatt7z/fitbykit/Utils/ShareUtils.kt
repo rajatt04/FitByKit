@@ -55,16 +55,14 @@ object ShareUtils {
 
             val contentUri: Uri = FileProvider.getUriForFile(context, "com.rajatt7z.fitbykit.provider", File("$cachePath/stats_share.png"))
 
-            if (contentUri != null) {
-                val shareIntent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    setDataAndType(contentUri, context.contentResolver.getType(contentUri))
-                    putExtra(Intent.EXTRA_STREAM, contentUri)
-                    type = "image/png"
-                }
-                context.startActivity(Intent.createChooser(shareIntent, "Share your stats"))
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                setDataAndType(contentUri, context.contentResolver.getType(contentUri))
+                putExtra(Intent.EXTRA_STREAM, contentUri)
+                type = "image/png"
             }
+            context.startActivity(Intent.createChooser(shareIntent, "Share your stats"))
 
         } catch (e: Exception) {
             e.printStackTrace()

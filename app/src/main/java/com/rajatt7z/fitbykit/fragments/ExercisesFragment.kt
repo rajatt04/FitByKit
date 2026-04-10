@@ -17,6 +17,9 @@ import com.rajatt7z.fitbykit.viewModels.ExerciseViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class ExercisesFragment : Fragment() {
 
     private var _binding: FragmentExercisesBinding? = null

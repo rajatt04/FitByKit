@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rajatt7z.fitbykit.databinding.ActivitySyncFitBinding
 
-class syncFit : AppCompatActivity() {
+class SyncFitActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySyncFitBinding
 

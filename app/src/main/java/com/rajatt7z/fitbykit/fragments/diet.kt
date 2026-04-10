@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.loadingindicator.LoadingIndicator
@@ -27,14 +27,16 @@ import com.rajatt7z.fitbykit.activity.MealPlayer
 import com.rajatt7z.fitbykit.adapters.MealAdapter
 import com.rajatt7z.fitbykit.viewModels.DietViewModel
 import com.rajatt7z.workout_api.getIngredientsPair
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class diet : Fragment() {
 
     private var isSearching = false
     private lateinit var macrosCard: MaterialTextView
     private lateinit var mealAdapter: MealAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: DietViewModel
+    private val viewModel: DietViewModel by viewModels()
     private lateinit var loadingIndicator: LoadingIndicator
     private lateinit var searchEditText: TextInputEditText
     private lateinit var searchButton: ImageButton
@@ -51,8 +53,6 @@ class diet : Fragment() {
         loadingIndicator = view.findViewById(R.id.loadingIndicator)
         searchEditText = view.findViewById(R.id.searchEdit)
         searchButton = view.findViewById(R.id.searchButton)
-
-        viewModel = ViewModelProvider(this)[DietViewModel::class.java]
 
         viewModel.loadTopMealsIfNoQuery()
 

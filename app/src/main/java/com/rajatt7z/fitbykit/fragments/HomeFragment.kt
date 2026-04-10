@@ -30,13 +30,14 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.viewModels
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.activity.DailyGoals
 import com.rajatt7z.fitbykit.activity.DistanceTrackerActivity
 import com.rajatt7z.fitbykit.activity.UserBmi
 import com.rajatt7z.fitbykit.activity.UserProfile
 import com.rajatt7z.fitbykit.activity.WeeklyGoals
-import com.rajatt7z.fitbykit.activity.syncFit
+import com.rajatt7z.fitbykit.activity.SyncFitActivity
 import com.rajatt7z.fitbykit.databinding.FragmentHomeBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -46,6 +47,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -223,7 +227,7 @@ class HomeFragment : Fragment() {
         }
 
         // --- Water Intake Tracker ---
-        val waterViewModel = androidx.lifecycle.ViewModelProvider(this)[com.rajatt7z.fitbykit.viewModels.WaterViewModel::class.java]
+        val waterViewModel: com.rajatt7z.fitbykit.viewModels.WaterViewModel by viewModels()
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED) {
@@ -310,7 +314,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnSync.setOnClickListener {
-            startActivity(Intent(requireContext(), syncFit::class.java))
+            startActivity(Intent(requireContext(), SyncFitActivity::class.java))
         }
 
         binding.dismissSync3.setOnClickListener{

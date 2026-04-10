@@ -8,10 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.rajatt7z.workout_api.Meal
 import com.rajatt7z.workout_api.MealApiClient
 import com.rajatt7z.workout_api.MealRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DietViewModel : ViewModel() {
-    private val repository = MealRepository(MealApiClient.api)
+@HiltViewModel
+class DietViewModel @Inject constructor(
+    private val repository: MealRepository
+) : ViewModel() {
 
     private val _meals = MutableLiveData<List<Meal>>()
     val meals: LiveData<List<Meal>> = _meals

@@ -13,11 +13,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rajatt7z.fitbykit.adapters.MuscleAdapter
 import com.rajatt7z.fitbykit.databinding.FragmentWorkoutsBinding
-import com.rajatt7z.fitbykit.di.WorkoutModule
 import com.rajatt7z.fitbykit.viewModels.WorkoutViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class Workouts : Fragment() {
 
     private var _binding: FragmentWorkoutsBinding ?= null
@@ -49,8 +51,7 @@ class Workouts : Fragment() {
             insets
         }
 
-        muscleAdapter = MuscleAdapter(emptyList()) {
-            muscle ->
+        muscleAdapter = MuscleAdapter(emptyList()) { muscle ->
             val action = WorkoutsDirections.actionWorkoutsToExercisesFragment(
                 muscleId = muscle.id,
                 muscleName = muscle.name_en ?: muscle.name
@@ -68,28 +69,8 @@ class Workouts : Fragment() {
             }
         }
 
-        if (workoutViewModel.muscleList.value.isNullOrEmpty()) {
-            loadMuscles()
-        }
+        // Muscles are now automatically fetched by WorkoutViewModel's init block
     }
-
-    private fun loadMuscles() {
-        binding.progressBar.visibility = View.VISIBLE
-        binding.recyclerViewExercises.visibility = View.GONE
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            delay(1111)
-            try {
-                val list = WorkoutModule.repository.fetchMuscles()
-                workoutViewModel.setMuscles(list)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

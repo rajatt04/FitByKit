@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/home_24dp"
+        android:icon="@drawable/ic_home_modern"
         android:title="@string/home_"/>
 
     <item
         android:id="@+id/workout_frag"
-        android:icon="@drawable/fitness_center_24dp"
+        android:icon="@drawable/ic_workout_modern"
         android:title="@string/workout_"/>
 
     <item
         android:id="@+id/diet_frag"
-        android:icon="@drawable/local_dining_24dp"
+        android:icon="@drawable/ic_diet_modern"
         android:title="@string/diet_"/>
 
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/account_circle_24dp"
+        android:icon="@drawable/ic_profile_modern"
         android:title="@string/activity"/>
 
 </menu>

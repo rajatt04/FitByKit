@@ -25,4 +25,12 @@
         <item name="colorSecondary">@color/green_200</item>
     </style>
 
-</resources>
+    <!-- M3 Expressive: Filled circle active indicator for bottom nav -->
+    <style name="Widget.FitByKit.NavActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:width">56dp</item>
+        <item name="android:height">56dp</item>
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Full</item>
+    </style>
+
+</resources>

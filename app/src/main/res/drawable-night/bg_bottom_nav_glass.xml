@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Dark frosted glass — very opaque so content doesn't bleed -->
+    <solid android:color="#E6141420" />
+
+    <!-- Smooth rounded corners -->
+    <corners android:radius="32dp" />
+
+    <!-- Subtle light border for glass edge -->
+    <stroke
+        android:width="0.5dp"
+        android:color="#1AFFFFFF" />
+</shape>

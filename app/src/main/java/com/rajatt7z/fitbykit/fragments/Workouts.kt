@@ -8,15 +8,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rajatt7z.fitbykit.adapters.MuscleAdapter
 import com.rajatt7z.fitbykit.databinding.FragmentWorkoutsBinding
 import com.rajatt7z.fitbykit.viewModels.WorkoutViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,9 +60,12 @@ class Workouts : Fragment() {
         workoutViewModel.muscleList.observe(viewLifecycleOwner) { muscles ->
             if (muscles.isNotEmpty()) {
                 muscleAdapter.updateList(muscles)
-                binding.recyclerViewExercises.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.GONE
             }
+        }
+
+        workoutViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.recyclerViewExercises.visibility = if (isLoading) View.GONE else View.VISIBLE
         }
 
         // Muscles are now automatically fetched by WorkoutViewModel's init block

@@ -21,6 +21,7 @@ import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.databinding.ActivityFitByKitNavBinding
 
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.core.content.edit
 
 @AndroidEntryPoint
 class FitByKitNav : AppCompatActivity() {
@@ -59,7 +60,7 @@ class FitByKitNav : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val sharedPref = getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("userPref", MODE_PRIVATE)
         val isFirstLaunch = sharedPref.getBoolean("firstTimeAfterNotification", true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -95,7 +96,7 @@ class FitByKitNav : AppCompatActivity() {
                         }
                     }
                 }
-                sharedPref.edit().putBoolean("firstTimeAfterNotification", false).apply()
+                sharedPref.edit { putBoolean("firstTimeAfterNotification", false) }
             }
         }
     }
@@ -109,15 +110,10 @@ class FitByKitNav : AppCompatActivity() {
     }
 
     private fun isInternetAvailable(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val network = cm.activeNetwork ?: return false
-            val capabilities = cm.getNetworkCapabilities(network) ?: return false
-            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-        } else {
-            val networkInfo = cm.activeNetworkInfo
-            networkInfo != null && networkInfo.isConnected
-        }
+        val cm = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = cm.activeNetwork ?: return false
+        val capabilities = cm.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
     private fun showNoInternetDialog(onRetry: () -> Unit) {

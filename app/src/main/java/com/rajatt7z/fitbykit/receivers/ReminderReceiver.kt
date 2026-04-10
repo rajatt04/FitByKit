@@ -1,10 +1,15 @@
 package com.rajatt7z.fitbykit.receivers
 
-import android.annotation.SuppressLint
-import android.app.*
-import android.content.*
-import android.media.*
-import android.os.*
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.media.Ringtone
+import android.media.RingtoneManager
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.rajatt7z.fitbykit.R
@@ -59,7 +64,7 @@ class ReminderReceiver : BroadcastReceiver() {
         }
     }
 
-    @SuppressLint("ObsoleteSdkInt")
+    @Suppress("DEPRECATION", "ObsoleteSdkInt")
     private fun startAlarm(context: Context) {
         val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)

@@ -27,7 +27,7 @@ object AppModule {
             context,
             AppDatabase::class.java,
             "fitbykit_db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration(true).build()
     }
 
     @Provides

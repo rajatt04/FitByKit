@@ -1,5 +1,9 @@
-package com.rajatt7z.fitbykit.utils
+@file:Suppress("ConstantConditionIf", "KotlinConstantConditions")
 
+package com.rajatt7z.fitbykit.Utils
+
+
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -12,9 +16,15 @@ import androidx.core.content.FileProvider
 import com.rajatt7z.fitbykit.R
 import java.io.File
 import java.io.FileOutputStream
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.toColorInt
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 object ShareUtils {
 
+    @SuppressLint("InflateParams")
     fun shareStats(context: Context, steps: String, calories: String, distance: String, time: String) {
         val view = LayoutInflater.from(context).inflate(R.layout.share_stats_card, null)
 
@@ -36,10 +46,10 @@ object ShareUtils {
         view.layout(0, 0, width, height)
 
         // Draw to Bitmap
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val bitmap = createBitmap(width, height)
         val canvas = Canvas(bitmap)
         // Draw dark background since the card is just a card
-        canvas.drawColor(android.graphics.Color.parseColor("#121212")) 
+        canvas.drawColor("#121212".toColorInt())
         view.draw(canvas)
 
         shareBitmap(context, bitmap)
@@ -70,7 +80,7 @@ object ShareUtils {
     }
 
     private fun getCurrentDate(): String {
-        val sdf = java.text.SimpleDateFormat("MMM dd, yyyy", java.util.Locale.getDefault())
-        return sdf.format(java.util.Date())
+        val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+        return sdf.format(Date())
     }
 }

@@ -29,7 +29,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import androidx.fragment.app.viewModels
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.activity.DailyGoals
@@ -45,6 +44,7 @@ import java.util.Date
 import java.util.Locale
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.rajatt7z.fitbykit.Utils.ShareUtils
 import kotlinx.coroutines.launch
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -252,7 +252,7 @@ class HomeFragment : Fragment() {
             val dist = binding.tvKmValue.text.toString()
             val time = binding.tvWalkingMinValue.text.toString()
             
-            com.rajatt7z.fitbykit.utils.ShareUtils.shareStats(requireContext(), steps, cal, dist, time)
+            ShareUtils.shareStats(requireContext(), steps, cal, dist, time)
         }
 
         binding.btnCalendar.setOnClickListener {

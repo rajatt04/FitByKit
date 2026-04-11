@@ -47,6 +47,7 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
                 android:text="Loading details..." />
 
@@ -54,6 +55,7 @@
                 android:id="@+id/btnWatchVideo"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:fontFamily="@font/poppins"
                 android:layout_marginTop="16dp"
                 android:text="▶  Watch Exercise Video"
                 android:textAllCaps="false"
@@ -65,6 +67,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvVideoStatus"
+                android:fontFamily="@font/poppins"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

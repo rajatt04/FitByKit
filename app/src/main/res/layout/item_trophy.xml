@@ -17,6 +17,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTrophyName"
             android:layout_width="0dp"
+            android:fontFamily="@font/poppins"
             android:layout_height="wrap_content"
             android:text="Trophy Name"
             android:textAppearance="?attr/textAppearanceTitleMedium"
@@ -28,6 +29,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTrophyDesc"
             android:layout_width="0dp"
+            android:fontFamily="@font/poppins"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Description"

@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="0dp"
+            app:titleTextAppearance="@style/ToolbarTitleText"
             app:layout_collapseMode="pin"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:navigationIconTint="?attr/colorOnSurface"
@@ -64,11 +65,12 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/profile"
+                        android:fontFamily="@font/poppins"
                         android:textColor="?attr/colorPrimary"
                         android:paddingBottom="4dp" />
 
@@ -105,6 +107,7 @@
                         <TextView
                             style="@style/TextAppearance.Material3.BodyLarge"
                             android:layout_width="0dp"
+                            android:fontFamily="@font/poppins"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
@@ -144,6 +147,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/app_settings"
+                        android:fontFamily="@font/poppins"
                         android:textColor="?attr/colorPrimary"
                         android:paddingBottom="4dp" />
 
@@ -186,12 +190,14 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:fontFamily="@font/poppins"
                                 style="@style/TextAppearance.Material3.BodyLarge"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/notifications" />
 
                             <TextView
+                                android:fontFamily="@font/poppins"
                                 style="@style/TextAppearance.Material3.BodySmall"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -247,12 +253,14 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:fontFamily="@font/poppins"
                                 style="@style/TextAppearance.Material3.BodyLarge"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/dark_mode" />
 
                             <TextView
+                                android:fontFamily="@font/poppins"
                                 style="@style/TextAppearance.Material3.BodySmall"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -307,12 +315,14 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:fontFamily="@font/poppins"
                                 style="@style/TextAppearance.Material3.BodyLarge"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/units" />
 
                             <TextView
+                                android:fontFamily="@font/poppins"
                                 style="@style/TextAppearance.Material3.BodySmall"
                                 android:id="@+id/tv_units_subtitle"
                                 android:layout_width="match_parent"
@@ -392,6 +402,7 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
+                            android:fontFamily="@font/poppins"
                             style="@style/TextAppearance.Material3.BodyLarge"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -439,6 +450,7 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
+                            android:fontFamily="@font/poppins"
                             style="@style/TextAppearance.Material3.BodyLarge"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -486,6 +498,7 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
+                            android:fontFamily="@font/poppins"
                             style="@style/TextAppearance.Material3.BodyLarge"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -565,12 +578,14 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:fontFamily="@font/poppins"
                                 style="@style/TextAppearance.Material3.BodyLarge"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/version" />
 
                             <TextView
+                                android:fontFamily="@font/poppins"
                                 style="@style/TextAppearance.Material3.BodySmall"
                                 android:id="@+id/tv_app_version"
                                 android:layout_width="match_parent"
@@ -615,6 +630,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:text="RK"
+                                android:fontFamily="@font/poppins"
                                 android:textColor="?attr/colorOnPrimaryContainer"
                                 android:textStyle="bold" />
 
@@ -627,6 +643,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:text="@string/rajat_kevat"
+                            android:fontFamily="@font/poppins"
                             android:textColor="?attr/colorOnSurface" />
 
                         <!-- Made with love -->
@@ -635,6 +652,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins"
                             android:text="@string/developed_with_in_india"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 

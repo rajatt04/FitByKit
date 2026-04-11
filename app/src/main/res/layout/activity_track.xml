@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.track"
+    tools:context=".activity.TrackActivity"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-condensed-medium"
+        android:fontFamily="@font/poppins"
         android:text="@string/track"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -66,7 +66,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/poppins"
         android:text="@string/track_des1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/poppins"
         android:text="@string/track_des2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +95,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
         android:text="@string/track_des3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,6 +138,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:text="@string/turn_on"
+        android:fontFamily="@font/poppins"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Create Playlist"
+            app:titleTextAppearance="@style/ToolbarTitleText"
             app:navigationIcon="@drawable/round_arrow_back_ios_24" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -43,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/workout_playlist"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="?attr/textAppearanceHeadlineSmall" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -50,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
+                android:fontFamily="@font/poppins"
                 android:text="@string/create_day_wise_schedule_for_workouts"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?attr/colorOnSurfaceVariant" />
@@ -91,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/options"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?attr/colorOnSurface" />
 
@@ -100,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/enable_notifications"
+                android:fontFamily="@font/poppins"
                 android:textColor="?attr/colorOnSurface"
                 android:checked="true"
                 app:thumbTint="?attr/colorPrimary"
@@ -111,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:text="@string/share_analytics_data"
+                android:fontFamily="@font/poppins"
                 android:textColor="?attr/colorOnSurface"
                 app:thumbTint="?attr/colorPrimary"
                 app:trackTint="?attr/colorPrimaryContainer" />
@@ -121,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:text="@string/categories"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?attr/colorOnSurface" />
 
@@ -138,6 +145,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/workout"
                     android:checkable="true"
+                    android:fontFamily="@font/poppins"
                     style="@style/Widget.Material3.Chip.Filter" />
 
                 <com.google.android.material.chip.Chip
@@ -145,6 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cardio"
+                    android:fontFamily="@font/poppins"
                     android:checkable="true"
                     style="@style/Widget.Material3.Chip.Filter" />
 
@@ -153,6 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/hilt"
+                    android:fontFamily="@font/poppins"
                     android:checkable="true"
                     style="@style/Widget.Material3.Chip.Filter" />
 
@@ -161,6 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yoga"
+                    android:fontFamily="@font/poppins"
                     android:checkable="true"
                     style="@style/Widget.Material3.Chip.Filter" />
 
@@ -172,6 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="@font/poppins"
                 android:text="@string/create"/>
 
         </LinearLayout>

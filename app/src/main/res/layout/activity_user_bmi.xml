@@ -21,6 +21,7 @@
             android:layout_marginEnd="32dp"
             android:gravity="center"
             android:text="@string/bmi_calculator"
+            android:fontFamily="@font/poppins"
             android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +36,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:gravity="center"
+            android:fontFamily="@font/poppins"
             android:text="@string/calculate_your_body_mass_index"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,6 +69,7 @@
                     android:layout_marginBottom="20dp"
                     android:text="@string/enter_your_details"
                     android:textSize="20sp"
+                    android:fontFamily="@font/poppins"
                     android:textStyle="bold" />
 
                 <!-- Weight Input -->
@@ -123,6 +126,7 @@
                     android:layout_height="60dp"
                     android:text="@string/calculate_bmi"
                     android:textSize="18sp"
+                    android:fontFamily="@font/poppins"
                     android:textStyle="bold"
                     app:cornerRadius="30dp" />
 
@@ -158,6 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:text="@string/your_bmi_result"
+                    android:fontFamily="@font/poppins"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -167,6 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/_25_4"
+                    android:fontFamily="@font/poppins"
                     android:textSize="48sp"
                     android:textStyle="bold" />
 
@@ -176,6 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:text="@string/normal_weight"
+                    android:fontFamily="@font/poppins"
                     android:textColor="@color/green"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -186,6 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/your_bmi_is_in_the_normal_range_keep_up_the_good_work"
                     android:textSize="14sp" />
 
@@ -199,6 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:text="@string/bmi_categories"
+                    android:fontFamily="@font/poppins"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -211,6 +220,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
+                        android:fontFamily="@font/poppins"
                         android:text="@string/underweight_bmi_lt_18_5"
                         android:textColor="@color/blue"
                         android:textSize="14sp" />
@@ -219,6 +229,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
+                        android:fontFamily="@font/poppins"
                         android:text="@string/normal_weight_bmi_18_5_24_9"
                         android:textColor="@color/green"
                         android:textSize="14sp" />
@@ -227,6 +238,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
+                        android:fontFamily="@font/poppins"
                         android:text="@string/overweight_bmi_25_0_29_9"
                         android:textColor="@color/orange"
                         android:textSize="14sp" />
@@ -235,6 +247,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
+                        android:fontFamily="@font/poppins"
                         android:text="@string/obese_bmi_30_0"
                         android:textColor="@color/red"
                         android:textSize="14sp" />
@@ -255,6 +268,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/green"
+            android:fontFamily="@font/poppins"
             android:text="@string/save_to_profile"
             android:textColor="@color/white"
             android:textSize="16sp"

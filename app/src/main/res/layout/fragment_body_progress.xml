@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Body Progress"
+            app:titleTextAppearance="@style/ToolbarTitleText"
             app:navigationIcon="@drawable/ic_arrow_back" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -48,6 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Weight Tracker"
+                        android:fontFamily="@font/poppins"
                         android:textAppearance="?attr/textAppearanceTitleLarge"
                         android:textStyle="bold" />
 
@@ -55,6 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins"
                         android:text="Log your bodyweight to track progress over time"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textColor="?attr/colorControlNormal" />
@@ -93,6 +96,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="56dp"
                             android:text="Log"
+                            android:fontFamily="@font/poppins"
                             app:cornerRadius="12dp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -118,6 +122,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Body Measurements"
+                        android:fontFamily="@font/poppins"
                         android:textAppearance="?attr/textAppearanceTitleLarge"
                         android:textStyle="bold" />
 
@@ -125,6 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins"
                         android:text="Track biceps, waist, chest and more over time"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textColor="?attr/colorControlNormal" />
@@ -178,6 +184,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="56dp"
                             android:text="Log"
+                            android:fontFamily="@font/poppins"
                             app:cornerRadius="12dp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -202,6 +209,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Progress Photos"
+                        android:fontFamily="@font/poppins"
                         android:textAppearance="?attr/textAppearanceTitleLarge"
                         android:textStyle="bold" />
 
@@ -211,6 +219,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="0 photos on WGER"
+                        android:fontFamily="@font/poppins"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textColor="?attr/colorControlNormal" />
 

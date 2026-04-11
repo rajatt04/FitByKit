@@ -36,6 +36,7 @@
                     android:layout_height="48dp"
                     app:icon="@drawable/pip_24dp"
                     app:iconPadding="8dp"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/enter_pip_mode" />
 
                 <com.google.android.material.button.MaterialButton
@@ -46,6 +47,7 @@
                     android:layout_marginStart="16dp"
                     app:icon="@drawable/download_24dp"
                     app:iconPadding="8dp"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/download_video" />
 
         </LinearLayout>

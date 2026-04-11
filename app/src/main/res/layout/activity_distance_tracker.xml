@@ -24,13 +24,18 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="12dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/etStartPointIL"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="12dp"
+                    app:boxCornerRadiusBottomEnd="24dp"
+                    app:boxCornerRadiusBottomStart="24dp"
+                    app:boxCornerRadiusTopEnd="24dp"
+                    app:boxCornerRadiusTopStart="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnSearchStart"
                     app:layout_constraintStart_toStartOf="parent"
@@ -39,26 +44,23 @@
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/etStartPoint"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:padding="12dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="56dp"
                         android:hint="@string/enter_start_address"
                         android:inputType="textPostalAddress"
-                        android:textSize="14sp" />
+                        android:padding="16dp"
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSearchStart"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="false"
+                    android:layout_height="56dp"
+                    android:text="@string/search"
+                    android:fontFamily="@font/poppins"
                     android:contentDescription="@string/search"
-                    android:focusable="false"
-                    android:src="@drawable/search_24dp"
-                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -67,12 +69,18 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="12dp"
+                    app:boxCornerRadiusBottomEnd="24dp"
+                    app:boxCornerRadiusBottomStart="24dp"
+                    app:boxCornerRadiusTopEnd="24dp"
+                    app:boxCornerRadiusTopStart="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnSearchEnd"
                     app:layout_constraintStart_toStartOf="parent"
@@ -81,25 +89,23 @@
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/etEndPoint"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:minHeight="56dp"
                         android:hint="@string/enter_destination_address"
                         android:inputType="textPostalAddress"
-                        android:padding="12dp"
-                        android:textSize="14sp" />
+                        android:padding="16dp"
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSearchEnd"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="false"
+                    android:layout_height="56dp"
+                    android:text="@string/search"
+                    android:fontFamily="@font/poppins"
                     android:contentDescription="@string/search"
-                    android:focusable="false"
-                    android:src="@drawable/search_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -116,52 +122,62 @@
                     android:id="@+id/btnFindRoute"
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:layout_height="56dp"
                     android:layout_weight="1"
                     android:enabled="false"
-                    android:text="@string/find_route"
-                    android:textSize="12sp" />
+                    android:text="@string/find_route" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCurrentLocation"
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/poppins"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="@string/my_location"
-                    android:textSize="12sp" />
+                    android:text="@string/my_location" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReset"
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:layout_height="56dp"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="@string/reset"
-                    android:textSize="12sp" />
+                    android:text="@string/reset" />
             </LinearLayout>
         </LinearLayout>
 
-        <org.osmdroid.views.MapView
-            android:id="@+id/mapView"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
+            android:layout_margin="12dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp"
             app:layout_constraintBottom_toTopOf="@+id/infoCard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+            <org.osmdroid.views.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/infoCard"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="24dp"
             app:layout_constraintBottom_toTopOf="@+id/buttonContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -170,15 +186,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="24dp">
 
                 <TextView
                     android:id="@+id/tvStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/tap_on_map_to_set_start_point"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
                     android:textStyle="bold" />
 
                 <TextView
@@ -187,8 +204,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/distance_0_0_km"
-                    android:textSize="14sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <TextView
                     android:id="@+id/tvDuration"
@@ -196,8 +214,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/duration_00_00_00"
-                    android:textSize="14sp" />
+                    android:textAppearance="?attr/textAppearanceBodyMedium" />
 
             </LinearLayout>
 
@@ -209,18 +228,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnStart"
-                style="@style/Widget.Material3.Button.OutlinedButton"
+                style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/start"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins"
+                app:layout_constraintBottom_toTopOf="@+id/btnShare"
                 app:layout_constraintEnd_toStartOf="@+id/btnStop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -229,10 +252,14 @@
                 android:id="@+id/btnStop"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
                 android:enabled="false"
                 android:text="@string/stop"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins"
+                app:layout_constraintBottom_toTopOf="@+id/btnDownload"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btnStart"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -241,10 +268,11 @@
                 android:id="@+id/btnShare"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="8dp"
                 android:enabled="false"
                 android:text="@string/share"
+                android:fontFamily="@font/poppins"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnDownload"
                 app:layout_constraintStart_toStartOf="parent"
@@ -254,10 +282,11 @@
                 android:id="@+id/btnDownload"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
                 android:enabled="false"
                 android:text="@string/save"
+                android:fontFamily="@font/poppins"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btnShare"

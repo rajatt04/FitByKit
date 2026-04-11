@@ -22,6 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/round_arrow_back_ios_24"
             app:title="Workout History"
+            app:titleTextAppearance="@style/ToolbarTitleText"
             app:titleTextColor="?attr/colorOnSurface" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -49,6 +50,7 @@
             android:text="December 2025"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:fontFamily="@font/poppins"
             android:layout_marginHorizontal="16dp"
             android:textColor="?attr/colorOnSurface" />
 
@@ -71,13 +73,13 @@
         app:layout_constraintTop_toBottomOf="@+id/monthHeader">
         
         <!-- Day Labels S M T W T F S -->
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="S" android:gravity="center" android:textColor="#8E8E93"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="M" android:gravity="center" android:textColor="#8E8E93"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="T" android:gravity="center" android:textColor="#8E8E93"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="W" android:gravity="center" android:textColor="#8E8E93"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="T" android:gravity="center" android:textColor="#8E8E93"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="F" android:gravity="center" android:textColor="#8E8E93"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="S" android:gravity="center" android:textColor="#8E8E93"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="S" android:gravity="center" android:textColor="#8E8E93" android:fontFamily="@font/poppins"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="M" android:gravity="center" android:textColor="#8E8E93" android:fontFamily="@font/poppins"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="T" android:gravity="center" android:textColor="#8E8E93" android:fontFamily="@font/poppins"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="W" android:gravity="center" android:textColor="#8E8E93" android:fontFamily="@font/poppins"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="T" android:gravity="center" android:textColor="#8E8E93" android:fontFamily="@font/poppins"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="F" android:gravity="center" android:textColor="#8E8E93" android:fontFamily="@font/poppins"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="S" android:gravity="center" android:textColor="#8E8E93" android:fontFamily="@font/poppins"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="2024-01-15"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textStyle="bold" />
 
@@ -35,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="#42"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="?attr/textAppearanceLabelMedium"
                 android:textColor="?attr/colorPrimary" />
         </LinearLayout>
@@ -45,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Notes..."
+            android:fontFamily="@font/poppins"
             android:textAppearance="?attr/textAppearanceBodySmall"
             android:textColor="?attr/colorControlNormal"
             android:maxLines="2"

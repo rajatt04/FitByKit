@@ -149,7 +149,7 @@
     <string name="enter_start_address">Enter start address</string>
     <string name="search">Search</string>
     <string name="enter_destination_address">Enter destination address</string>
-    <string name="my_location">My Location</string>
+    <string name="my_location">Location</string>
     <string name="reset">Reset</string>
     <string name="find_route">Find Route</string>
     <string name="today_s_progress">Today\'s Progress</string>

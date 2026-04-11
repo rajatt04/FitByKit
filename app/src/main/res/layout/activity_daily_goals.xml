@@ -10,8 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <!-- Header -->
         <com.google.android.material.appbar.MaterialToolbar
@@ -20,6 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             app:title="Daily Goals"
+            app:titleTextAppearance="@style/ToolbarTitleText"
             app:titleTextColor="?attr/colorOnSurface"
             app:navigationIcon="@drawable/round_arrow_back_ios_24"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.Material3.CardView.Elevated"
             android:elevation="8dp"
+            android:layout_margin="8dp"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/today_s_progress"
+                    android:fontFamily="@font/poppins"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="?attr/colorOnSurface" />
@@ -57,6 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/_3_of_5_goals_completed"
                     android:textSize="14sp"
                     android:textColor="?attr/colorOnSurfaceVariant" />
@@ -69,6 +72,7 @@
                     android:layout_marginTop="4dp"
                     android:text="🔥 Streak: 0 days"
                     android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
                     android:textStyle="bold"
                     android:textColor="?attr/colorPrimary" />
 
@@ -92,6 +96,7 @@
                     android:layout_marginTop="10dp"
                     android:text="✨ Tip: Keep moving!"
                     android:textSize="13sp"
+                    android:fontFamily="@font/poppins"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
             </LinearLayout>
@@ -105,6 +110,7 @@
             android:layout_marginTop="16dp"
             style="@style/Widget.Material3.CardView.Elevated"
             android:elevation="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintTop_toBottomOf="@id/progressOverviewCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -134,6 +140,7 @@
                         android:layout_weight="1"
                         android:layout_marginStart="12dp"
                         android:text="@string/steps_goal"
+                        android:fontFamily="@font/poppins"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnSurface" />
@@ -143,6 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_7_500_10_000"
+                        android:fontFamily="@font/poppins"
                         android:textSize="14sp"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -189,6 +197,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="@string/update"
+                        android:fontFamily="@font/poppins"
                         app:icon="@drawable/check_24dp" />
 
                 </LinearLayout>
@@ -204,6 +213,7 @@
             android:layout_marginTop="16dp"
             style="@style/Widget.Material3.CardView.Elevated"
             android:elevation="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintTop_toBottomOf="@id/stepsGoalCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -234,6 +244,7 @@
                         android:layout_marginStart="12dp"
                         android:text="@string/heart_points_goal"
                         android:textSize="16sp"
+                        android:fontFamily="@font/poppins"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnSurface" />
 
@@ -242,6 +253,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_38_100"
+                        android:fontFamily="@font/poppins"
                         android:textSize="14sp"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -288,6 +300,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="@string/update"
+                        android:fontFamily="@font/poppins"
                         app:icon="@drawable/check_24dp" />
 
                 </LinearLayout>
@@ -303,6 +316,7 @@
             android:layout_marginTop="16dp"
             style="@style/Widget.Material3.CardView.Elevated"
             android:elevation="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintTop_toBottomOf="@id/heartPointsGoalCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -332,6 +346,7 @@
                         android:layout_weight="1"
                         android:layout_marginStart="12dp"
                         android:text="@string/calories_goal"
+                        android:fontFamily="@font/poppins"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnSurface" />
@@ -341,6 +356,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_300_500"
+                        android:fontFamily="@font/poppins"
                         android:textSize="14sp"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -387,6 +403,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="@string/update"
+                        android:fontFamily="@font/poppins"
                         app:icon="@drawable/check_24dp" />
 
                 </LinearLayout>
@@ -402,6 +419,7 @@
             android:layout_marginTop="16dp"
             style="@style/Widget.Material3.CardView.Elevated"
             android:elevation="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintTop_toBottomOf="@id/caloriesGoalCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -429,6 +447,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="12dp"
+                        android:fontFamily="@font/poppins"
                         android:text="@string/distance_goal_km"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -439,6 +458,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_5_7_8_0"
+                        android:fontFamily="@font/poppins"
                         android:textSize="14sp"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -485,6 +505,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="@string/update"
+                        android:fontFamily="@font/poppins"
                         app:icon="@drawable/check_24dp" />
 
                 </LinearLayout>
@@ -501,6 +522,7 @@
             android:layout_marginBottom="32dp"
             style="@style/Widget.Material3.CardView.Elevated"
             android:elevation="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintTop_toBottomOf="@id/distanceGoalCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -531,6 +553,7 @@
                         android:layout_marginStart="12dp"
                         android:text="@string/walking_minutes_goal"
                         android:textSize="16sp"
+                        android:fontFamily="@font/poppins"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnSurface" />
 
@@ -539,6 +562,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_75_120"
+                        android:fontFamily="@font/poppins"
                         android:textSize="14sp"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -585,6 +609,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="@string/update"
+                        android:fontFamily="@font/poppins"
                         app:icon="@drawable/check_24dp" />
 
                 </LinearLayout>

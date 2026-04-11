@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Name"
+            android:fontFamily="@font/poppins"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <ImageView

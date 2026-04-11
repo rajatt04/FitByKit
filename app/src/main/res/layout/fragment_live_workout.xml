@@ -12,6 +12,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            app:titleTextAppearance="@style/ToolbarTitleText"
             android:layout_height="?attr/actionBarSize"
             app:title="Live Tracking" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -32,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Session Active"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="?attr/textAppearanceHeadlineMedium"
                 android:layout_marginBottom="24dp"/>
 
@@ -91,6 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Log Set to WGER"
+                android:fontFamily="@font/poppins"
                 app:cornerRadius="12dp" />
 
         </LinearLayout>

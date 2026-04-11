@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:colorBackground">
@@ -13,8 +14,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Achievements"
-            app:navigationIcon="@drawable/ic_arrow_back" />
+            app:layout_anchor="@+id/appBarLayout2"
+            app:titleTextAppearance="@style/ToolbarTitleText"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="Achievements" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -47,6 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Your Stats"
+                        android:fontFamily="@font/poppins"
                         android:textAppearance="?attr/textAppearanceHeadlineSmall"
                         android:textStyle="bold" />
 
@@ -55,6 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppins"
                         android:text="Total Weight Lifted: — kg"
                         android:textAppearance="?attr/textAppearanceTitleMedium"
                         android:textColor="?attr/colorPrimary" />
@@ -64,6 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins"
                         android:text="Trophies Earned: 0"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
                 </LinearLayout>
@@ -75,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="All Trophies"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 android:textStyle="bold" />
 

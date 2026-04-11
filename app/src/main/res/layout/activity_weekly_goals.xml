@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             app:title="Weekly Goals"
+            app:titleTextAppearance="@style/ToolbarTitleText"
             app:titleTextColor="?attr/colorOnSurface"
             app:navigationIcon="@drawable/round_arrow_back_ios_24"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,6 +63,7 @@
 
                     <TextView
                         android:id="@+id/tvWeekRange"
+                        android:fontFamily="@font/poppins"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/aug_12_18_2025"
@@ -71,6 +73,7 @@
 
                     <TextView
                         android:id="@+id/tvWeekLabel"
+                        android:fontFamily="@font/poppins"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/this_week"
@@ -112,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weekly_summary"
+                    android:fontFamily="@font/poppins"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="?attr/colorOnSurface" />
@@ -135,6 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/_52_340"
+                            android:fontFamily="@font/poppins"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="?attr/colorPrimary" />
@@ -143,6 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/total_steps"
+                            android:fontFamily="@font/poppins"
                             android:textSize="12sp"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -160,6 +166,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/_7_477"
+                            android:fontFamily="@font/poppins"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="?attr/colorSecondary" />
@@ -168,6 +175,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/daily_average"
+                            android:fontFamily="@font/poppins"
                             android:textSize="12sp"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -185,6 +193,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/_5_7"
+                            android:fontFamily="@font/poppins"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/holo_green_dark" />
@@ -194,6 +203,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/days_achieved"
                             android:textSize="12sp"
+                            android:fontFamily="@font/poppins"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
                     </LinearLayout>
@@ -226,6 +236,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/daily_progress"
                     android:textSize="18sp"
+                    android:fontFamily="@font/poppins"
                     android:textStyle="bold"
                     android:textColor="?attr/colorOnSurface" />
 
@@ -234,6 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins"
                     android:layout_gravity="center" />
 
             </LinearLayout>
@@ -262,6 +274,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weekly_goals"
+                    android:fontFamily="@font/poppins"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="?attr/colorOnSurface" />
@@ -293,10 +306,12 @@
                             android:layout_height="wrap_content"
                             android:text="@string/weekly_steps_target"
                             android:textSize="14sp"
+                            android:fontFamily="@font/poppins"
                             android:textStyle="bold"
                             android:textColor="?attr/colorOnSurface" />
 
                         <TextView
+                            android:fontFamily="@font/poppins"
                             android:id="@+id/tvWeeklyStepsProgress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -361,10 +376,12 @@
                             android:layout_height="wrap_content"
                             android:text="@string/active_days_target"
                             android:textSize="14sp"
+                            android:fontFamily="@font/poppins"
                             android:textStyle="bold"
                             android:textColor="?attr/colorOnSurface" />
 
                         <TextView
+                            android:fontFamily="@font/poppins"
                             android:id="@+id/tvActiveDaysProgress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -407,6 +424,7 @@
                     android:id="@+id/btnUpdateWeeklyGoals"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
                     android:layout_marginTop="16dp"
                     android:text="@string/update_weekly_goals"
                     app:icon="@drawable/check_24dp" />
@@ -441,6 +459,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:fontFamily="@font/poppins"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -464,12 +483,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/great_progress_this_week"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="?attr/colorPrimary" />
 
                 <TextView
+                    android:fontFamily="@font/poppins"
                     android:id="@+id/tvInsightDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -485,6 +506,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     app:iconPadding="12dp"
+                    android:fontFamily="@font/poppins"
                     android:text="@string/view_trends"
                     app:icon="@drawable/trending_up_24dp" />
 

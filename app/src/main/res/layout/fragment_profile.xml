@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:fontFamily="sans-serif-condensed-medium"
+                android:fontFamily="@font/poppins"
                 android:text="@string/profile_"
                 android:textSize="28sp"
                 android:textStyle="bold"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/poppins"
                 android:text="@string/act_goals"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/poppins"
                 android:text="@string/b_s"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -247,7 +247,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/poppins"
                 android:text="@string/about_user"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -387,7 +387,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/poppins"
                 android:text="WGER Cloud"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -426,7 +426,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/ic_trending_up"
-                            app:tint="#2D72F3" />
+                            app:tint="?attr/colorPrimary" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -439,12 +439,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Body Progress"
+                                android:fontFamily="@font/poppins"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
                                 android:text="Weight, measurements &amp; photos"
                                 android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="?attr/colorControlNormal" />
@@ -480,7 +482,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/ic_trophy"
-                            app:tint="#FFD700" />
+                            app:tint="?attr/colorSecondary" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -493,12 +495,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Achievements"
+                                android:fontFamily="@font/poppins"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
                                 android:text="Trophies &amp; lifetime stats"
                                 android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="?attr/colorControlNormal" />
@@ -534,7 +538,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/ic_history"
-                            app:tint="#00D2C8" />
+                            app:tint="?attr/colorTertiary" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -547,12 +551,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Workout History"
+                                android:fontFamily="@font/poppins"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
                                 android:text="Past sessions &amp; logged sets"
                                 android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="?attr/colorControlNormal" />

@@ -11,6 +11,7 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            app:titleTextAppearance="@style/ToolbarTitleText"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="My Routines" />
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+            android:fontFamily="@font/poppins"
             android:text="Quick Workout"
             app:icon="@drawable/baseline_play_arrow_24" />
 

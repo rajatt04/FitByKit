@@ -31,13 +31,17 @@ class ExerciseViewModel @Inject constructor(
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
-    fun fetchExercises(muscleId: Int) {
+    fun fetchExercises(filterId: Int, filterType: String) {
         _isLoading.value = true
         _error.value = null
 
         viewModelScope.launch {
             try {
-                val result = workoutRepository.fetchExercises(muscleId)
+                val result = when (filterType) {
+                    "category" -> workoutRepository.fetchExercises(categoryId = filterId)
+                    "equipment" -> workoutRepository.fetchExercises(equipmentId = filterId)
+                    else -> workoutRepository.fetchExercises(muscleId = filterId)
+                }
                 _exercises.value = result
                 loadLikedExercises()
             } catch (e: Exception) {

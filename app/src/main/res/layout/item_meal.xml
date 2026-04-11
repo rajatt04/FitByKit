@@ -5,70 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:elevation="8dp"
+    android:elevation="4dp"
     style="@style/Widget.Material3.CardView.Elevated"
     android:backgroundTint="?attr/colorSurface"
-    android:padding="8dp"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    app:cardCornerRadius="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@id/mealImageCV"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/mealImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/mealImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mealName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@string/meal_name"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mealImageCV"
-            app:layout_constraintTop_toTopOf="@+id/mealImageCV" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mealImage" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mealCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@string/meal_category"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mealImageCV"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mealName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

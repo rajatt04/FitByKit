@@ -27,6 +27,7 @@ import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import androidx.fragment.app.viewModels
@@ -263,6 +264,10 @@ class HomeFragment : Fragment() {
         binding.btnRun.setOnClickListener {
             startActivity(Intent(context, DistanceTrackerActivity::class.java))
             Toast.makeText(context,"Long Press On Map To Reset Start-End Points", Toast.LENGTH_LONG).show()
+        }
+
+        binding.routinesCardView.setOnClickListener {
+            findNavController().navigate(R.id.routinesFragment)
         }
 
         binding.btnResetSteps.setOnClickListener {

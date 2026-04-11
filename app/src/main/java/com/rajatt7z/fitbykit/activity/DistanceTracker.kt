@@ -490,19 +490,24 @@ class DistanceTrackerActivity : AppCompatActivity() {
                 @SuppressLint("UseCompatLoadingForDrawables")
                 override fun onLocationResult(result: LocationResult) {
                     val location = result.lastLocation ?: return
+                    val mapView = binding.mapView ?: return
                     val currentGeoPoint = GeoPoint(location.latitude, location.longitude)
 
-                    binding.mapView.controller.setZoom(17.0)
-                    binding.mapView.controller.setCenter(currentGeoPoint)
+                    mapView.controller.setZoom(17.0)
+                    mapView.controller.setCenter(currentGeoPoint)
 
-                    val myLocationMarker = Marker(binding.mapView).apply {
-                        position = currentGeoPoint
-                        title = "You are here"
-                        setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-                        icon = resources.getDrawable(R.drawable.ic_notification_overlay, theme)
+                    try {
+                        val myLocationMarker = Marker(mapView).apply {
+                            position = currentGeoPoint
+                            title = "You are here"
+                            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+                            icon = resources.getDrawable(R.drawable.ic_notification_overlay, theme)
+                        }
+                        mapView.overlays.add(myLocationMarker)
+                        mapView.invalidate()
+                    } catch (e: Exception) {
+                        Log.e("DistanceTracker", "Error creating marker: ${e.message}")
                     }
-                    binding.mapView.overlays.add(myLocationMarker)
-                    binding.mapView.invalidate()
 
                     fusedLocationClient.removeLocationUpdates(this)
                 }

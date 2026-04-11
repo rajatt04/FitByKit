@@ -12,6 +12,42 @@
         tools:layout="@layout/fragment_home"/>
 
     <fragment
+        android:id="@+id/dictionaryMainFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.DictionaryMainFragment"
+        android:label="Dictionary Hub"
+        tools:layout="@layout/fragment_dictionary_main">
+        <action
+            android:id="@+id/action_dictionaryMainFragment_to_categoryListFragment"
+            app:destination="@id/categoryListFragment" />
+        <action
+            android:id="@+id/action_dictionaryMainFragment_to_equipmentListFragment"
+            app:destination="@id/equipmentListFragment" />
+        <action
+            android:id="@+id/action_dictionaryMainFragment_to_workout_frag"
+            app:destination="@id/workout_frag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.CategoryListFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_category_list">
+        <action
+            android:id="@+id/action_categoryListFragment_to_exercisesFragment"
+            app:destination="@id/exercisesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/equipmentListFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.EquipmentListFragment"
+        android:label="Equipment"
+        tools:layout="@layout/fragment_equipment_list">
+        <action
+            android:id="@+id/action_equipmentListFragment_to_exercisesFragment"
+            app:destination="@id/exercisesFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/workout_frag"
         android:name="com.rajatt7z.fitbykit.fragments.Workouts"
         android:label="@string/workout_"
@@ -19,15 +55,7 @@
 
         <action
             android:id="@+id/action_workouts_to_exercisesFragment"
-            app:destination="@id/exercisesFragment">
-            <argument
-                android:name="muscleId"
-                app:argType="integer" />
-            <argument
-                android:name="muscleName"
-                app:argType="string" />
-        </action>
-
+            app:destination="@id/exercisesFragment" />
     </fragment>
 
     <fragment
@@ -46,6 +74,73 @@
         android:id="@+id/exercisesFragment"
         android:name="com.rajatt7z.fitbykit.fragments.ExercisesFragment"
         android:label="@string/exercise"
-        tools:layout="@layout/fragment_exercises"/>
+        tools:layout="@layout/fragment_exercises">
+        <argument
+            android:name="filterId"
+            app:argType="integer" />
+        <argument
+            android:name="filterType"
+            app:argType="string" />
+        <argument
+            android:name="filterName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_exercisesFragment_to_exerciseDetailFragment"
+            app:destination="@id/exerciseDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exerciseDetailFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.ExerciseDetailFragment"
+        android:label="Exercise Details"
+        tools:layout="@layout/fragment_exercise_detail">
+        <argument
+            android:name="exerciseId"
+            app:argType="integer" />
+        <argument
+            android:name="exerciseName"
+            app:argType="string" />
+        <argument
+            android:name="exerciseDesc"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/routinesFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.RoutinesFragment"
+        android:label="Routines"
+        tools:layout="@layout/fragment_routines">
+        <action
+            android:id="@+id/action_routinesFragment_to_liveWorkoutFragment"
+            app:destination="@id/liveWorkoutFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/liveWorkoutFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.LiveWorkoutFragment"
+        android:label="Live Workout"
+        tools:layout="@layout/fragment_live_workout">
+        <argument
+            android:name="sessionId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bodyProgressFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.BodyProgressFragment"
+        android:label="Body Progress"
+        tools:layout="@layout/fragment_body_progress" />
+
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.AchievementsFragment"
+        android:label="Achievements"
+        tools:layout="@layout/fragment_achievements" />
+
+    <fragment
+        android:id="@+id/workoutHistoryFragment"
+        android:name="com.rajatt7z.fitbykit.fragments.WorkoutHistoryFragment"
+        android:label="Workout History"
+        tools:layout="@layout/fragment_workout_history" />
 
 </navigation>

@@ -65,9 +65,9 @@ class LikedWorkoutsActivity : AppCompatActivity() {
             emptyList(),
             emptySet(),
             onLikeClick = { name -> viewModel.toggleLike(name) },
-            onExerciseClick = { videoUrl ->
+            onExerciseClick = { exerciseId, exerciseName, description ->
                 val intent = Intent(this, VideoPlayerActivity::class.java)
-                intent.putExtra("video_url", videoUrl)
+                intent.putExtra("video_url", exerciseName) // fallback: use name as placeholder
                 startActivity(intent)
             }
         )

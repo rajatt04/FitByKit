@@ -49,8 +49,9 @@ class Workouts : Fragment() {
 
         muscleAdapter = MuscleAdapter(emptyList()) { muscle ->
             val action = WorkoutsDirections.actionWorkoutsToExercisesFragment(
-                muscleId = muscle.id,
-                muscleName = muscle.name_en ?: muscle.name
+                filterId = muscle.id,
+                filterType = "muscle",
+                filterName = muscle.name_en ?: muscle.name
             )
             findNavController().navigate(action)
         }

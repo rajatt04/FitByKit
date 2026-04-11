@@ -17,7 +17,7 @@ class ExerciseAdapter(
     private var list: List<Exercise>,
     private var likedNamesSet: Set<String>,
     private val onLikeClick: (String) -> Unit,
-    private val onExerciseClick: (String) -> Unit
+    private val onExerciseClick: (Int, String, String) -> Unit
 ) : RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
 
     inner class ExerciseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -52,12 +52,8 @@ class ExerciseAdapter(
 
         // exercise click
         holder.itemView.setOnClickListener {
-            val videoUrl = exerciseVideoMap[name]
-            if (videoUrl != null) {
-                onExerciseClick(videoUrl)
-            } else {
-                Toast.makeText(context, "Video not available for $name", Toast.LENGTH_SHORT).show()
-            }
+            val description = item.translations.firstOrNull { it.language == 2 }?.description ?: item.description ?: "No description available for this exercise."
+            onExerciseClick(item.id, name, description)
         }
     }
 

@@ -7,7 +7,7 @@
         android:title="@string/home_"/>
 
     <item
-        android:id="@+id/workout_frag"
+        android:id="@+id/dictionaryMainFragment"
         android:icon="@drawable/ic_workout_modern"
         android:title="@string/workout_"/>
 

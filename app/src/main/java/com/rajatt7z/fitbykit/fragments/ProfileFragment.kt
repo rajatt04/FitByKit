@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -149,6 +150,17 @@ class ProfileFragment : Fragment() {
 
         binding.settings.setOnClickListener{
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
+        }
+
+        // WGER Cloud feature navigation
+        binding.cardBodyProgress.setOnClickListener {
+            findNavController().navigate(R.id.bodyProgressFragment)
+        }
+        binding.cardAchievements.setOnClickListener {
+            findNavController().navigate(R.id.achievementsFragment)
+        }
+        binding.cardWorkoutHistory.setOnClickListener {
+            findNavController().navigate(R.id.workoutHistoryFragment)
         }
 
     }

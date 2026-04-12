@@ -2,15 +2,13 @@ package com.rajatt7z.fitbykit.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Base64
@@ -55,92 +53,23 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var sensorManager: SensorManager
-    private var stepSensor: Sensor? = null
-    private var previousTotalSteps = 0f
-    private var totalStepsFromSensor = 0f
+
     private val activityPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
             Toast.makeText(requireContext(), "Activity Recognition Permission Granted", Toast.LENGTH_SHORT).show()
-            registerStepSensor() // re-register if just granted
         } else {
             Toast.makeText(requireContext(), "Activity Recognition Permission Denied", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private val stepListener = object : SensorEventListener {
-        @SuppressLint("DefaultLocale")
-        override fun onSensorChanged(event: SensorEvent?) {
-            if (event?.sensor?.type != Sensor.TYPE_STEP_COUNTER) return
-
-            totalStepsFromSensor = event.values[0]
-
-            // Initialize previousTotalSteps if first run
-            if (previousTotalSteps == 0f) {
-                previousTotalSteps = totalStepsFromSensor
-            }
-
-            resetStepsIfNewDay(totalStepsFromSensor) // Pass the sensor value
-
-            // Reboot detection
-            if (totalStepsFromSensor < previousTotalSteps) {
-                val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-                val today = getTodayDate()
-                val savedSteps = sharedPref.getInt("dailySteps_$today", 0)
-                previousTotalSteps = totalStepsFromSensor - savedSteps
-                sharedPref.edit { putFloat("previousTotalSteps", previousTotalSteps) }
-            }
-
-            val currentSteps = (totalStepsFromSensor - previousTotalSteps).toInt()
-
-            // Goals
-            val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-            val sharedPref2 = requireContext().getSharedPreferences("userPref2", Context.MODE_PRIVATE)
-
-            val stepGoal = sharedPref.getInt("userStepGoal", 10000)
-            val hpGoal = sharedPref2.getInt("userHeartGoal", 100)
-
-            val heartPoints = (currentSteps / 1000f) * 5f
-
-            // --- Update UI ---
-            binding.tvCenterValueTop.text = currentSteps.toString()
-            binding.tvCenterValueBottom.text = heartPoints.toInt().toString()
-
-            // Save Data
-            saveStepData(currentSteps, totalStepsFromSensor, heartPoints.toInt())
-
-            updateWeeklyHeartPointsUI(sharedPref)
-
-            // Circular progress
-            val stepsPercent = (currentSteps / stepGoal.toFloat()) * 100f
-            val heartPointsPercent = (heartPoints / hpGoal) * 100f
-
-            binding.circularProgressView.setProgress(
-                heartPointsPercent.coerceAtMost(100f),
-                stepsPercent.coerceAtMost(100f)
-            )
-
-            // Extra calculations (now being saved above)
-            val kmCovered = currentSteps * 0.000762f
-            val caloriesBurned = currentSteps * 0.04f
-            val walkingMinutes = currentSteps / 100f
-
-            binding.tvCalValue.text = caloriesBurned.toInt().toString()
-            binding.tvKmValue.text = String.format("%.2f", kmCovered)
-            binding.tvWalkingMinValue.text = walkingMinutes.toInt().toString()
-
-            // Weekly UI update
-            if (currentSteps >= stepGoal) {
-                val today = getTodayDate()
-                val weekPref = requireContext().getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
-                weekPref.edit { putBoolean(today, true) }
-                updateWeeklyUI()
+    private val stepsUpdateReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == "com.rajatt7z.fitbykit.STEPS_UPDATED") {
+                loadSavedData()
             }
         }
-
-        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
     }
 
     private val notificationPermissionLauncher = registerForActivityResult(
@@ -275,15 +204,8 @@ class HomeFragment : Fragment() {
                 .setTitle("Reset Steps?")
                 .setMessage("This will reset your step count to 0 for today. This cannot be undone.")
                 .setPositiveButton("Reset") { _, _ ->
-                    previousTotalSteps = totalStepsFromSensor
-                    // Save 0 steps, current sensor value, 0 heart points
-                    saveStepData(0, totalStepsFromSensor, 0)
-                    
-                    // Force UI update
-                    binding.tvCenterValueTop.text = "0"
-                    binding.circularProgressView.setProgress(0f, 0f)
-                    binding.tvSteps.text = "0 Steps"
-                    
+                    val intent = Intent(requireContext(), com.rajatt7z.fitbykit.receivers.MidnightResetReceiver::class.java)
+                    requireContext().sendBroadcast(intent)
                     Toast.makeText(context, "Steps reset to 0", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton("Cancel", null)
@@ -338,8 +260,7 @@ class HomeFragment : Fragment() {
 
         updateWeeklyHeartPointsUI(sharedPref)
 
-        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        updateWeeklyHeartPointsUI(sharedPref)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACTIVITY_RECOGNITION)
@@ -352,35 +273,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun resetStepsIfNewDay(totalStepsFromSensor: Float? = null) {
-        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-        val today = getTodayDate()
-        val savedDate = sharedPref.getString("stepsDate", null)
-
-        if (savedDate != today) {
-            // New day → reset baseline
-            val newBaseline = totalStepsFromSensor ?: 0f
-            previousTotalSteps = newBaseline
-
-            sharedPref.edit {
-                putFloat("previousTotalSteps", previousTotalSteps)
-                putString("stepsDate", today)
-                putInt("heartPoints_$today", 0) // reset heart points for new day
-
-                // Reset daily metrics for new day
-                putInt("dailySteps_$today", 0)
-                putFloat("calories_$today", 0f)
-                putFloat("distance_$today", 0f)
-                putFloat("walkingMinutes_$today", 0f)
-
-                // Save the raw sensor value
-                if (totalStepsFromSensor != null) {
-                    putFloat("totalSteps", totalStepsFromSensor)
-                }
-            }
-        } else {
-            // Same day → just restore baseline
-            previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
-        }
+        // Handled by service now
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -509,47 +402,32 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-        previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
-
-        resetStepsIfNewDay()
+        
         loadSavedData()   // ensures UI is never stuck at zeros
-        registerStepSensor()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireContext().registerReceiver(
+                stepsUpdateReceiver,
+                IntentFilter("com.rajatt7z.fitbykit.STEPS_UPDATED"),
+                Context.RECEIVER_NOT_EXPORTED
+            )
+        } else {
+            ContextCompat.registerReceiver(
+                requireContext(),
+                stepsUpdateReceiver,
+                IntentFilter("com.rajatt7z.fitbykit.STEPS_UPDATED"),
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        sensorManager.unregisterListener(stepListener)
-    }
-
-    private fun registerStepSensor() {
-        stepSensor?.let {
-            sensorManager.registerListener(stepListener, it, SensorManager.SENSOR_DELAY_UI)
-        } ?: run {
-            Toast.makeText(requireContext(), "Step Sensor Not Found", Toast.LENGTH_SHORT).show()
-        }
+        requireContext().unregisterReceiver(stepsUpdateReceiver)
     }
 
     private fun saveStepData(currentSteps: Int, sensorValue: Float, heartPoints: Int) {
-        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
-        val today = getTodayDate()
-        sharedPref.edit {
-            putInt("heartPoints_$today", heartPoints)
-            putFloat("previousTotalSteps", previousTotalSteps)
-            putString("stepsDate", today)
-
-            putInt("dailySteps_$today", currentSteps)
-            putFloat("totalSteps", sensorValue)
-
-            val kmCovered = currentSteps * 0.000762f
-            val caloriesBurned = currentSteps * 0.04f
-            val walkingMinutes = currentSteps / 100f
-
-            putFloat("calories_$today", caloriesBurned)
-            putFloat("distance_$today", kmCovered)
-            putFloat("walkingMinutes_$today", walkingMinutes)
-        }
+        // Obsolete: Handled by StepCounterService now
     }
 
     private fun getTodayDate(): String {

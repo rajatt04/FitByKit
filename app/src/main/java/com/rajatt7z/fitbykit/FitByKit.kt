@@ -3,14 +3,12 @@ package com.rajatt7z.fitbykit
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
-import android.content.Intent
 import android.os.Build
 import com.google.android.material.color.DynamicColors
 import com.rajatt7z.fitbykit.receivers.AlarmScheduler
 import com.rajatt7z.fitbykit.service.StepCounterService
-import org.osmdroid.config.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import org.osmdroid.config.Configuration
 
 @HiltAndroidApp
 class FitByKit : Application()  {
@@ -34,18 +32,13 @@ class FitByKit : Application()  {
                 description = "Shows current step count in background"
                 setShowBadge(false)
             }
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
     }
     
     private fun startStepCounterService() {
-        val serviceIntent = Intent(this, StepCounterService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(serviceIntent)
-        } else {
-            startService(serviceIntent)
-        }
+        StepCounterService.startService(this)
     }
     
     private fun scheduleMidnightReset() {

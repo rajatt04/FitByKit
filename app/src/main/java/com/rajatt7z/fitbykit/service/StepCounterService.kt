@@ -10,7 +10,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.edit
 import com.rajatt7z.fitbykit.R
@@ -31,11 +30,35 @@ class StepCounterService : Service(), SensorEventListener {
     companion object {
         const val NOTIFICATION_ID = 2005
         const val CHANNEL_ID = "step_counter_channel"
+
+        fun hasPermission(context: Context): Boolean {
+            return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                androidx.core.content.ContextCompat.checkSelfPermission(
+                    context, 
+                    android.Manifest.permission.ACTIVITY_RECOGNITION
+                ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+            } else {
+                true
+            }
+        }
+
+        fun startService(context: Context, actionString: String? = null) {
+            if (!hasPermission(context)) return
+            
+            val serviceIntent = Intent(context, StepCounterService::class.java)
+            actionString?.let { serviceIntent.action = it }
+            
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(serviceIntent)
+            } else {
+                context.startService(serviceIntent)
+            }
+        }
     }
 
     override fun onCreate() {
         super.onCreate()
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         
         loadBaseline()
@@ -56,7 +79,7 @@ class StepCounterService : Service(), SensorEventListener {
     }
 
     private fun loadBaseline() {
-        val sharedPref = getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("userPref", MODE_PRIVATE)
         previousTotalSteps = sharedPref.getFloat("previousTotalSteps", 0f)
         
         val today = getTodayDate()
@@ -70,14 +93,14 @@ class StepCounterService : Service(), SensorEventListener {
 
         if (previousTotalSteps == 0f) {
             previousTotalSteps = totalStepsFromSensor
-            getSharedPreferences("userPref", Context.MODE_PRIVATE).edit {
+            getSharedPreferences("userPref", MODE_PRIVATE).edit {
                 putFloat("previousTotalSteps", previousTotalSteps)
             }
         }
 
         // Reboot detection
         if (totalStepsFromSensor < previousTotalSteps) {
-            val sharedPref = getSharedPreferences("userPref", Context.MODE_PRIVATE)
+            val sharedPref = getSharedPreferences("userPref", MODE_PRIVATE)
             val today = getTodayDate()
             val savedSteps = sharedPref.getInt("dailySteps_$today", 0)
             previousTotalSteps = totalStepsFromSensor - savedSteps
@@ -101,7 +124,7 @@ class StepCounterService : Service(), SensorEventListener {
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     private fun saveStepData(currentSteps: Int, sensorValue: Float) {
-        val sharedPref = getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("userPref", MODE_PRIVATE)
         val today = getTodayDate()
         
         val heartPoints = (currentSteps / 1000f) * 5f
@@ -125,7 +148,7 @@ class StepCounterService : Service(), SensorEventListener {
         // Handle weekly goal completion check
         val stepGoal = sharedPref.getInt("userStepGoal", 10000)
         if (currentSteps >= stepGoal) {
-            val weekPref = getSharedPreferences("weeklySteps", Context.MODE_PRIVATE)
+            val weekPref = getSharedPreferences("weeklySteps", MODE_PRIVATE)
             weekPref.edit { putBoolean(today, true) }
         }
     }
@@ -136,12 +159,12 @@ class StepCounterService : Service(), SensorEventListener {
     }
 
     private fun updateNotification() {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(NOTIFICATION_ID, createNotification())
     }
 
     private fun createNotification(): android.app.Notification {
-        val sharedPref = getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("userPref", MODE_PRIVATE)
         val stepGoal = sharedPref.getInt("userStepGoal", 10000)
         
         val intent = Intent(this, MainActivity::class.java).apply {

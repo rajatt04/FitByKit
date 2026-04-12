@@ -59,6 +59,7 @@ class HomeFragment : Fragment() {
     ) { isGranted ->
         if (isGranted) {
             Toast.makeText(requireContext(), "Activity Recognition Permission Granted", Toast.LENGTH_SHORT).show()
+            com.rajatt7z.fitbykit.service.StepCounterService.startService(requireContext())
         } else {
             Toast.makeText(requireContext(), "Activity Recognition Permission Denied", Toast.LENGTH_SHORT).show()
         }
@@ -272,10 +273,6 @@ class HomeFragment : Fragment() {
         updateWeeklyUI()
     }
 
-    private fun resetStepsIfNewDay(totalStepsFromSensor: Float? = null) {
-        // Handled by service now
-    }
-
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun updateWeeklyUI(){
         val statuses = getLast7DaysStatus()
@@ -424,10 +421,6 @@ class HomeFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         requireContext().unregisterReceiver(stepsUpdateReceiver)
-    }
-
-    private fun saveStepData(currentSteps: Int, sensorValue: Float, heartPoints: Int) {
-        // Obsolete: Handled by StepCounterService now
     }
 
     private fun getTodayDate(): String {

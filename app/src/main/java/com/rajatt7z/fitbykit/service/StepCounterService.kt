@@ -13,7 +13,7 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.edit
 import com.rajatt7z.fitbykit.R
-import com.rajatt7z.fitbykit.activity.MainActivity
+import com.rajatt7z.fitbykit.navigation.FitByKitNav
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -167,8 +167,9 @@ class StepCounterService : Service(), SensorEventListener {
         val sharedPref = getSharedPreferences("userPref", MODE_PRIVATE)
         val stepGoal = sharedPref.getInt("userStepGoal", 10000)
         
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val intent = Intent(this, FitByKitNav::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra("navigate_to", "homeFragment")
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
             this, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT

@@ -49,6 +49,16 @@ data class MealResponse(
     val meals: List<Meal>?
 )
 
+data class FilterMeal(
+    val idMeal: String,
+    val strMeal: String,
+    val strMealThumb: String
+)
+
+data class FilterMealResponse(
+    val meals: List<FilterMeal>?
+)
+
 data class Meal(
     val idMeal: String,
     val strMeal: String,

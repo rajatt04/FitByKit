@@ -1,122 +1,554 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:background="?attr/colorSurface"
+    android:background="@drawable/bg_bottom_sheet"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <View
-        android:layout_width="40dp"
-        android:layout_height="4dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/colorOnSurfaceVariant"
-        android:alpha="0.4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search Meals"
-        android:fontFamily="@font/poppins"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:layout_marginBottom="16dp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/bsSearchInputLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/search_meals"
-        app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/search_24dp">
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/bsSearchEdit"
+        <!-- Drag Handle -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_drag_handle" />
+
+        <!-- Search Bar -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/bsSearchInputLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="24dp"
+            android:hint="Search any meal..."
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/search_24dp"
+            app:boxCornerRadiusTopStart="50dp"
+            app:boxCornerRadiusTopEnd="50dp"
+            app:boxCornerRadiusBottomStart="50dp"
+            app:boxCornerRadiusBottomEnd="50dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quick Filters"
-        android:fontFamily="@font/poppins"
-        android:textAppearance="?attr/textAppearanceSubtitle2"
-        android:layout_marginBottom="8dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/bsSearchEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:clipToPadding="false"
-        android:paddingBottom="8dp">
+        <!-- ── Browse by Country Section ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginBottom="12dp">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/filterChipGroup"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🌍  Browse by Country"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="?attr/colorPrimary" />
+
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:clipToPadding="false"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/countryChipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:singleSelection="true"
+                app:chipSpacingHorizontal="8dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAmerican"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇺🇸 American" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipBritish"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇬🇧 British" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCanadian"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇨🇦 Canadian" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipChinese"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇨🇳 Chinese" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCroatian"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇭🇷 Croatian" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDutch"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇳🇱 Dutch" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipEgyptian"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇪🇬 Egyptian" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFilipino"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇵🇭 Filipino" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFrench"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇫🇷 French" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipGreek"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇬🇷 Greek" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipIndian"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇮🇳 Indian" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipIrish"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇮🇪 Irish" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipItalian"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇮🇹 Italian" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipJamaican"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇯🇲 Jamaican" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipJapanese"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇯🇵 Japanese" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipKenyan"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇰🇪 Kenyan" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipMalaysian"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇲🇾 Malaysian" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipMexican"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇲🇽 Mexican" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipMoroccan"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇲🇦 Moroccan" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPolish"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇵🇱 Polish" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPortuguese"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇵🇹 Portuguese" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipRussian"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇷🇺 Russian" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSpanish"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇪🇸 Spanish" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipThai"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇹🇭 Thai" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTunisian"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇹🇳 Tunisian" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTurkish"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇹🇷 Turkish" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipVietnamese"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="🇻🇳 Vietnamese" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <!-- ── Divider ── -->
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- ── Browse by Name Section ── -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:singleLine="true"
-            app:singleSelection="true">
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="12dp"
+            android:text="🔤  Browse by Name"
+            android:fontFamily="@font/poppins"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="?attr/colorPrimary" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/letterChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            app:singleSelection="true"
+            app:chipSpacingHorizontal="4dp"
+            app:chipSpacingVertical="4dp">
+
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipChicken"
-                android:fontFamily="@font/poppins"
-                style="@style/Widget.Material3.Chip.Filter"
+                style="@style/LetterChip"
+                android:id="@+id/chipA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chicken" />
+                android:fontFamily="@font/poppins"
+                android:text="A" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="B" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="C" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="D" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="E" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="F" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="G" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="H" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="I" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipJ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="J" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="K" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="L" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="M" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="N" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="O" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="P" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipQ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Q" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="R" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipBeef"
-                style="@style/Widget.Material3.Chip.Filter"
+                style="@style/LetterChip"
+                android:id="@+id/chipS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="Beef" />
-
+                android:text="S" />
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipVegetarian"
-                style="@style/Widget.Material3.Chip.Filter"
+                style="@style/LetterChip"
+                android:id="@+id/chipT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="Vegetarian" />
-
+                android:text="T" />
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipDessert"
-                style="@style/Widget.Material3.Chip.Filter"
+                style="@style/LetterChip"
+                android:id="@+id/chipU"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="Dessert" />
-                
+                android:text="U" />
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipPork"
-                android:fontFamily="@font/poppins"
-                style="@style/Widget.Material3.Chip.Filter"
+                style="@style/LetterChip"
+                android:id="@+id/chipV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pork" />
+                android:fontFamily="@font/poppins"
+                android:text="V" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="W" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="X" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Y" />
+            <com.google.android.material.chip.Chip
+                style="@style/LetterChip"
+                android:id="@+id/chipZ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Z" />
 
         </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSearch"
-        android:fontFamily="@font/poppins"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Search"
-        app:icon="@drawable/search_24dp"
-        app:iconGravity="textStart" />
+        <!-- ── Divider ── -->
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp" />
 
-</LinearLayout>
+        <!-- ── Search Button ── -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSearch"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins"
+            android:text="Search"
+            android:textStyle="bold"
+            app:cornerRadius="28dp"
+            app:icon="@drawable/search_24dp"
+            app:iconGravity="textStart" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

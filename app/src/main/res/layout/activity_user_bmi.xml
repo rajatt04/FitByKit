@@ -144,7 +144,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:elevation="8dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:cardCornerRadius="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

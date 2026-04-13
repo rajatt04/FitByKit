@@ -101,12 +101,40 @@ class WorkoutRepository(val api: WorkoutApiService) {
 }
 
 class MealRepository(private val api: MealApiService) {
+
     suspend fun searchMeals(query: String): List<Meal> {
         val response = api.searchMeals(query)
-        if (response.isSuccessful) {
-            return response.body()?.meals ?: emptyList()
-        } else {
-            throw Exception("Meal API Error: ${response.code()}")
+        return if (response.isSuccessful) response.body()?.meals ?: emptyList()
+        else throw Exception("Meal API Error: ${response.code()}")
+    }
+
+    suspend fun searchByLetter(letter: Char): List<Meal> {
+        return try {
+            val response = api.searchByFirstLetter(letter)
+            if (response.isSuccessful) response.body()?.meals ?: emptyList()
+            else emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun filterByArea(area: String): List<FilterMeal> {
+        return try {
+            val response = api.filterByArea(area)
+            if (response.isSuccessful) response.body()?.meals ?: emptyList()
+            else emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun lookupById(id: String): Meal? {
+        return try {
+            val response = api.lookupMealById(id)
+            if (response.isSuccessful) response.body()?.meals?.firstOrNull()
+            else null
+        } catch (e: Exception) {
+            null
         }
     }
 }

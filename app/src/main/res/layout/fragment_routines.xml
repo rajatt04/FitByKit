@@ -2,7 +2,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -14,7 +15,8 @@
             app:titleTextAppearance="@style/ToolbarTitleText"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="My Routines" />
+            app:title="My Routines"
+            app:navigationIcon="@drawable/round_arrow_back_ios_24"/>
             
     </com.google.android.material.appbar.AppBarLayout>
 

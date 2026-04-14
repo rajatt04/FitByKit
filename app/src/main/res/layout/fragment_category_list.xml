@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             app:titleTextAppearance="@style/ToolbarTitleText"
             android:layout_height="?attr/actionBarSize"
-            app:title="Categories" />
+            app:title="Categories"
+            app:navigationIcon="@drawable/round_arrow_back_ios_24"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout

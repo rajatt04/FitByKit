@@ -41,11 +41,11 @@ Below are some screenshots of the FitByKit application showcasing its features a
 
 | Screenshot 1      | Screenshot 2      | Screenshot 3      |Screenshot 4       |
 |-------------------|-------------------|-------------------|-------------------|
-| ![Image1](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100219.jpg?raw=true) | ![Image2](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100222.jpg?raw=true) | ![Image3](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100248.jpg?raw=true) |![Image4](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100513.jpg?raw=true) |
+| ![Image1](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Projects/FBK/Screenshot_20260417_194919.jpg?raw=true) | ![Image2](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Projects/FBK/Screenshot_20260417_194923.jpg?raw=true) | ![Image3](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Projects/FBK/Screenshot_20260417_194925.jpg?raw=true) |![Image4](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Projects/FBK/Screenshot_20260417_194931.jpg?raw=true) |
 
 | Screenshot 5      | Screenshot 6      | Screenshot 7      |Screenshot 8       |
 |-------------------|-------------------|-------------------|-------------------|
-| ![Image5](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100258.jpg?raw=true) | ![Image6](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100518.jpg?raw=true) | ![Image7](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100559.jpg?raw=true) |![Image8](https://github.com/rajatt04/rajatt04.github.io/blob/main/images/FitByKit/Screenshot_20260318_100719.jpg?raw=true) |
+| ![Image5](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Projects/FBK/Screenshot_20260417_194938.jpg?raw=true) | ![Image6](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Projects/FBK/Screenshot_20260417_194957.jpg?raw=true) | ![Image7](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Projects/FBK/Screenshot_20260417_195019.jpg?raw=true) |![Image8](https://github.com/rajatt04/Student-Management-System/blob/sms-main/Projects/FBK/Screenshot_20260417_195115.jpg?raw=true) |
 
 
 ---

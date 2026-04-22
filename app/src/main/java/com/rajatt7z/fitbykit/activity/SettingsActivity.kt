@@ -202,7 +202,7 @@ class SettingsActivity : AppCompatActivity() {
 
         // Social media links
         cardInstagram.setOnClickListener {
-            openWebLink("https://www.instagram.com/rajatt.7z")
+            openWebLink("https://www.instagram.com/rajatt04_")
         }
 
         cardGithub.setOnClickListener {

@@ -294,7 +294,7 @@
                     android:id="@+id/waterTrackerCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     style="@style/Widget.Material3.CardView.Elevated"
                     android:backgroundTint="?attr/colorSurface"
                     android:elevation="8dp"
@@ -369,51 +369,7 @@
                     style="@style/Widget.Material3.CardView.Elevated"
                     android:backgroundTint="?attr/colorSurface"
                     android:elevation="8dp"
-                    app:cardCornerRadius="16dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp">
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/ic_routines"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_marginEnd="16dp"
-                            android:src="@drawable/directions_run"
-                            android:tint="#2D72F3"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tvRoutinesTitle"
-                            android:layout_width="0dp"
-                            android:fontFamily="@font/poppins"
-                            android:layout_height="wrap_content"
-                            android:text="My Workout Routines"
-                            android:layout_marginStart="16dp"
-                            android:textColor="?attr/colorControlActivated"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/ic_routines"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tvRoutinesDesc"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginStart="16dp"
-                            android:fontFamily="@font/poppins"
-                            android:text="Build &amp; Track Multi-day splits using WGER Engine"
-                            android:textColor="?attr/colorControlNormal"
-                            app:layout_constraintStart_toEndOf="@+id/ic_routines"
-                            app:layout_constraintTop_toBottomOf="@+id/tvRoutinesTitle" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                    app:cardCornerRadius="16dp"/>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/dailyGoals"

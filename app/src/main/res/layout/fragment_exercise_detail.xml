@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="?attr/colorSurface">
 
     <!-- ── Hero AppBar ─────────────────────────────────────────────────── -->
@@ -12,13 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:fitsSystemWindows="true"
-        android:background="@android:color/transparent"
+        android:background="#1C1C1E"
+        android:theme="@style/ThemeOverlay.Material3.Dark"
         app:liftOnScroll="false">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="?attr/colorSurface"
+            app:contentScrim="#1C1C1E"
             app:expandedTitleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge"
             app:collapsedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
@@ -41,16 +43,7 @@
                 android:background="@drawable/gradient_image_scrim"
                 app:layout_collapseMode="parallax" />
 
-            <!-- Toolbar pinned at top -->
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:fontFamily="@font/poppins"
-                app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/chevron_left_24dp"
-                app:navigationIconTint="@color/white"
-                app:titleTextColor="@color/white" />
+
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

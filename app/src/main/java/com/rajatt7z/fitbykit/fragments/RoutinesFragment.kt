@@ -40,8 +40,7 @@ class RoutinesFragment : Fragment() {
 
         // We reuse the DictionaryElementAdapter for Routines since Routines just have names
         adapter = DictionaryElementAdapter { id, name ->
-            // Start routine session!
-            viewModel.startWorkoutSession(id)
+            // Live tracking has been disabled/removed
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -55,20 +54,7 @@ class RoutinesFragment : Fragment() {
             adapter.submitList(routines.map { Pair(it.id, it.name) })
         }
 
-        viewModel.currentSessionId.observe(viewLifecycleOwner) { sessionId ->
-            if (sessionId != null) {
-                // Navigate to live tracker!
-                val bundle = Bundle().apply { 
-                    putInt("sessionId", sessionId) 
-                }
-                findNavController().navigate(R.id.action_routinesFragment_to_liveWorkoutFragment, bundle)
-            }
-        }
 
-        binding.fabLiveWorkout.setOnClickListener {
-            // Start Quick session (Routine=null)
-            viewModel.startWorkoutSession(null)
-        }
 
         viewModel.fetchRoutines()
     }

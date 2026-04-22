@@ -110,20 +110,8 @@
         android:name="com.rajatt7z.fitbykit.fragments.RoutinesFragment"
         android:label="Routines"
         tools:layout="@layout/fragment_routines">
-        <action
-            android:id="@+id/action_routinesFragment_to_liveWorkoutFragment"
-            app:destination="@id/liveWorkoutFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/liveWorkoutFragment"
-        android:name="com.rajatt7z.fitbykit.fragments.LiveWorkoutFragment"
-        android:label="Live Workout"
-        tools:layout="@layout/fragment_live_workout">
-        <argument
-            android:name="sessionId"
-            app:argType="integer" />
-    </fragment>
 
     <fragment
         android:id="@+id/bodyProgressFragment"

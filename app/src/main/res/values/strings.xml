@@ -28,9 +28,6 @@
     <string name="diet_">Diet</string>
     <string name="profile_">Goals &amp; Sleep Cycle</string>
     <string name="b_s">Bedtime schedule</string>
-    <string name="allow">Allow Fit to access your physical activity?</string>
-    <string name="btn_allow">Allow</string>
-    <string name="btn_not_allow">Don\'t Allow</string>
     <string name="set_goals">Set goal</string>
     <string name="step_details">Keep moving each day to meet your steps goal and avoid sedentary time</string>
     <string name="steps_day">steps a day</string>
@@ -40,12 +37,8 @@
     <string name="def_hp">50</string>
     <string name="hp_a_day">points a day</string>
     <string name="steps_text">Wait…</string>
-    <string name="hp_text">25</string>
-    <string name="calorie">944</string>
     <string name="calorie_text">Calories burned</string>
-    <string name="Km">2</string>
     <string name="Km_text">Km Covered</string>
-    <string name="walking_min">20</string>
     <string name="walking_min_text">Walking min</string>
     <string name="notificationTitle">Get notifications from Fit</string>
     <string name="notificationDes">Allow Fit to send notifications to get coaching messages and tips to help you meet your goals</string>
@@ -55,9 +48,7 @@
     <string name="bmi_btn">User BMI</string>
     <string name="sync_title">Sync Fit with Health Connect</string>
     <string name="sync_des">Share stats between Fit and your other apps, like your calories, heart rate, and body measurements</string>
-    <string name="energy_title">Energy expanded</string>
     <string name="energy_duration">Last 7 days</string>
-    <string name="calorie_spent">cal</string>
     <string name="today">Today</string>
     <string name="daily_goals">Your daily goals</string>
     <string name="achieved">0/7\nAchieved</string>
@@ -83,17 +74,14 @@
     </string>
     <string name="turn_On">Turn on</string>
     <string name="exercise_name">Exercise Name</string>
-    <string name="exercise_description">Exercise Description</string>"
     <string name="muscle_name">Muscle Name</string>
     <string name="muscle_type">Front Muscle</string>
     <string name="exercise">Exercise</string>
     <string name="home_meal">Home</string>
     <string name="meal_video">Video</string>
     <string name="buy_meal">Buy Meal</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="like_button">Like Button</string>
     <string name="amazon">Amazon</string>
-    <string name="store_icon">Store Icon</string>
     <string name="ingredients_amp_measures"><![CDATA[Ingredients & Measures]]></string>
     <string name="meal_ingredient">Meal Ingredient</string>
     <string name="create_playlist">Create Playlist</string>
@@ -101,7 +89,6 @@
     <string name="empty_list">Empty list</string>
     <string name="tap_to_add_workouts">Tap to add workouts</string>
     <string name="activity">Activity</string>
-    <string name="macros_will_appear_here">Macros will appear here.</string>
     <string name="search_meals">Search Meals</string>
     <string name="enter_pip_mode">Enter PIP</string>
     <string name="download_video">Download</string>
@@ -124,18 +111,10 @@
     <string name="category">Category</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="playlist_name">Playlist Name</string>
     <string name="custom_workouts_playlist_will_appear_here_tap_create_playlist_to_do_so">Custom Workouts Playlist will appear here. Tap \'+ Create Playlist\' to do so.</string>
     <string name="muscle_name_">Muscle Name - </string>
     <string name="day_name_">Day Name -</string>
     <string name="category_">Category -</string>
-    <string name="save_playlist">Save Playlist</string>
-    <string name="day_of_the_week">Day of the Week</string>
-    <string name="work">Work</string>
-    <string name="personal">Personal</string>
-    <string name="urgent">Urgent</string>
-    <string name="feedback">Feedback</string>
-    <string name="enable_analytics">Enable Analytics</string>
     <string name="tap_on_map_to_set_start_point">Tap on map to set start point</string>
     <string name="distance_0_0_km">Distance: 0.0 km</string>
     <string name="duration_00_00_00">Duration: 00:00:00</string>
@@ -201,13 +180,6 @@
     <string name="_5_7">5/7</string>
     <string name="days_achieved">Days Achieved</string>
     <string name="daily_progress">Daily Progress</string>
-    <string name="sun">Sun</string>
-    <string name="mon">Mon</string>
-    <string name="tue">Tue</string>
-    <string name="wed">Wed</string>
-    <string name="thu">Thu</string>
-    <string name="fri">Fri</string>
-    <string name="sat">Sat</string>
     <string name="weekly_goals">Weekly Goals</string>
     <string name="weekly_steps_target">Weekly Steps Target</string>
     <string name="_52_340_70_000_75">52,340 / 70,000 (75%)</string>
@@ -225,55 +197,23 @@
     <string name="great_progress_this_week">🎯 Great Progress This Week!</string>
 
     <!-- Settings Activity -->
-    <string name="settings_title">Settings</string>
 
     <!-- Profile Section -->
-    <string name="profile_section">Profile</string>
     <string name="edit_profile">Edit Profile</string>
 
     <!-- App Settings Section -->
-    <string name="app_settings_section">App Settings</string>
-    <string name="notifications_title">Notifications</string>
-    <string name="notifications_subtitle">Workout reminders, achievements</string>
-    <string name="dark_mode_title">Dark Mode</string>
-    <string name="dark_mode_subtitle">Switch to dark theme</string>
-    <string name="units_title">Units</string>
-    <string name="units_metric">Metric (kg, cm)</string>
-    <string name="units_imperial">Imperial (lbs, ft/in)</string>
 
     <!-- Support Section -->
-    <string name="support_section">Support</string>
-    <string name="help_faq_title">Help &amp; FAQ</string>
-    <string name="privacy_policy_title">Privacy Policy</string>
-    <string name="terms_of_service_title">Terms of Service</string>
 
     <!-- About Section -->
-    <string name="about_section">About</string>
-    <string name="version_title">Version</string>
-    <string name="developer_name">Rajat Kevat</string>
-    <string name="made_with_love">Developed With ❤ in India</string>
 
     <!-- URLs -->
-    <string name="instagram_url">https://www.instagram.com/rajatt.7z</string>
-    <string name="github_url">https://www.github.com/rajatt04</string>
-    <string name="privacy_policy_url">https://your-privacy-policy-url.com</string>
-    <string name="terms_of_service_url">https://your-terms-of-service-url.com</string>
 
     <!-- Dialog Messages -->
-    <string name="select_units_title">Select Units</string>
-    <string name="cancel">Cancel</string>
 
     <!-- Toast Messages -->
-    <string name="profile_settings_coming_soon">Profile settings coming soon!</string>
-    <string name="help_faq_coming_soon">Help &amp; FAQ coming soon!</string>
-    <string name="unable_to_open_link">Unable to open link</string>
 
     <!-- Content Descriptions -->
-    <string name="back_button">Back</string>
-    <string name="chevron_right">Navigate to</string>
-    <string name="instagram_icon">Instagram</string>
-    <string name="github_icon">GitHub</string>
-    <string name="external_link_icon">Open in browser</string>
     <string name="help_amp_faq"><![CDATA[Help & FAQ]]></string>
     <string name="profile">Profile</string>
     <string name="app_settings">App Settings</string>

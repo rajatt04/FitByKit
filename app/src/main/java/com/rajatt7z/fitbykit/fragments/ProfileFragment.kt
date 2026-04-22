@@ -193,7 +193,7 @@ class ProfileFragment : Fragment() {
             .setTitleText("Select Time")
             .build()
 
-        picker.show((context as AppCompatActivity).supportFragmentManager, "MATERIAL_TIME_PICKER")
+        picker.show(parentFragmentManager, "MATERIAL_TIME_PICKER")
 
         picker.addOnPositiveButtonClickListener {
             if (!requireContext().hasExactAlarmPermission()) {

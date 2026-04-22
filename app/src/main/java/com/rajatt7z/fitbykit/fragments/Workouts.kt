@@ -35,6 +35,10 @@ class Workouts : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(

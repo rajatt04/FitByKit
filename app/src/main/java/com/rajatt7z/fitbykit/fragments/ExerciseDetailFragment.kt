@@ -44,9 +44,7 @@ class ExerciseDetailFragment : Fragment() {
         val rawDesc      = arguments?.getString("exerciseDesc")
         val exerciseDesc = rawDesc?.takeIf { it.isNotBlank() } ?: "No description available for this exercise. Please refer to the video."
 
-        // ── Toolbar ─────────────────────────────────────────────────────────
-        binding.toolbar.title = exerciseName
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+
 
         // ── Description ─────────────────────────────────────────────────────
         binding.tvDescription.text =

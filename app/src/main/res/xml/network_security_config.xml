@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network Security Configuration for FitByKit
+    - HTTPS enforced everywhere by default (no cleartext allowed)
+    - Cleartext HTTP is whitelisted ONLY for OSMDroid tile servers
+      (OpenStreetMap tiles are served over HTTP, not HTTPS)
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- OSMDroid requires HTTP for tile downloads -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">tile.openstreetmap.org</domain>
+        <domain includeSubdomains="true">a.tile.openstreetmap.org</domain>
+        <domain includeSubdomains="true">b.tile.openstreetmap.org</domain>
+        <domain includeSubdomains="true">c.tile.openstreetmap.org</domain>
+    </domain-config>
+</network-security-config>

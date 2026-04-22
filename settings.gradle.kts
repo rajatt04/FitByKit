@@ -23,5 +23,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "FitByKit"
 include(":app")
-include(":app:workout_api")
 include(":workout_api")
+

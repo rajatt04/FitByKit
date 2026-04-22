@@ -1,6 +1,5 @@
 package com.rajatt7z.fitbykit.viewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,30 +37,39 @@ class DietViewModel @Inject constructor(
 
     private var lastQuery: String = ""
 
-    // ─── Initial Load: Fetch ALL ~300 meals A→Z in parallel ───────────────────
+    // ─── Initial Load: Fetch ALL meals A→Z with throttled concurrency ────────────
+    /**
+     * Fetches meals for all 26 letters of the alphabet.
+     * Requests are batched (5 at a time) to avoid overwhelming the API
+     * and to prevent ANRs on slow connections.
+     */
     fun fetchAllMeals() {
         viewModelScope.launch {
             _loading.value = true
             _isFilterMode.value = false
             try {
+                val letters = ('a'..'z').toList()
                 val results = withContext(Dispatchers.IO) {
-                    ('a'..'z').map { letter ->
-                        async { repository.searchByLetter(letter) }
-                    }.awaitAll()
+                    // Process letters in chunks of 5 to limit concurrency
+                    letters.chunked(5).flatMap { chunk ->
+                        chunk.map { letter ->
+                            async { repository.searchByLetter(letter) }
+                        }.awaitAll()
+                    }
                 }
                 val merged = results.flatten()
                     .distinctBy { it.idMeal }
                     .sortedBy { it.strMeal }
                 _meals.value = merged
-            } catch (e: Exception) {
-                Log.e("DietViewModel", "fetchAllMeals error", e)
+            } catch (_: Exception) {
+                _meals.value = emptyList()
             } finally {
                 _loading.value = false
             }
         }
     }
 
-    // ─── Name Search ───────────────────────────────────────────────────────────
+    // ─── Name Search ─────────────────────────────────────────────────────────────
     fun searchMeals(query: String) {
         viewModelScope.launch {
             _loading.value = true
@@ -69,8 +77,7 @@ class DietViewModel @Inject constructor(
             lastQuery = query
             try {
                 _meals.value = repository.searchMeals(query)
-            } catch (e: Exception) {
-                Log.e("DietViewModel", "Search error: ", e)
+            } catch (_: Exception) {
                 _meals.value = emptyList()
             } finally {
                 _loading.value = false
@@ -78,7 +85,7 @@ class DietViewModel @Inject constructor(
         }
     }
 
-    // ─── Browse by First Letter ────────────────────────────────────────────────
+    // ─── Browse by First Letter ──────────────────────────────────────────────────
     fun filterByLetter(letter: Char) {
         viewModelScope.launch {
             _loading.value = true
@@ -86,8 +93,7 @@ class DietViewModel @Inject constructor(
             lastQuery = ""
             try {
                 _meals.value = repository.searchByLetter(letter)
-            } catch (e: Exception) {
-                Log.e("DietViewModel", "Letter filter error", e)
+            } catch (_: Exception) {
                 _meals.value = emptyList()
             } finally {
                 _loading.value = false
@@ -95,7 +101,7 @@ class DietViewModel @Inject constructor(
         }
     }
 
-    // ─── Browse by Country (lightweight filter list) ───────────────────────────
+    // ─── Browse by Country ───────────────────────────────────────────────────────
     fun filterByCountry(area: String) {
         viewModelScope.launch {
             _loading.value = true
@@ -103,8 +109,7 @@ class DietViewModel @Inject constructor(
             lastQuery = ""
             try {
                 _filterMeals.value = repository.filterByArea(area)
-            } catch (e: Exception) {
-                Log.e("DietViewModel", "Country filter error", e)
+            } catch (_: Exception) {
                 _filterMeals.value = emptyList()
             } finally {
                 _loading.value = false
@@ -112,14 +117,13 @@ class DietViewModel @Inject constructor(
         }
     }
 
-    // ─── Lookup full meal by ID (after clicking a FilterMeal card) ─────────────
+    // ─── Lookup full meal by ID (after tapping a FilterMeal card) ────────────────
     fun lookupMeal(id: String) {
         viewModelScope.launch {
             _loading.value = true
             try {
                 _selectedMeal.value = repository.lookupById(id)
-            } catch (e: Exception) {
-                Log.e("DietViewModel", "Lookup error", e)
+            } catch (_: Exception) {
                 _selectedMeal.value = null
             } finally {
                 _loading.value = false
@@ -131,13 +135,8 @@ class DietViewModel @Inject constructor(
         _selectedMeal.value = null
     }
 
+    /** Only fetches all meals if the screen is freshly opened (no active query). */
     fun loadTopMealsIfNoQuery() {
         if (lastQuery.isBlank()) fetchAllMeals()
-    }
-
-    fun getLastQuery(): String = lastQuery
-
-    fun setLoading(value: Boolean) {
-        _loading.value = value
     }
 }

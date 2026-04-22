@@ -1,4 +1,4 @@
-package com.rajatt7z.fitbykit.viewmodel
+package com.rajatt7z.fitbykit.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +11,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Exercise Dictionary — provides exercise categories and equipment lists.
+ * Data is fetched lazily (only once) and cached for the ViewModel's lifetime.
+ */
 @HiltViewModel
 class DictionaryViewModel @Inject constructor(
     private val repository: WorkoutRepository
@@ -26,31 +30,29 @@ class DictionaryViewModel @Inject constructor(
     val loading: LiveData<Boolean> = _loading
 
     fun fetchCategories() {
-        if (_categories.value.isNullOrEmpty()) {
-            _loading.value = true
-            viewModelScope.launch {
-                try {
-                    _categories.value = repository.fetchExerciseCategories()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                } finally {
-                    _loading.value = false
-                }
+        if (!_categories.value.isNullOrEmpty()) return   // already loaded
+        _loading.value = true
+        viewModelScope.launch {
+            try {
+                _categories.value = repository.fetchExerciseCategories()
+            } catch (_: Exception) {
+                _categories.value = emptyList()
+            } finally {
+                _loading.value = false
             }
         }
     }
 
     fun fetchEquipment() {
-        if (_equipment.value.isNullOrEmpty()) {
-            _loading.value = true
-            viewModelScope.launch {
-                try {
-                    _equipment.value = repository.fetchEquipment()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                } finally {
-                    _loading.value = false
-                }
+        if (!_equipment.value.isNullOrEmpty()) return    // already loaded
+        _loading.value = true
+        viewModelScope.launch {
+            try {
+                _equipment.value = repository.fetchEquipment()
+            } catch (_: Exception) {
+                _equipment.value = emptyList()
+            } finally {
+                _loading.value = false
             }
         }
     }

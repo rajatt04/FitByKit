@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rajatt7z.fitbykit.adapters.DictionaryElementAdapter
 import com.rajatt7z.fitbykit.databinding.FragmentEquipmentListBinding
-import com.rajatt7z.fitbykit.viewmodel.DictionaryViewModel
+import com.rajatt7z.fitbykit.viewModels.DictionaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

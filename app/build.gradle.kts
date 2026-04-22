@@ -1,8 +1,6 @@
-@file:Suppress("DEPRECATION")
-
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    // kotlin.android plugin removed — Kotlin support is built into AGP 9.0+
     alias(libs.plugins.hilt)
     id("com.google.devtools.ksp")
 }
@@ -13,13 +11,14 @@ apply(
 
 android {
     namespace = "com.rajatt7z.fitbykit"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.rajatt7z.fitbykit"
         minSdk = 24
+        //noinspection OldTargetApi
         targetSdk = 36
-        versionCode = 1
+        versionCode = 2          // Increment before each Play Store upload
         versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -29,22 +28,48 @@ android {
         viewBinding = true
     }
 
+    // ── Release signing ────────────────────────────────────────────────────────
+    // To configure release signing:
+    //   1. Generate a keystore: keytool -genkey -v -keystore fitbykit-release.jks
+    //      -alias fitbykit -keyalg RSA -keysize 2048 -validity 10000
+    //   2. Add these keys to local.properties (never commit to git):
+    //      KEYSTORE_FILE=../fitbykit-release.jks
+    //      KEY_ALIAS=fitbykit
+    //      KEY_PASSWORD=your_key_password
+    //      STORE_PASSWORD=your_store_password
+    //   3. Uncomment the signingConfigs block below and update the release build.
+    //
+    // signingConfigs {
+    //     create("release") {
+    //         val props = java.util.Properties()
+    //         props.load(rootProject.file("local.properties").inputStream())
+    //         storeFile = file(props["KEYSTORE_FILE"] as String)
+    //         storePassword = props["STORE_PASSWORD"] as String
+    //         keyAlias = props["KEY_ALIAS"] as String
+    //         keyPassword = props["KEY_PASSWORD"] as String
+    //     }
+    // }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // R8 enabled: dead-code removal + obfuscation + resource shrinking
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // TODO: Replace with release signing once keystore is configured (see above)
             signingConfig = signingConfigs.getByName("debug")
         }
+        debug {
+            isMinifyEnabled = false
+        }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
     }
 }
 
@@ -74,4 +99,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    // LocalBroadcastManager: secure in-app broadcast for step count updates
+    implementation(libs.androidx.localbroadcastmanager)
 }

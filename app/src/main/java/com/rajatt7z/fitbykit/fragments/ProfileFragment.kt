@@ -1,11 +1,7 @@
 package com.rajatt7z.fitbykit.fragments
 
-import android.Manifest
-import dagger.hilt.android.AndroidEntryPoint
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -20,30 +16,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import com.rajatt7z.fitbykit.receivers.AlarmScheduler
 import com.rajatt7z.fitbykit.R
 import com.rajatt7z.fitbykit.activity.HeartPointsActivity
 import com.rajatt7z.fitbykit.activity.SettingsActivity
 import com.rajatt7z.fitbykit.activity.StepsActivity
 import com.rajatt7z.fitbykit.activity.UserProfile
-import com.rajatt7z.fitbykit.receivers.ReminderReceiver
 import com.rajatt7z.fitbykit.databinding.FragmentProfileBinding
+import com.rajatt7z.fitbykit.receivers.AlarmScheduler
+import com.rajatt7z.fitbykit.receivers.ReminderReceiver
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import kotlin.jvm.java
 
 fun Context.hasExactAlarmPermission(): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -66,8 +58,11 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    @SuppressLint("SetTextI18n")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -78,112 +73,80 @@ class ProfileFragment : Fragment() {
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(
-                v.paddingLeft,
-                statusBarInsets.top,
-                v.paddingRight,
-                v.paddingBottom
-            )
+            v.setPadding(v.paddingLeft, statusBarInsets.top, v.paddingRight, v.paddingBottom)
             insets
         }
 
-        createNotificationChannel(requireContext())
+        // Note: Notification channels are created in FitByKit.onCreate() — not here.
 
-        val sharedPref = requireContext().getSharedPreferences("userPref",Context.MODE_PRIVATE)
-        val img = sharedPref.getString("userImg",null)
-        val name = sharedPref.getString("userName","N/A")
-        val gender = sharedPref.getString("userGender","")
-        val height = sharedPref.getString("userHeight","")
-        val weight = sharedPref.getString("userWeight","")
+        val sharedPref = requireContext().getSharedPreferences("userPref", Context.MODE_PRIVATE)
+        val img = sharedPref.getString("userImg", null)
+        val name = sharedPref.getString("userName", "N/A")
+        val gender = sharedPref.getString("userGender", "")
+        val height = sharedPref.getString("userHeight", "")
+        val weight = sharedPref.getString("userWeight", "")
 
         if (img != null) {
-            val byteArray = Base64.decode(img,Base64.DEFAULT)
-            val bitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
+            val byteArray = Base64.decode(img, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
             binding.userImgView.setImageBitmap(bitmap)
         } else {
             binding.userImgView.setImageResource(R.drawable.account_circle_24dp)
         }
 
         binding.userNameView.setText(name)
-        binding.genderDropdownView.setText(gender,false)
+        binding.genderDropdownView.setText(gender, false)
         val alarmPref = requireContext().getSharedPreferences("alarmTimes", Context.MODE_PRIVATE)
         binding.getInBedTime.setText(alarmPref.getString("bedTime", "N/A"))
         binding.wakeUpTime.setText(alarmPref.getString("wakeTime", "N/A"))
-        binding.heightDropdownView.setText("$height cm",false)
-        binding.weightDropdownView.setText("$weight kg",false)
+        binding.heightDropdownView.setText("$height cm", false)
+        binding.weightDropdownView.setText("$weight kg", false)
 
-        binding.userImgView.setOnClickListener {
-            startActivity(Intent(requireContext(),UserProfile::class.java))
-        }
-
+        // Profile fields are display-only; editing is done via UserProfile activity
         binding.userNameView.isEnabled = false
         binding.genderDropdownView.isEnabled = false
         binding.heightDropdownView.isEnabled = false
         binding.weightDropdownView.isEnabled = false
 
-        binding.switchMaterial.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
-                binding.getInBedTime.isEnabled = true
-                binding.wakeUpTime.isEnabled = true
-            } else {
-                binding.getInBedTime.isEnabled = false
-                binding.wakeUpTime.isEnabled = false
-            }
+        binding.userImgView.setOnClickListener {
+            startActivity(Intent(requireContext(), UserProfile::class.java))
         }
 
-        binding.getInBedTime.setOnClickListener {
-            showMaterialTimePicker(binding.getInBedTime)
-
+        binding.switchMaterial.setOnCheckedChangeListener { _, isChecked ->
+            binding.getInBedTime.isEnabled = isChecked
+            binding.wakeUpTime.isEnabled = isChecked
         }
 
-        binding.wakeUpTime.setOnClickListener{
-            showMaterialTimePicker(binding.wakeUpTime)
-        }
+        binding.getInBedTime.setOnClickListener { showMaterialTimePicker(binding.getInBedTime) }
+        binding.wakeUpTime.setOnClickListener { showMaterialTimePicker(binding.wakeUpTime) }
 
         binding.totalSteps.setOnClickListener {
             startActivity(Intent(requireContext(), StepsActivity::class.java))
         }
-
         binding.heartCount.setOnClickListener {
             startActivity(Intent(requireContext(), HeartPointsActivity::class.java))
         }
-
-        binding.settings.setOnClickListener{
+        binding.settings.setOnClickListener {
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
         }
-
-        // WGER Cloud feature navigation
-        binding.cardBodyProgress.setOnClickListener {
-            findNavController().navigate(R.id.bodyProgressFragment)
-        }
-        binding.cardAchievements.setOnClickListener {
-            findNavController().navigate(R.id.achievementsFragment)
-        }
-        binding.cardWorkoutHistory.setOnClickListener {
-            findNavController().navigate(R.id.workoutHistoryFragment)
-        }
-
     }
 
     @SuppressLint("DefaultLocale")
     private fun showMaterialTimePicker(editTextView: TextInputEditText) {
-        val existingTime = editTextView.text.toString() // e.g., "06:00 PM"
-        val defaultHour = 7
-        val defaultMinute = 0
-        var hour = defaultHour
-        var minute = defaultMinute
+        var hour = 7
+        var minute = 0
 
+        // Try to pre-fill the picker with the currently saved time
         try {
-            val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-            val date = sdf.parse(existingTime)
-            val cal = Calendar.getInstance()
+            val date = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                .parse(editTextView.text.toString())
             if (date != null) {
-                cal.time = date
+                val cal = Calendar.getInstance().apply { time = date }
                 hour = cal.get(Calendar.HOUR_OF_DAY)
                 minute = cal.get(Calendar.MINUTE)
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (_: Exception) {
+            /* use defaults */
         }
 
         val picker = MaterialTimePicker.Builder()
@@ -198,7 +161,11 @@ class ProfileFragment : Fragment() {
         picker.addOnPositiveButtonClickListener {
             if (!requireContext().hasExactAlarmPermission()) {
                 requireContext().requestExactAlarmPermission()
-                Toast.makeText(requireContext(), "Please allow exact alarm access in Settings", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Please allow exact alarm access in Settings",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@addOnPositiveButtonClickListener
             }
 
@@ -215,70 +182,72 @@ class ProfileFragment : Fragment() {
                 set(Calendar.MINUTE, selectedMinute)
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
-            }
-
-            if (calendar.timeInMillis <= now.timeInMillis + 1000) {
-                calendar.add(Calendar.DAY_OF_YEAR, 1)
+                // If time already passed today, schedule for tomorrow
+                if (timeInMillis <= now.timeInMillis + 1000) {
+                    add(Calendar.DAY_OF_YEAR, 1)
+                }
             }
 
             val triggerAtMillis = calendar.timeInMillis
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.VIBRATE)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.VIBRATE), 102)
-            }
-
             val alarmScheduler = AlarmScheduler(requireContext())
-            val sharedPref = requireContext().getSharedPreferences("alarmTimes", Context.MODE_PRIVATE)
+            val sharedPref =
+                requireContext().getSharedPreferences("alarmTimes", Context.MODE_PRIVATE)
 
             if (editTextView.id == binding.getInBedTime.id) {
-                alarmScheduler.scheduleBedAlarm(triggerAtMillis - 60000)
+                val bedTrigger = triggerAtMillis - 60_000L
+                alarmScheduler.scheduleBedAlarm(bedTrigger)
                 sharedPref.edit().apply {
                     putString("bedTime", time)
-                    putLong("bedTimeMillis", triggerAtMillis - 60000)
+                    putLong("bedTimeMillis", bedTrigger)
                     apply()
                 }
-                scheduleNotification(triggerAtMillis - 60000)
-            } else if (editTextView.id == binding.wakeUpTime.id) {
+                schedulePreciseNotification(
+                    bedTrigger,
+                    requestCode = 1001,
+                    title = "Sleep Time",
+                    message = "It's time to get in bed!"
+                )
+            } else {
                 alarmScheduler.scheduleWakeAlarm(triggerAtMillis)
                 sharedPref.edit().apply {
                     putString("wakeTime", time)
                     putLong("wakeTimeMillis", triggerAtMillis)
                     apply()
                 }
-                scheduleWakeAlarm(triggerAtMillis)
+                schedulePreciseNotification(
+                    triggerAtMillis,
+                    requestCode = 1002,
+                    title = "Wake Up",
+                    message = "Good morning! Time to wake up."
+                )
             }
         }
     }
 
-    private fun scheduleNotification(triggerAtMillis: Long) {
+    /**
+     * Schedules a single exact-alarm notification via [ReminderReceiver].
+     * Requests exact-alarm permission if not yet granted.
+     */
+    @SuppressLint("ScheduleExactAlarm")
+    private fun schedulePreciseNotification(
+        triggerAtMillis: Long,
+        requestCode: Int,
+        title: String,
+        message: String
+    ) {
         val context = requireContext()
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val intent = Intent(context, ReminderReceiver::class.java).apply {
-            putExtra("title", "Sleep Time")
-            putExtra("message", "It's time to get in bed!")
-        }
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            1001,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-            MaterialAlertDialogBuilder(requireContext())
+            MaterialAlertDialogBuilder(context)
                 .setTitle("Enable Exact Alarms")
-                .setMessage("To ensure precise reminders, allow exact alarms in settings.")
+                .setMessage("To ensure precise reminders, please allow exact alarms in Settings.")
                 .setPositiveButton("Go to Settings") { _, _ ->
                     try {
-                        val intent1 = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
-                        startActivity(intent1)
+                        startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM))
                     } catch (_: ActivityNotFoundException) {
-                        Toast.makeText(requireContext(), "Settings screen not available", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Settings screen not available", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
                 .setCancelable(false)
@@ -286,30 +255,14 @@ class ProfileFragment : Fragment() {
             return
         }
 
-
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            triggerAtMillis,
-            pendingIntent)
-    }
-
-    @SuppressLint("ScheduleExactAlarm")
-    private fun scheduleWakeAlarm(triggerAtMillis: Long) {
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
-            startActivity(intent)
-            return
+        val intent = Intent(context, ReminderReceiver::class.java).apply {
+            putExtra("title", title)
+            putExtra("message", message)
         }
-
-        val intent = Intent(requireContext(), ReminderReceiver::class.java).apply {
-            putExtra("title", "Wake Up")
-            putExtra("message", "Good morning! Time to wake up.")
-        }
-
         val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(), 1, intent,
+            context,
+            requestCode,
+            intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
@@ -318,20 +271,6 @@ class ProfileFragment : Fragment() {
             triggerAtMillis,
             pendingIntent
         )
-    }
-
-    @SuppressLint("ObsoleteSdkInt")
-    private fun createNotificationChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Sleep Reminder"
-            val descriptionText = "Channel for sleep reminder"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("sleep_notify_channel", name, importance).apply {
-                description = descriptionText
-            }
-            val notificationManager = context.getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -352,17 +291,25 @@ class ProfileFragment : Fragment() {
     }
 
     @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         @Suppress("DEPRECATION")
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 101 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Snackbar.make(binding.root, "Notification permission granted", Snackbar.LENGTH_SHORT).show()
-        } else {
-            Snackbar.make(binding.root, "Please allow notifications for reminders", Snackbar.LENGTH_LONG).show()
-        }
-
-        if (requestCode == 102 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Snackbar.make(binding.root, "Vibration permission granted", Snackbar.LENGTH_SHORT).show()
+        when {
+            requestCode == 101 && grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED -> {
+                Snackbar.make(binding.root, "Notification permission granted", Snackbar.LENGTH_SHORT).show()
+            }
+            requestCode == 101 -> {
+                Snackbar.make(binding.root, "Please allow notifications for reminders", Snackbar.LENGTH_LONG).show()
+            }
+            requestCode == 102 && grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED -> {
+                Snackbar.make(binding.root, "Vibration permission granted", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 }

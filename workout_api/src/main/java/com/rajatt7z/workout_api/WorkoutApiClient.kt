@@ -1,18 +1,17 @@
 package com.rajatt7z.workout_api
 
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-import okhttp3.OkHttpClient
-import okhttp3.Interceptor
 import java.util.concurrent.TimeUnit
 
 object WorkoutApiClient {
-    private const val API_TOKEN = "e05b44f23b1e42c7d93248a5d32b1f3b2adf7bea"
 
+    // Token is injected from local.properties via BuildConfig — never hardcoded
     private val authInterceptor = Interceptor { chain ->
         val request = chain.request().newBuilder()
-            .addHeader("Authorization", "Token $API_TOKEN")
+            .addHeader("Authorization", "Token ${BuildConfig.WGER_API_TOKEN}")
             .addHeader("Accept", "application/json")
             .build()
         chain.proceed(request)

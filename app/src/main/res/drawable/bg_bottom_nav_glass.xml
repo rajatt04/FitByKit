@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Base (light-mode) fallback for the bottom nav glassmorphism background.
+    Uses theme attributes so this file automatically renders correctly in both
+    light and dark mode. The drawable-night/ variant is kept for any future
+    night-specific overrides.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="?attr/colorControlHighlight" />
+
+    <!-- Smooth rounded corners -->
+    <corners android:radius="32dp" />
+
+    <!-- Subtle border for glass edge -->
+    <stroke
+        android:width="0.5dp"
+        android:color="?attr/colorPrimary" />
+</shape>
